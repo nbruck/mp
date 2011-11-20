@@ -17,6 +17,7 @@ public class HibernatePostgresSessionFactory implements HibernateSessionFactory
         // DATABASE_URL=postgres://user:password@hostname/path
         
         String databaseUrl = System.getProperty("DATABASE_URL");
+        System.out.println(databaseUrl);
         String[] dbUrlComps = databaseUrl.split("//");
         
         // "jdbc:postgresql://localhost/motorpast_scheme"
