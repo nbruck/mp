@@ -1,0 +1,80 @@
+<html t:type="mainLayout"
+      p:title="message:meta.title"
+      p:robot="literal:noxindex,nofollow"
+      p:navigation="prop:navigation"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
+      xmlns:p="tapestry:parameter">
+
+    <div id="resultpage">
+        <t:if test="mileageResultAvailable"/>
+        <t:if test="errorMessage">
+            <div class="t-error">
+                <ul>
+                    <li>${prop:errorMessage}</li>
+                </ul>
+            </div>
+        </t:if>
+        <t:delegate to="prop:activeBlock"/>
+    </div>
+
+    <t:block t:id="viewOnlyBlock">
+        <t:if test="otherMessage">
+            <span>
+                ${prop:otherMessage}
+            </span>
+        </t:if>
+        <t:if test="mileageResultAvailable">
+            <div id="result">
+                <t:resultRenderer showCarTrustLevel="prop:showTrustLevelOfCarData" storingDate="prop:storingDate"/>
+                <p>
+                    <t:pagelink page="index">${message:success.back-to-main}</t:pagelink>
+                </p>
+            </div>
+        </t:if>
+    </t:block>
+
+    <t:block t:id="newCarBlock">
+        <!-- here we can decide if we want to show trustlevel and different messages -->
+        <t:if test="validStoringRequest">
+            <span>
+                ${message:success.mileage.stored}
+            </span>
+        </t:if>
+        <span>
+            ${message:success.mileage.stored.optional}
+        </span>
+        <t:registrationDateComponent buttonBlock="block:yesOrNoButtonBlock"/>
+    </t:block>
+
+    <t:block t:id="noRegdateStoredBeforeBlock">
+        <!-- look above -->
+        <t:if test="validStoringRequest">
+            <span>
+                ${message:success.mileage.updated}
+            </span>
+        </t:if>
+        <span>
+            ${message:success.mileage.stored.optional}
+        </span>
+        <t:registrationDateComponent buttonBlock="block:yesOrNoButtonBlock"/>
+    </t:block>
+
+    <t:block t:id="regDateStoredBeforeBlock">
+        <!-- message -->
+        <t:delegate to="block:viewOnlyBlock"/>
+    </t:block>
+
+    <t:block t:id="yesOrNoButtonBlock">
+        <div class="wrapButton">
+            <t:submit t:id="yesStore" value="message:submit.yes-store.txt"/>
+        </div>
+        <div class="wrapButton">
+            <t:submit t:id="noThankYou" value="message:submit.no-thank-you.txt"/>
+        </div>
+    </t:block>
+
+    <t:block t:id="fallbackBlock">
+        <t:trigger event="gotoErrorPage"/>
+    </t:block>
+
+</html>

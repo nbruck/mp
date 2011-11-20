@@ -1,0 +1,28 @@
+<html t:type="mainLayout"
+      p:title="message:meta.title"
+      p:description="message:meta.description"
+      p:keywords="message:meta.keywords"
+      p:robot="prop:robotText"
+      p:navigation="prop:navigation"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
+      xmlns:p="tapestry:parameter">
+
+    <div id="sitenotice">
+        <img class="logo" src="${context:images/logo-smart.jpg}" alt="smart-user"/>
+
+        <h2>
+            ${message:sitenotice.txt.headline}
+        </h2>
+
+        <ul>
+            <li>
+                Nikolaus Bruck
+            </li>
+            <li>
+                Dennis Gerhardt
+            </li>
+        </ul>
+
+    </div>
+
+</html>

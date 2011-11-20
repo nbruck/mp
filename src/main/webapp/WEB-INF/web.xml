@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+  version="2.4">
+
+    <display-name>motorpast - trust in mileage</display-name>
+    <context-param>
+        <param-name>tapestry.app-package</param-name>
+        <param-value>com.motorpast</param-value>
+    </context-param>
+    <filter>
+        <filter-name>motorpast</filter-name>
+        <filter-class>org.apache.tapestry5.TapestryFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>motorpast</filter-name>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>ERROR</dispatcher>
+    </filter-mapping>
+
+    <!-- we dont't need a sessionlistener at the moment -->
+    <!--
+    <listener>
+        <listener-class>com.motorpast.services.additionalbase.MotorSessionListener</listener-class>
+    </listener>
+-->
+    <session-config>
+        <session-timeout>8</session-timeout>
+    </session-config>
+    
+    <error-page>
+        <error-code>404</error-code>
+        <location>/error404</location>
+    </error-page>
+
+</web-app>

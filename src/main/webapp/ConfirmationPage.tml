@@ -1,0 +1,69 @@
+<html t:type="mainLayout"
+      p:title="message:meta.title"
+      p:robot="literal:noxindex,nofollow"
+      p:navigation="prop:navigation"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
+      xmlns:p="tapestry:parameter">
+
+    <div id="confirmationpage">
+        <t:delegate to="prop:activeBlock"/>
+    </div>
+
+
+    <t:block t:id="confirmOnlyBlock">
+        <h2>
+            ${message:text.data.please-confirm}
+        </h2>
+        <t:delegate to="block:confirmDataBlock"/>
+
+        <t:motorform>
+            <div class="wrapButton">
+                <t:submit value="literal:OK" t:id="Ok"/>
+            </div>
+        </t:motorform>
+    </t:block>
+
+    <t:block t:id="notBlockedBlock">
+        <h2>
+            ${message:text.data.confirm.head.enter-regdate}
+        </h2>
+        <p>
+            ${message:text.data.confirm-enter-regdate}
+        </p>
+        <t:delegate to="block:confirmDataBlock"/>
+
+        <t:registrationDateComponent buttonBlock="block:checkDateButtonBlock"/>
+
+    </t:block>
+
+    <t:block t:id="checkDateButtonBlock">
+        <div class="wrapButton">
+            <t:submit t:id="checkDate" value="message:submit.regdate-check.txt"/>
+        </div>
+    </t:block>
+
+    <t:block t:id="confirmDataBlock">
+        <img class="logo" src="images/logo-asking.jpg" alt="asking user"/>
+
+        <ul>
+            <li>
+                <span>${message:text.carId}</span>
+                ${prop:carId}
+            </li>
+            <li>
+                <span>${message:text.mileage}</span>
+                ${prop:mileage}
+            </li>
+        </ul>
+    </t:block>
+
+    <t:block t:id="blockedBlock">
+        ${prop:blockedMessage}
+        ${message:txt.navigate-back} <t:pagelink page="index">${message:page.navigate-to-main.txt}</t:pagelink>
+    </t:block>
+
+    <t:block t:id="fallbackBlock">
+        <t:trigger event="gotoErrorPage"/>
+    </t:block>
+
+</html>

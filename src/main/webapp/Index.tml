@@ -1,0 +1,107 @@
+<html t:type="mainLayout"
+      p:title="message:meta.title"
+      p:description="message:meta.description"
+      p:keywords="message:meta.keywords"
+      p:robot="prop:robotText"
+      p:navigation="prop:navigation"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
+      xmlns:p="tapestry:parameter">
+
+    <div id="indexpage">
+        <h1>
+            ${message:page.headline}
+        </h1>
+        <h2>
+            <t:outputraw value="message:page.description-task"/>
+        </h2>
+
+        <img class="logo" src="images/logo-happy.jpg" alt="happy user"/>
+
+        <ul id="page-description">
+            <li>
+                <t:outputraw value="message:page.description-forfree"/>
+            </li>
+            <li>
+                <t:outputraw value="message:page.description-nologin"/>
+            </li>
+            <li>
+                <t:outputraw value="message:page.description-trust"/>
+            </li>
+        </ul>
+
+        <t:motorform t:id="mainForm" clientValidation="literal:false" autofocus="literal:false">
+            <t:errors/>
+
+            <div class="text2">
+                <label for="text1">
+                    <t:outputRaw value="message:label.txt.carId"/>
+                </label>
+                <div class="help">
+                    <p>
+                        <t:outputRaw value="message:tooltip.carId"/>
+                    </p>
+                </div>
+                <div class="wrapText">
+                    <t:textfield value="text1" clientId="text1" maxlength="17" placeholder="${message:txt.carId}"
+                          autocomplete="off"
+                          onkeyup="check(this);"
+                    />
+                </div>
+            </div>
+
+            <div class="text1">
+                <t:remove><!-- now the fake field --></t:remove>
+                <label for="text2">
+                    ${message:fake.label}
+                </label>
+                <div class="help">
+                    <p>
+                        <t:outputRaw value="message:tooltip.mileage"/>
+                    </p>
+                </div>
+                <div class="wrapText">
+                    <t:textfield value="text2" clientId="text2" maxlength="15" placeholder="${message:txt.fake}"
+                          autocomplete="off"
+                    />
+                </div>
+            </div>
+
+            <div class="text2">
+                <label for="text3">
+                    <t:outputRaw value="message:label.txt.mileage"/>
+                </label>
+                <div class="help">
+                    <p>
+                        <t:outputRaw value="message:tooltip.mileage"/>
+                    </p>
+                </div>
+                <div class="wrapText">
+                    <t:textfield value="text3" clientId="text3" maxlength="7" placeholder="${message:txt.mileage}"
+                          autocomplete="off"
+                    />
+                </div>
+            </div>
+
+            <div class="wrapButton">
+                <span id="container">
+                    ${message:txt.checkdigit}
+                    <span id="checkdigit"></span>
+                </span>
+                <t:hidden value="text4" t:id="text4"/>
+                <t:hidden value="text5" t:id="text5"/>
+
+                <t:submit class="button" t:id="button0" value="${message:button.txt.submit-data}"/>
+            </div>
+
+        </t:motorform>
+
+        <t:socialNetworksBar pageHeadline="message:page.headline"/>
+
+    </div>
+
+<script type="text/javascript">
+var ebcdic={A:1,B:2,C:3,D:4,E:5,F:6,G:7,H:8,I:9,J:1,K:2,L:3,M:4,N:5,O:0,P:7,Q:8,R:9,S:2,T:3,U:4,V:5,W:6,X:7,Y:8,Z:9,"%C4":1,"%D6":0,"%DC":4,0:0,1:1,2:2,3:3,4:4,5:5,6:6,7:7,8:8,9:9},weight=[9,8,7,6,5,4,3,2,10,9,8,7,6,5,4,3,2],out=document.getElementById("checkdigit"),con=document.getElementById("container");
+function check(a){if(a.value.length==17){for(var a=a.value.split(""),c=0,b=0;b<t:outputRaw value="message:global.operators.lower-than"/>a.length;b++){var d=ebcdic[escape(a[b])];if(d==null)return;c+=d*weight[b]}a=c%11;if(a==10)a="X";out.innerHTML=a;con.style.display="block"}};
+</script>
+
+</html>

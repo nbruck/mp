@@ -1,0 +1,31 @@
+<t:container xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
+      xmlns:p="tapestry:parameter">
+
+    <ul id="social">
+        <li>
+            <a name="fb_share" href="${prop:facebookHref}" rel="nofollow" target="_blank">
+                <img src="images/like.gif" alt="facebook-like"/>
+                Like
+            </a>
+        </li>
+        <t:remove>
+        <!--
+        <li>
+            <iframe src="https://plusone.google.com/u/0/_/+1/fastbutton?url=${prop:googlePlusSrc}&amp;size=standard&amp;count=false&amp;lang=de"
+                  scrolling="no"
+                  frameborder="0"
+                  align="left">
+            </iframe>
+        </li>
+        -->
+        </t:remove>
+        <t:remove><!-- crazytoast ist twittername - ersetzen
+        <iframe allowtransparency="true" frameborder="0" scrolling="no"
+              src="http://platform.twitter.com/widgets/follow_button.html?screen_name=crazytoast&show_count=true&button=grey&text_color=000000&link_color=8D141E&lang=de"
+              style="width:300px; height:20px;">
+        </iframe>-->
+        </t:remove>
+    </ul>
+
+</t:container>

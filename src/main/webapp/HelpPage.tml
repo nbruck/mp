@@ -1,0 +1,71 @@
+<html t:type="mainLayout"
+      p:title="message:meta.title"
+      p:description="message:meta.description"
+      p:keywords="message:meta.keywords"
+      p:robot="prop:robotText"
+      p:navigation="prop:navigation"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
+      xmlns:p="tapestry:parameter">
+
+    <div id="helppage">
+        <h1>${message:page.headline}</h1>
+
+        <img class="logo" src="images/logo-help.jpg" alt="happy user"/>
+
+        <ul>
+            <li>
+                <a href="${literal:#}${message:anchor.why}">${message:help.question.why-i-should}</a>
+            </li>
+            <li>
+                <a href="${literal:#}${message:anchor.how2search}">${message:help.question.start-search }</a>
+            </li>
+            <li>
+                <a href="${literal:#}${message:anchor.where-is-vin}">${message:help.question.where-is-vin}</a>
+            </li>
+            <li>
+                <a href="${literal:#}${message:anchor.whatis-checkdigit}">${message:help.question.checkdigit}</a>
+            </li>
+            <li>
+                <a href="${literal:#}${message:anchor.when-enter-mileage}">${message:help.question.mileage}</a>
+            </li>
+            <li>
+                <a href="${literal:#}${message:anchor.about-my-data}">${message:help.question.what-about-my-data}</a>
+            </li>
+        </ul>
+
+        <div id="answers">
+            <t:delegate to="prop:activeBlock"/>
+        </div>
+    </div>
+
+    <t:block t:id="de_helpBlock">
+        <a name="${message:anchor.why}">${message:help.question.why-i-should}</a>
+        <p>
+            ${message:help.answer.why-i-should}
+        </p>
+        <a name="${message:anchor.how2search}">${message:help.question.start-search}</a>
+        <p>
+            ${message:help.answer.start-search}
+        </p>
+        <a name="${message:anchor.where-is-vin}">${message:help.question.where-is-vin}</a>
+        <p>
+            ${message:help.answer.where-is-vin}
+        </p>
+        <a name="${message:anchor.whatis-checkdigit}">${message:help.question.checkdigit}</a>
+        <p>
+            ${message:help.answer.checkdigit}
+        </p>
+        <a name="${message:anchor.when-enter-mileage}">${message:help.question.mileage}</a>
+        <p>
+            wo is'n die id?
+        </p>
+        <a name="${message:anchor.about-my-data}">${message:help.question.what-about-my-data}</a>
+        <p>
+            ich poste zwar jeden scheiss bei facebook, aber hier traue ich mich nicht
+        </p>
+    </t:block>
+
+    <t:block t:id="en_helpBlock">
+        english help text
+    </t:block>
+</html>

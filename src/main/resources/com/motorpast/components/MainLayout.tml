@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
+      xmlns:p="tapestry:parameter">
+
+    <head>
+        <title>${title}</title>
+        <t:if test="description">
+            <meta name="description" content="${description}"></meta>
+        </t:if>
+        <t:if test="keywords">
+            <meta name="keywords" content="${keywords}"></meta>
+        </t:if>
+        <meta name="robots" content="${robot}"></meta>
+        <link rel="shortcut icon" href="${favicon}"/>
+    </head>
+
+    <body>
+        <div id="headerBlock">
+            <t:delegate to="prop:headerBlock"/>
+        </div>
+
+        <div id="leftBlock">
+            <t:delegate to="prop:leftBlock"/>
+        </div>
+
+        <div id="rightBlock">
+            <t:delegate to="prop:rightBlock"/>
+        </div>
+
+        <div id="mainBlock">
+            <t:body/>
+        </div>
+
+        <div id="footerBlock">
+            <t:if test="prop:headerBlock">
+                <t:delegate to="prop:footerBlock"/>
+            <p:else>
+                <t:delegate to="block:footerBlock"/>
+            </p:else>
+            </t:if>
+        </div>
+    </body>
+
+    <t:block t:id="footerBlock">
+        <ul>
+            <t:loop source="prop:navigation" value="prop:currentNavigationEntry" element="li">
+                <t:if test="activepage">
+                    <span>${prop:currentNavigationLinkText}</span>
+                <p:else>
+                    <t:pagelink page="prop:currentNavigationEntry">${prop:currentNavigationLinkText}</t:pagelink>
+                </p:else>
+                </t:if>
+            </t:loop>
+        </ul>
+    </t:block>
+
+</html>

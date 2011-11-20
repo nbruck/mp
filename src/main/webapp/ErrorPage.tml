@@ -1,0 +1,28 @@
+<html t:type="mainLayout"
+      p:title="literal: error | motorpast"
+      p:description="message:meta.description"
+      p:keywords="message:meta.keywords"
+      p:robot="literal: noindex, nofollow"
+      p:navigation="prop:navigation"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
+      xmlns:p="tapestry:parameter">
+
+    <div id="error">
+        <span>
+            <t:if test="reason">
+                <t:outputRaw value="message:error.security"/>
+            <p:else>
+                <t:outputRaw value="message:error.unexpected"/>
+            </p:else>
+            </t:if>
+
+            <img src="${context:images/logo-sorry.jpg}" alt="sorry_not_found"/>
+        </span>
+
+
+        <p>
+            ${message:txt.navigate-back} <t:pagelink page="index">${message:page.navigate-to-main.txt}</t:pagelink>
+        </p>
+    </div>
+
+</html>

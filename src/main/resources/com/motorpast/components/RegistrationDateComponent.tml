@@ -1,0 +1,30 @@
+<t:container xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
+      xmlns:p="tapestry:parameter">
+
+    <t:motorform clientId="regDateForm" t:id="regDateForm" clientValidation="literal:false" autofocus="literal:false">
+        <t:errors/>
+
+        <label for="dayselect">
+            ${message:label.registration-date}
+        </label>
+        <div class="wrapSelect">
+            <t:select model="daymodel" value="day" clientId="dayselect" validate="min=1,max=31"
+                  blanklabel="message:select.day.blank-option"/>
+        </div>
+        <div class="wrapSelect">
+            <t:select model="monthmodel" value="month" validate="min=1,max=12"
+                  blanklabel="message:select.month.blank-option"/>
+        </div>
+        <div class="wrapSelect">
+            <t:select model="yearmodel" value="year" validate="regexp=\d\d\d\d"
+                  blanklabel="message:select.year.blank-option"/>
+        </div>
+        <t:hidden t:id="text1" value="text1"/>
+
+        <div class="regDateButtons">
+            <t:delegate to="prop:buttonBlock"/>
+        </div>
+    </t:motorform>
+
+</t:container>

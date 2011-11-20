@@ -1,0 +1,22 @@
+<html t:type="mainLayout"
+      p:title="message:meta.title"
+      p:description="message:meta.description"
+      p:keywords="message:meta.keywords"
+      p:robot="literal: noindex, nofollow"
+      p:navigation="prop:navigation"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
+      xmlns:p="tapestry:parameter">
+
+    <div id="error404">
+        <span>
+            ${message:page.hint_one.404}
+            <img src="${context:images/logo-sorry.jpg}" alt="sorry_not_found"/>
+        </span>
+
+        <p>
+            ${message:page.hint_two.404}
+            <a t:type="any" href="${prop:motorPageLink}">${message:page.navigate-to-main.txt}</a>
+        </p>
+    </div>
+
+</html>

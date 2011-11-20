@@ -1,0 +1,32 @@
+<t:container xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
+      xmlns:p="tapestry:parameter">
+
+    <t:if test="showTrustLevel">
+
+        <t:if test="suspicious">
+        <t:remove>
+            <div class="t-error">
+                <ul>
+                    <li>${message:mileage.found.but-suspicious}</li>
+                </ul>
+            </div>
+        </t:remove>
+        </t:if>
+
+    </t:if>
+<t:remove>
+    <t:if test="storingMessage">
+        <ul id="storingSuccess">
+            <li>
+                ${message:mileage.stored}
+            </li>
+        </ul>
+    </t:if>
+</t:remove>
+    <span>
+        <t:outputraw value="mileageMessage"/>
+    </span>
+    <img src="${prop:mileageCaptchaUrl}" alt="mileagecaptcha"/>
+
+</t:container>

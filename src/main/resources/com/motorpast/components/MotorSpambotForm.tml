@@ -1,0 +1,36 @@
+<t:container xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
+      xmlns:p="tapestry:parameter">
+
+<t:motorform t:id="mainForm" clientValidation="literal:false" autofocus="literal:false">
+    <t:errors/>
+
+    <t:loop source="['','','','']" value="currentFieldValue" index="fieldCounter">
+        <div class="${prop:classText}">
+            <label for="${prop:textfieldId}">
+                <t:outputraw value="${prop:labelText}"/>
+            </label>
+            <div class="help">
+                <p>
+                    <t:outputRaw value="${prop:textfieldTooltipText}"/>
+                </p>
+            </div>
+            <div class="wrapText">
+                <t:submitNotifier>
+                    <t:textfield value="currentFieldValue"
+                        clientId="${prop:textfieldId}"
+                        maxlength="${prop:maxlength}"
+                        placeholder="${prop:placeholder}"
+                        onkeyup="check(this);"
+                        autocomplete="off"/>
+                </t:submitNotifier>
+            </div>
+            
+        </div>
+    </t:loop>
+
+    <t:submit value="literal:los"/>
+
+</t:motorform>
+
+</t:container>
