@@ -16,19 +16,22 @@ public class HibernatePostgresSessionFactory implements HibernateSessionFactory
 
         // DATABASE_URL=postgres://user:password@hostname/path
         
-        String databaseUrl = System.getProperty("DATABASE_URL");
-        System.out.println("##############databaseUrl ###########" + databaseUrl);
+        String databaseUrl = System.getenv("DATABASE_URL");
+      //  System.out.println("##############databaseUrl ###########" + databaseUrl);
         String[] dbUrlComps = databaseUrl.split("//");
-        
+      //  System.out.println(dbUrlComps[0]);
+      //  System.out.println(dbUrlComps[1]);
         // "jdbc:postgresql://localhost/motorpast_scheme"
         String connectionUrl = "jdbc:postgresql://" + dbUrlComps[1].split("@")[1];
-        
-        String[] credentials =  dbUrlComps[0].split(":");
+       // System.out.println(connectionUrl);
+        String[] credentials =   dbUrlComps[1].split("@")[0].split(":");
         // mpsimpleuser
         String username = credentials[0];
+       // System.out.println(username);
         
         // password
         String password = credentials[1];
+       // System.out.println(password);
         
         
         cfg.setProperty("hibernate.connection.driver_class", "org.postgresql.Driver");
