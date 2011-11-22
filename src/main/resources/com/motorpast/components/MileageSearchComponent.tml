@@ -1,0 +1,51 @@
+<t:container xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
+      xmlns:p="tapestry:parameter">
+
+    <div id="searchLayout">
+        <p class="headline">
+            <label onmousedown="return false" for="vinSearch">
+                ${message:txt.fieldset.legend.mileage-search}
+            </label>
+        </p>
+        <t:motorform t:id="mileSearchForm" clientValidation="literal:false" autofocus="literal:false">
+            <t:errors/>
+
+            <t:textfield t:id="text1"
+                clientId="vinSearch"
+                value="prop:text1"
+                onfocus="tooglePlaceholder(this);"
+                onblur="tooglePlaceholder(this);"
+                onkeyup="check(this,1)"
+                autocomplete="off"
+                maxlength="17"/>
+
+            <div class="text2 text4">
+                <label for="vin-Enter1">${message:txt.fake1}</label>
+                <t:textfield clientId="vin-Enter1" value="prop:text2" t:id="text2"/>
+            </div>
+
+            <t:hidden value="prop:text3" t:id="text3"/>
+            <t:hidden value="prop:text4" t:id="text4"/>
+
+            <label onmousedown="return false" for="vinSearch" class="vinSearchLabel">
+            </label>
+
+            <t:submit t:id="vinSearchButton" value="message:txt.submit.search-now"/>
+
+        </t:motorform>
+
+        <div class="help">
+            <p>
+                <t:outputRaw value="message:tooltip.carId"/>
+            </p>
+        </div>
+
+        <div id="container1">
+            ${message:txt.checkDigit}
+            <p id="checkDigit1">6</p>
+        </div>
+
+    </div>
+
+</t:container>

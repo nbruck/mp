@@ -58,6 +58,17 @@ public class RegistrationDateComponent
     private boolean sessionObjExists;
 
 
+    public String getCssClass() {
+        final String pageName = componentResources.getPageName();
+
+        if(pageName.equals("ConfirmationPage")) {
+            return "regDateButtonsSingle";
+        } else if(pageName.equals("ResultPage")) {
+            return "regDateButtonsMore";
+        }
+
+        return null;
+    }
     void onPrepareForRenderFromRegDateForm() {
         final String token = securityService.generateToken(httpServletRequest);
         text1 = token;

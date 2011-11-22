@@ -1,7 +1,7 @@
 package com.motorpast.pages;
 
-import org.apache.tapestry5.ioc.annotations.Inject;
-import org.apache.tapestry5.services.PageRenderLinkSource;
+import org.apache.tapestry5.annotations.InjectPage;
+import org.apache.tapestry5.annotations.SetupRender;
 
 import com.motorpast.annotations.UrlRewrite;
 import com.motorpast.base.BasePage;
@@ -14,16 +14,21 @@ import com.motorpast.base.BasePage;
 )
 public class Error404 extends BasePage
 {
-    @Inject
-    private PageRenderLinkSource pageRenderLinkSource;
+    @InjectPage
+    private ConfirmationPage confirmationPage;
 
-
-    public String getMotorPageLink() {
-        return pageRenderLinkSource.createPageRenderLink(Index.class).toURI();
-    }
+    @InjectPage
+    private ResultPage resultPage;
 
 
     public String getPageName() {
         return Error404.class.getSimpleName();
+    }
+
+
+    @SetupRender
+    void init() {
+        confirmationPage.setPageParameter(null, null, null);
+        resultPage.setPageParameter(null, null, null);
     }
 }

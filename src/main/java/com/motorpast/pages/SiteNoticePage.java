@@ -1,5 +1,7 @@
 package com.motorpast.pages;
 
+import org.apache.tapestry5.annotations.InjectPage;
+import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
@@ -9,8 +11,7 @@ import com.motorpast.base.BasePage;
 
 @UrlRewrite(
     mappings={
-        "/de/sitenoticepage", "/impressum"
-        /*"/en/sitenoticepage", "/site-notice"*/
+        "/de/sitenoticepage", "/impressum" /*"/en/sitenoticepage", "/site-notice"*/
     },
     sitemap={
         "changefreq", "monthly",
@@ -21,6 +22,12 @@ public class SiteNoticePage extends BasePage
 {
     @Inject
     private Messages messages;
+
+    @InjectPage
+    private ConfirmationPage confirmationPage;
+
+    @InjectPage
+    private ResultPage resultPage;
 
 
     public String getPageName() {
@@ -35,5 +42,11 @@ public class SiteNoticePage extends BasePage
     @Override
     public String getRobotText() {
         return messages.get("page.meta.robot.no-index");
+    }
+
+    @SetupRender
+    void init() {
+        confirmationPage.setPageParameter(null, null, null);
+        resultPage.setPageParameter(null, null, null);
     }
 }

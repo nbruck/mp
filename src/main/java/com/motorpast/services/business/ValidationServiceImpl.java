@@ -7,9 +7,11 @@ public class ValidationServiceImpl implements ValidationService
 {
     private enum MotorValidationRegex
     {
-        NUMERIC("^[0-9]+$"),            // simple pattern for testing if is number
-        CAR_ID("^[A-Z0-9ÄÖÜ]{17}$"),    // 17 signs alphanumeric
-        MILEAGE("^\\d{1,7}$");          // min 1, max 7 digits
+        NUMERIC ("^[0-9]+$"),           // simple pattern for testing if is number
+        CAR_ID ("^[A-Z0-9ÄÖÜ]{17}$"),   // 17 signs alphanumeric
+        MILEAGE ("^\\d{1,7}$"),         // min 1, max 7 digits
+        LEADING_ZEROS ("(0+)\\d+$"),    // getting leading zeros
+        ;
 
         final private Pattern regexPattern;
 
@@ -21,6 +23,10 @@ public class ValidationServiceImpl implements ValidationService
             Matcher m = regexPattern.matcher(value);
 
             return m.matches();
+        }
+
+        final Pattern getPattern() {
+            return regexPattern;
         }
     }
 
@@ -42,5 +48,18 @@ public class ValidationServiceImpl implements ValidationService
         }
 
         return true;
+    }
+
+    @Override
+    public String deleteLeadingZeros(String mileage) {
+        final Matcher m = MotorValidationRegex.LEADING_ZEROS.getPattern().matcher(mileage);
+
+        if(m.matches()) {
+            final String toRemove = m.group(1);
+
+            return mileage.replaceFirst(toRemove, "");
+        }
+
+        return mileage;
     }
 }

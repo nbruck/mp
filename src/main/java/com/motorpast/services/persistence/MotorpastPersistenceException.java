@@ -26,6 +26,10 @@ public class MotorpastPersistenceException extends MotorpastException
          */
         regdate_storing_impossible,
         /**
+         * two or more clients modify the same entity
+         */
+        concurrent_writing_access,
+        /**
          * something went wrong during persistence process
          */
         unexpected

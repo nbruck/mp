@@ -26,9 +26,6 @@
                 <a href="${literal:#}${message:anchor.whatis-checkdigit}">${message:help.question.checkdigit}</a>
             </li>
             <li>
-                <a href="${literal:#}${message:anchor.when-enter-mileage}">${message:help.question.mileage}</a>
-            </li>
-            <li>
                 <a href="${literal:#}${message:anchor.about-my-data}">${message:help.question.what-about-my-data}</a>
             </li>
         </ul>
@@ -41,27 +38,23 @@
     <t:block t:id="de_helpBlock">
         <a name="${message:anchor.why}">${message:help.question.why-i-should}</a>
         <p>
-            ${message:help.answer.why-i-should}
+            <t:outputraw value="message:help.answer.why-i-should"/>
         </p>
         <a name="${message:anchor.how2search}">${message:help.question.start-search}</a>
         <p>
-            ${message:help.answer.start-search}
+            <t:outputraw value="message:help.answer.start-search"/>
         </p>
         <a name="${message:anchor.where-is-vin}">${message:help.question.where-is-vin}</a>
         <p>
-            ${message:help.answer.where-is-vin}
+            <t:outputraw value="message:help.answer.where-is-vin"/>
         </p>
         <a name="${message:anchor.whatis-checkdigit}">${message:help.question.checkdigit}</a>
         <p>
-            ${message:help.answer.checkdigit}
-        </p>
-        <a name="${message:anchor.when-enter-mileage}">${message:help.question.mileage}</a>
-        <p>
-            wo is'n die id?
+            <t:outputraw value="message:help.answer.checkdigit"/>
         </p>
         <a name="${message:anchor.about-my-data}">${message:help.question.what-about-my-data}</a>
         <p>
-            ich poste zwar jeden scheiss bei facebook, aber hier traue ich mich nicht
+            <t:outputraw value="message:help.answer.what-about-my-data"/>
         </p>
     </t:block>
 

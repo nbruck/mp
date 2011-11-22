@@ -4,28 +4,17 @@ import java.io.IOException;
 import java.util.Locale;
 
 import org.apache.tapestry5.SymbolConstants;
-import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.ioc.annotations.Symbol;
-import org.apache.tapestry5.runtime.ComponentEventException;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 import org.apache.tapestry5.services.PersistentLocale;
 import org.apache.tapestry5.services.Request;
 import org.apache.tapestry5.services.Response;
 import org.slf4j.Logger;
 
-import com.motorpast.additional.MotorUtils;
-import com.motorpast.dataobjects.UserSessionObj;
-import com.motorpast.pages.ErrorPage;
-import com.motorpast.pages.Index;
-
 public abstract class BasePage
 {
-    @SessionState
-    private UserSessionObj sessionObj;
-
-
     @Inject
     private Request request;
 
@@ -94,51 +83,24 @@ public abstract class BasePage
         return getSupportedLocales()[0];
     }
 
-    //TODO: maybe it will satisfy not all! or is deletable
-    /*
-    @Deprecated
-    final private boolean isValidMileageResultRequest() {
-        final String referer = (String)request.getHeader("referer");
-        final String location = linkSource.createPageRenderLink(Index.class).toAbsoluteURI();
-
-        if(location.equals(referer) &&
-              sessionObj != null && sessionObj.isMileageAvailable()
-        ) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-    */
-
     /**
      * if one of args are null then return true for redirect
+     * @return true in case of redirect/abort
      */
-    final protected <T> void checkForRedirect(final Class<?> target, final T... args) {
+    final protected <T> boolean checkForRedirect(final Class<?> target, final T... args) {
         for(int i = 0; i < args.length; i++) {
             if(args[i] == null) {
                 logger.debug("one arg in args is null so redirect to " + target.getSimpleName());
                 try {
                     response.disableCompression(); // to prevent nullpointerexceptions
                     response.sendRedirect(linkSource.createPageRenderLink(target));
+                    return true;
                 } catch (IOException e) {
                     logger.error(target.getSimpleName() + " not found - CRITICAL ERROR!!!");
                 }
             }
         }
-    }
-
-    /**
-     * hopefully the handler for all unexpected exceptions
-     */
-    final Object onException(final ComponentEventException e) {
-        logger.error(MotorUtils.convertThrowable(e));
-
-        if(e.getMessage() != null && e.getMessage().endsWith("MotorpastSecurityException")) {
-            return linkSource.createPageRenderLinkWithContext(ErrorPage.class, "security");
-        }
-
-        return ErrorPage.class;
+        return false;
     }
 
     final private String setPageLocale(final Locale locale) {

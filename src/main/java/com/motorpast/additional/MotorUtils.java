@@ -82,32 +82,7 @@ public class MotorUtils
 
         return hostInfo;
     }
-/*
-    final public static String[] createRangeArray(final int from, final int to) {
-        final String[] rangeArray = new String[to - from  + 1];
 
-        for(int i = from, j = 0; i <= to; i++, j++) {
-            rangeArray[j] = String.valueOf(i);
-        }
-
-        return rangeArray;
-    }
-
-    final public static String[] createYearRangeArray(final int yearRange) {
-        final Calendar cal = Calendar.getInstance();
-        cal.setTime(new Date()); //now
-
-        final int currentyear = cal.get(Calendar.YEAR);
-
-        final String[] years = new String[yearRange + 1];
-
-        for(int i = 0; i <= yearRange; i++) {
-            years[i] = String.valueOf(currentyear - i);
-        }
-
-        return years;
-    }
-*/
     final public static Date createDateFromInput(final int year, final int month, final int day) {
         final Calendar calendar = new GregorianCalendar(year, month - 1, day);
         return calendar.getTime();

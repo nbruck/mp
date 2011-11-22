@@ -1,7 +1,10 @@
 package com.motorpast.services;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.tapestry5.Link;
 import org.apache.tapestry5.SymbolConstants;
 import org.apache.tapestry5.ioc.MappedConfiguration;
 import org.apache.tapestry5.ioc.ServiceBinder;
@@ -11,10 +14,19 @@ import org.apache.tapestry5.ioc.annotations.SubModule;
 import org.apache.tapestry5.ioc.annotations.Symbol;
 import org.apache.tapestry5.services.ApplicationStateManager;
 import org.apache.tapestry5.services.ClientInfrastructure;
+import org.apache.tapestry5.services.ComponentSource;
+import org.apache.tapestry5.services.ExceptionReporter;
+import org.apache.tapestry5.services.PageRenderLinkSource;
+import org.apache.tapestry5.services.RequestExceptionHandler;
+import org.apache.tapestry5.services.Response;
+import org.apache.tapestry5.services.ResponseRenderer;
+import org.slf4j.Logger;
 
 import com.motorpast.additional.MotorApplicationConstants;
+import com.motorpast.additional.MotorpastException;
 import com.motorpast.annotations.MileageResultCaptcha;
 import com.motorpast.dataobjects.CarData;
+import com.motorpast.pages.ErrorPage;
 import com.motorpast.services.additional.MotorpastClientInfraStructure;
 import com.motorpast.services.business.BusinessService;
 import com.motorpast.services.business.BusinessServiceImpl;
@@ -68,19 +80,21 @@ public class MotorpastModule
 
         configuration.add(SymbolConstants.APPLICATION_VERSION, "0.0.1-SNAPSHOT");
 
-        configuration.add(SymbolConstants.DEFAULT_STYLESHEET, "context:css/motor.css");
+        configuration.add(SymbolConstants.DEFAULT_STYLESHEET, "context:css/motor-compressed.css");
 
         configuration.add(SymbolConstants.OMIT_GENERATOR_META, "true");
 
-        configuration.add(SymbolConstants.PRODUCTION_MODE, "false");
+        configuration.add(SymbolConstants.PRODUCTION_MODE, "true");
+
+        configuration.add(SymbolConstants.EXCEPTION_REPORT_PAGE, ErrorPage.class.getSimpleName());
 
         configuration.add(MotorApplicationConstants.ShowTrustLevel, "true");
 
-        configuration.add(MotorApplicationConstants.AntiSpambotTime, "2619"); // not too long
+        configuration.add(MotorApplicationConstants.AntiSpambotTime, "2139"); // not too long
 
         configuration.add(MotorApplicationConstants.IndexPageUrl, "http://www.motorpast.com");
 
-        configuration.add(MotorApplicationConstants.BlockingTime, "90"); // means days
+        configuration.add(MotorApplicationConstants.BlockingTime, "7"); // means days
 
         configuration.add(MotorApplicationConstants.RegistrationDateAttempts, "2"); // stored in db
 
@@ -93,5 +107,44 @@ public class MotorpastModule
      */
     public ClientInfrastructure decorateClientInfrastructure(final ClientInfrastructure original) {
         return new MotorpastClientInfraStructure();
+    }
+
+    public RequestExceptionHandler decorateRequestExceptionHandler(
+            final Logger logger,
+            final ResponseRenderer renderer,
+            final Response response,
+            final PageRenderLinkSource pageRenderLinkSource,
+            final ComponentSource componentSource,
+            @Symbol(SymbolConstants.PRODUCTION_MODE) final boolean productionMode,
+            final Object service
+    ) {
+        if (!productionMode) return null;
+
+        final String errorpageName = ErrorPage.class.getSimpleName();
+        final Link errorLink = pageRenderLinkSource.createPageRenderLink(ErrorPage.class);
+
+        return new RequestExceptionHandler() {
+            public void handleRequestException(Throwable exception) throws IOException {
+                final Throwable throwable = getCauseRecursive(exception);
+                final ExceptionReporter errorpage = (ExceptionReporter) componentSource.getPage(errorpageName);
+
+                if(throwable instanceof MotorpastException) {
+                    errorpage.reportException((MotorpastException) throwable);
+                } else {
+                    errorpage.reportException(exception);
+                }
+
+                response.sendRedirect(errorLink); //TODO: if strange behaviour change this line
+                //renderer.renderPageMarkupResponse(errorpageName);
+            }
+        };
+    }
+
+    private Throwable getCauseRecursive(Throwable e) {
+        while(e.getCause() != null) {
+            e = e.getCause();
+        }
+
+        return e;
     }
 }

@@ -1,26 +1,34 @@
 package com.motorpast.pages;
 
+import org.apache.tapestry5.PersistenceConstants;
 import org.apache.tapestry5.annotations.InjectPage;
-import org.apache.tapestry5.annotations.PageActivationContext;
+import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.annotations.SetupRender;
+import org.apache.tapestry5.ioc.Messages;
+import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.services.ExceptionReporter;
 
+import com.motorpast.additional.MotorUtils;
+import com.motorpast.additional.MotorpastException;
 import com.motorpast.annotations.UrlRewrite;
 import com.motorpast.base.BasePage;
 import com.motorpast.dataobjects.UserSessionObj;
 
 @UrlRewrite(
     mappings={
-        "/de/errorpage", "/fehler"
-        /*"/en/errorpage", "/error"*/
+        "/de/errorpage", "/fehler" /*"/en/errorpage", "/error"*/
     },
     putInSitemap = false
 )
-public class ErrorPage extends BasePage
+public class ErrorPage extends BasePage implements ExceptionReporter
 {
     @SessionState
     private UserSessionObj sessionObj;
+
+    @Inject
+    private Messages messages;
 
     @InjectPage
     private ConfirmationPage confirmationPage;
@@ -28,9 +36,9 @@ public class ErrorPage extends BasePage
     @InjectPage
     private ResultPage resultPage;
 
-    @Property(write = false)
-    @PageActivationContext
-    private String reason;
+    @Property
+    @Persist(PersistenceConstants.FLASH)
+    private String message;
 
 
     public String getPageName() {
@@ -48,6 +56,18 @@ public class ErrorPage extends BasePage
             sessionObj.setTrustLevel(null);
             sessionObj.setUniqueToken(null);
             sessionObj.setTimestamp(0L);
+        }
+    }
+
+    @Override
+    public void reportException(Throwable exception) {
+        if(exception instanceof MotorpastException) {
+            message = messages.get(MotorUtils.errorCodeToMessageString((MotorpastException)exception));
+            if(message.startsWith("[[m")) {
+                message = messages.get("error.unexpected");
+            }
+        } else {
+            message = messages.get("error.unexpected"); // simply default message
         }
     }
 }

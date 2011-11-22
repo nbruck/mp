@@ -13,22 +13,20 @@ public class HibernatePostgresSessionFactory implements HibernateSessionFactory
 
     public HibernatePostgresSessionFactory() {
         final AnnotationConfiguration cfg = new AnnotationConfiguration();
-
+//*
         // DATABASE_URL=postgres://user:password@hostname/path
-        
         String databaseUrl = System.getenv("DATABASE_URL");
-    
         String[] dbUrlComps = databaseUrl.split("//");
-     
+
         // "jdbc:postgresql://localhost/motorpast_scheme"
-        String connectionUrl = "jdbc:postgresql://" + dbUrlComps[1].split("@")[1];
-   
+        final String connectionUrl = "jdbc:postgresql://" + dbUrlComps[1].split("@")[1];
+
         String[] credentials =   dbUrlComps[1].split("@")[0].split(":");
         // mpsimpleuser
-        String username = credentials[0];
+        final String username = credentials[0];
         // password
-        String password = credentials[1];
-        
+        final String password = credentials[1];
+
         cfg.setProperty("hibernate.connection.driver_class", "org.postgresql.Driver");
         cfg.setProperty("hibernate.connection.url", connectionUrl);
         cfg.setProperty("hibernate.connection.username", username);
@@ -38,7 +36,18 @@ public class HibernatePostgresSessionFactory implements HibernateSessionFactory
         cfg.setProperty("hibernate.show_sql", "false");
         cfg.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
         cfg.setProperty("hibernate.hbm2ddl.auto", "create");
+//*/
 
+/*
+        cfg.setProperty("hibernate.connection.driver_class", "org.postgresql.Driver");
+        cfg.setProperty("hibernate.connection.url", "jdbc:postgresql://localhost/motorpast_scheme");
+        cfg.setProperty("hibernate.connection.username", "mpSimpleUser");
+        cfg.setProperty("hibernate.connection.password", "4793cD1941e73D453df32bef15");
+        cfg.setProperty("hibernate.current_session_context_class", "thread");
+        cfg.setProperty("hibernate.transaction.factory_class", "org.hibernate.transaction.JDBCTransactionFactory");
+        cfg.setProperty("hibernate.show_sql", "false");
+        cfg.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
+//*/
         //here the c3po settings are coming
         cfg.setProperty("hibernate.c3p0.max_size", "30");
         cfg.setProperty("hibernate.c3p0.min_size", "10");

@@ -11,13 +11,31 @@ a {
     text-decoration: none;
     color: navy;
 }
+ul {
+    list-style-type: none;
+}
+div#headerBlock a {
+    border: none;
+}
 a:hover {
     border-bottom: 1px solid;
+}
+div#indexpage form * {
+    line-height: 1.2em;
+}
+p#back-nav {
+    margin: 2em 0 0 106px;
 }
 
 div#headerBlock {
     background-color: #b0b0b0;
     height: 40px;
+}
+div#headerBlock span#brandname {
+    color: white;
+    margin-left: 4em;
+    font-family: fantasy;
+    font-size: 1.8em;
 }
 div#leftBlock {
     float: left;
@@ -27,7 +45,7 @@ div#rightBlock {
 }
 div#mainBlock {
     margin: 0 auto;
-    width: 40em;
+    width: 39.25em;
 }
 div#footerBlock {
     clear: both;
@@ -36,7 +54,10 @@ div#mainBlock div#indexpage,
 div#mainBlock div#sitenotice,
 div#mainBlock div#confirmationpage,
 div#mainBlock div#resultpage {
-    height: 27em;
+    height: 30em;
+}
+div#mainBlock div#helppage {
+    height: 30.5em;
 }
 
 div#footerBlock ul {
@@ -51,10 +72,6 @@ div#footerBlock ul li span {
     color: #909090;
     border-top: 3px solid lightCoral;
 }
-
-/**
- * mainpage
- */
 div#indexpage h1,
 div#mainBlock h2 {
     margin: 12px 0;
@@ -62,7 +79,131 @@ div#mainBlock h2 {
 div#indexpage h2 {
     font-weight: normal;
 }
-
+div#indexpage label {
+    cursor: pointer;
+}
+div#indexpage div#searchLayout,
+div#indexpage div#enterLayout {
+    border: 1px solid #90b0ea;
+    float: left;
+    width: 410px;
+    margin-left: 5.5em;
+    position: relative;
+}
+div#indexpage div#searchLayout {
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    padding: 0 0 2px 8px;
+    height: 32px;
+}
+div#indexpage div#searchLayout p.headline,
+div#indexpage div#enterLayout p.headline {
+    position: absolute;
+    left: 2.7em;
+    background-color: white;
+    z-index: 100;
+    padding: 0 8px;
+    height: 1em;
+}
+div#indexpage div#searchLayout p.headline {
+    bottom: 2.2em;
+}
+div#indexpage div#enterLayout p.headline {
+    bottom: 6.7em;
+}
+div#indexpage div#searchLayout input#vinSearch {
+    width: 260px;
+    border: none;
+    height: 20px;
+    margin: 0.5em 0 0 0.9em;
+    color: #999;
+}
+div#indexpage div#searchLayout label.vinSearchLabel {
+    background: url('../images/loupe.jpg') no-repeat;
+    height: 24px;
+    width: 24px;
+    float: left;
+    margin-top: 0.5em;
+}
+div#indexpage div#enterLayout div.submitWrapper input,
+div#indexpage div#searchLayout input#vinSearchButton {
+    float: right;
+    border: 1px solid #b0b0b0;
+    background-color: #efefef;
+    cursor: pointer;
+    padding: 0 2px 2px 2px;
+}
+div#indexpage div#searchLayout input#vinSearchButton {
+    margin: 2px 2px 0 0 ;
+    height: 30px;
+    -moz-border-radius: 0 15px 15px 0;
+    border-radius: 0 15px 15px 0;
+    width: 105px;
+}
+div#indexpage div#enterLayout {
+    -moz-border-radius: 32px;
+    border-radius: 32px;
+    padding: 0 0 0 8px;
+    margin-top: 2.5em;
+}
+div#indexpage div#enterLayout div.fieldWrapper {
+    margin: 0 0 8px 0;
+    padding: 8px 0 10px 0;
+}
+div#indexpage div#enterLayout div.fieldWrapper label {
+    float: left;
+    width: 100px;
+    margin: 7px 0 0 2.75em;
+}
+div#indexpage div#enterLayout div.fieldWrapper div {
+    border: 1px solid silver;
+    float: right;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    width: 245px;
+    margin: 7px 18px 0 0;
+}
+div#indexpage div#enterLayout div.fieldWrapper div input {
+    width: 230px;
+    color: #999;
+    border: none;
+    margin: 0 0 0 8px;
+}
+div#indexpage div#enterLayout div.submitWrapper {
+    float: right;
+    margin: 0 18px 5px 0;
+}
+div#indexpage div#enterLayout div.submitWrapper input {
+    height: 24px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    width: 190px;
+    margin-top: 10px;
+}
+div#indexpage div#searchLayout div#container1,
+div#indexpage div#enterLayout div#container2 {
+    display: none;
+    position: absolute;
+    padding: 6px;
+    text-align: center;
+    left: -6em;
+    height: 2em;
+    background-color: goldenrod;
+    color: white;
+    border-radius: 12px;
+    -moz-border-radius: 12px;
+    line-height: 1em;
+}
+div#indexpage div#searchLayout div#container1 p,
+div#indexpage div#enterLayout div#container2 p {
+    color: white;
+}
+div#indexpage div#searchLayout div#container1 {
+    bottom: -0.2em;
+}
+div#indexpage div#enterLayout div#container2 {
+    bottom: 3em;
+}
 div#mainBlock img.logo {
     float: left;
     margin-right: 42px;
@@ -73,71 +214,57 @@ div#helppage img.logo {
 }
 div#indexpage ul#page-description {
     font-size: 0.95em;
-    margin-bottom: 32px;
+    margin-bottom: 3em;
 }
 
-div#indexpage form {
-    margin: 0 15px 0 0;
-    clear: both;
+form div.t-error {
+    position: absolute;
+    left: -3em;
+    width: 36em;
 }
-/* form errors */
+div#confirmationpage form div.t-error {
+    width: 45em;
+}
+form#mileSearchForm div.t-error {
+    bottom: 3.2em;
+}
+form#mileEnterForm div.t-error {
+    bottom: 7.8em;
+}
+div#confirmationpage form#regDateForm div.t-error {
+    bottom: -0.6em;
+    left: -1em;
+}
+div#resultpage form#regDateForm div.t-error {
+    bottom: 0em;
+}
+form#regDateForm div.t-error {
+    left: 0em;
+}
 form div.t-error div {
     display: none;
 }
-div#resultpage form div.t-error div {
-    display: block;
-}
-div.t-error ul,
-ul#storingSuccess {
-    list-style-type: none;
-    border-bottom: 2px solid;
-    border-top: 2px solid;
-}
 div.t-error ul {
-    border-color: firebrick;
-}
-div.t-error ul li,
-ul#storingSuccess li {
-    margin: 0 5px;
-    padding: 2px 8px;
+    list-style-type: none;
 }
 div.t-error ul li {
-    background-color: tomato;
-    color: white;
+    text-align: center;
+    color: tomato;
+    vertical-align: text-bottom;
 }
-div#indexpage ul#storingSuccess {
-    border-color: green;
+
+form#regDateForm {
+    position: relative;
 }
-div#indexpage ul#storingSuccess li {
-    background-color: lightgreen;
-    color: teal;
-}
-/* form elements */
-div#indexpage form label {
+form#regDateForm div.regDateButtonsSingle {
     float: left;
-    text-align: justify;
-    margin: 14px 4px 4px 0;
-    line-height: 1.2;
-    width: 330px;
-    font-size: 0.92em;
+    margin-left: 27.5em;
 }
-div#indexpage form div.wrapText,
-div#indexpage form div.wrapButton {
-    float: right;
+form#regDateForm div.regDateButtonsMore {
+    margin-left: 10.5em;
 }
-div#indexpage form div.wrapButton {
-    text-align: right;
-    width: 100%;
-}
-div#indexpage form span#container {
-    float: left;
-    margin-left: 345px;
-    display: none;
-}
-form#regDateForm div.regDateButtons {
-    padding-left: 150px;
-}
-form#regDateForm div.regDateButtons div.wrapButton {
+form#regDateForm div.regDateButtonsSingle div.wrapButton,
+form#regDateForm div.regDateButtonsMore div.wrapButton {
     float: left;
 }
 form#regDateForm label {
@@ -155,24 +282,24 @@ form#regDateForm select {
     border: none;
     width: 70px;
 }
-/*
-div#indexpage form div.noRight {
-    clear: right;
-}
-*/
-div#indexpage form div div.help {
+div#indexpage div.help {
     cursor: help;
-    float: right;
-    margin: 17px 0 0 5px;
     height: 15px;
     width: 16px;
+    margin: 0 4.5em 0 5px;
     background: url('../images/info.gif') no-repeat 0 -15px;
+    position: absolute;
+    right: -6em;
 }
-div#indexpage form div div.help:hover {
+div#indexpage div#searchLayout div.help {
+    bottom: 0.7em;
+}
+div#indexpage div#enterLayout div.help {
+    margin-top: -1em;
+}
+div#indexpage div.help:hover {
     background: url('../images/info.gif') no-repeat 0 0;
 }
-
-/* the form elemets-wrapper */
 form div.wrapText, form div.wrapSelect {
     border: 1px solid #90b0ea;
     margin: 10px 0 10px 0;
@@ -180,30 +307,19 @@ form div.wrapText, form div.wrapSelect {
     -webkit-border-radius: 15px;
     border-radius: 15px;
 }
-div#indexpage form div.wrapText {
-    width: 220px;
-}
-div#indexpage form div.wrapText input {
-    font-size: 0.95em;
-    border-width: 0px;
-    width: 90%;
-    margin: 6px 0 6px 10px;
-    height: 1.2em;
-}
-form div.text1 {
+form .text1 {
     display: none;
 }
-form div.text2 {
+form .text2 {
     display: inline;
 }
-form div.text3 {
+form .text3 {
     display: inline !important;
 }
-form div.text4 {
+form .text4 {
     display: none !important;
 }
-
-form div div.help p {
+div#indexpage div.help p {
     display: none;
     position: relative;
     line-height: 1.32em;
@@ -224,11 +340,9 @@ form div div.help p {
     -webkit-box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.2), inset 0px 1px 1px rgba(255, 255, 255, 0.8);
     box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.2), inset 0px 1px 1px rgba(255, 255, 255, 0.8);
 }
-form div div.help:hover p {
+div#indexpage div.help:hover p {
     display: block;
 }
-
-/* the buttons */
 form div.wrapButton input {
     height: 26px;
     -moz-border-radius: 15px;
@@ -240,13 +354,18 @@ form div.wrapButton input {
     text-decoration: none;
     cursor: pointer;
 }
-form div.wrapButton input:hover {
+form div.wrapButton input:hover,
+div#indexpage div#searchLayout input#vinSearchButton:hover,
+div#indexpage div#enterLayout div.submitWrapper input:hover {
     background-color: #b0b0b0;
     color: white;
 }
-/* the socialbar */
+form#okForm div.wrapButton input {
+    margin-left: 7.5em;
+}
+
 div#indexpage ul#social {
-    padding: 32px 0 16px 0;
+    padding: 1.5em 0 16px 0;
     clear: both;
     list-style: none;
 }
@@ -284,11 +403,6 @@ div#indexpage ul#social iframe {
     width: 46px;
 }
 
-/* the result-back-link*/
-div#mainBlock div#resultpage p {
-    margin-top: 24px;
-    text-align: right;
-}
 div#mainBlock div#resultpage img {
     vertical-align: middle;
 }
@@ -299,36 +413,19 @@ div#mainBlock div#resultpage p a:hover {
     border-bottom: 1px solid;
 }
 
-/* error and error404 page*/
-div#mainBlock div#error span,
-div#mainBlock div#error404 span {
-    display: block;
-    width: 100%;
-}
-div#mainBlock div#error img,
-div#mainBlock div#error404 img {
-    vertical-align: middle;
-    margin-left: 12px;
-}
-
-/**
- *
- */
-div#confirmationpage ul {
-    margin: 1em 0 2em 0;
+div#confirmationpage ul.input {
+    margin: 1.5em 0 2.5em 0;
+    list-style-type: none;
 }
 div#confirmationpage ul li span {
     float: left;
     font-weight: bold;
     width: 8.5em;
 }
-div#confirmationpage form input {
-    margin-left: 6.5em;
+img.logomod {
+    margin-top: 1em;
+    margin-bottom: 4em;
 }
-
-/**
- * helppage
- */
 div#helppage ul {
     margin: 0 0 3em 0;
 }
@@ -338,7 +435,7 @@ div#helppage ul li {
 div#helppage div#answers {
     overflow-y: scroll;
     padding: 0 4px 0 0;
-    height: 28em;
+    height: 17.5em;
 }
 div#helppage div#answers a {
     border: none;
@@ -348,7 +445,6 @@ div#helppage div#answers a {
 div#helppage div#answers p {
     margin: 0 0 12px 20px;
 }
-
 div#sitenotice ul {
     margin-bottom: 21em;
 }

@@ -258,7 +258,9 @@ public class HibernatePersistenceService implements PersistenceService<CarDataEn
 
             tx.commit();
         } catch(StaleObjectStateException e) {
-            logger.error("two clients tried to modify same car(id) which can be suspicious");
+            logger.warn("StaleObjectStateException: two clients tried to modify same car(id) which can be suspicious");
+            logger.info("StaleObjectStateException: some values for councurrent writing access: entityname=" + e.getEntityName() +
+                    " , identifier=" + e.getIdentifier());
             // concurrent access to one object, maybe some database-info statements?
             throw new RuntimeException(e);
         } catch(RuntimeException runtimeException) {
@@ -272,6 +274,10 @@ public class HibernatePersistenceService implements PersistenceService<CarDataEn
                 logger.error("Transaction could not be rolled back!");
 
                 throw hibernateException;
+            }
+
+            if(runtimeException.getCause() != null && runtimeException.getCause() instanceof StaleObjectStateException) {
+                throw new MotorpastPersistenceException(PersistenceErrorCode.concurrent_writing_access);
             }
 
             throw runtimeException;

@@ -16,7 +16,7 @@
         </h2>
         <t:delegate to="block:confirmDataBlock"/>
 
-        <t:motorform>
+        <t:motorform t:id="okForm">
             <div class="wrapButton">
                 <t:submit value="literal:OK" t:id="Ok"/>
             </div>
@@ -28,7 +28,7 @@
             ${message:text.data.confirm.head.enter-regdate}
         </h2>
         <p>
-            ${message:text.data.confirm-enter-regdate}
+            <t:outputraw value="message:text.data.confirm-enter-regdate"/>
         </p>
         <t:delegate to="block:confirmDataBlock"/>
 
@@ -43,23 +43,25 @@
     </t:block>
 
     <t:block t:id="confirmDataBlock">
-        <img class="logo" src="images/logo-asking.jpg" alt="asking user"/>
+        <img class="logo" src="${context:images/logo-asking.jpg}" alt="asking user"/>
 
-        <ul>
+        <ul class="input">
             <li>
                 <span>${message:text.carId}</span>
                 ${prop:carId}
             </li>
             <li>
                 <span>${message:text.mileage}</span>
-                ${prop:mileage}
+                ${prop:decimalFormattedMileage}
             </li>
         </ul>
     </t:block>
 
     <t:block t:id="blockedBlock">
-        ${prop:blockedMessage}
-        ${message:txt.navigate-back} <t:pagelink page="index">${message:page.navigate-to-main.txt}</t:pagelink>
+        <img class="logo logomod" src="${context:images/logo-worried.jpg}" alt="worried user"/>
+        <t:outputRaw value="prop:blockedMessage"/>
+
+        <t:backtomainpage/>
     </t:block>
 
     <t:block t:id="fallbackBlock">

@@ -22,7 +22,7 @@
         </div>
         <t:hidden t:id="text1" value="text1"/>
 
-        <div class="regDateButtons">
+        <div class="${prop:cssClass}">
             <t:delegate to="prop:buttonBlock"/>
         </div>
     </t:motorform>

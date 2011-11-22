@@ -1,0 +1,23 @@
+<t:container xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
+      xmlns:p="tapestry:parameter">
+
+    <p id="back-nav">
+        <t:if test="prop:message">
+            ${prop:message}
+        <p:else>
+            ${message:txt.navigate-back}
+        </p:else>
+        </t:if>
+ 
+        <t:pagelink page="prop:mainPageName">
+            <t:if test="linktext">
+                ${prop:linktext}
+            <p:else>
+                ${message:page.navigate-to-main.txt}
+            </p:else>
+            </t:if>
+        </t:pagelink>
+    </p>
+
+</t:container>

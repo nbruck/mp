@@ -8,21 +8,10 @@
       xmlns:p="tapestry:parameter">
 
     <div id="error">
-        <span>
-            <t:if test="reason">
-                <t:outputRaw value="message:error.security"/>
-            <p:else>
-                <t:outputRaw value="message:error.unexpected"/>
-            </p:else>
-            </t:if>
+        <img class="logo" src="${context:images/logo-sorry.jpg}" alt="sorry_not_found"/>
+        <t:outputRaw value="prop:message"/>
 
-            <img src="${context:images/logo-sorry.jpg}" alt="sorry_not_found"/>
-        </span>
-
-
-        <p>
-            ${message:txt.navigate-back} <t:pagelink page="index">${message:page.navigate-to-main.txt}</t:pagelink>
-        </p>
+        <t:backtomainpage/>
     </div>
 
 </html>

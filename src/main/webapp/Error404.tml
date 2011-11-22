@@ -8,15 +8,11 @@
       xmlns:p="tapestry:parameter">
 
     <div id="error404">
-        <span>
-            ${message:page.hint_one.404}
-            <img src="${context:images/logo-sorry.jpg}" alt="sorry_not_found"/>
-        </span>
+        <img class="logo logomod" src="${context:images/logo-sorry-url.jpg}" alt="sorry_not_found"/>
+        ${message:page.hint_one.404}
 
-        <p>
-            ${message:page.hint_two.404}
-            <a t:type="any" href="${prop:motorPageLink}">${message:page.navigate-to-main.txt}</a>
-        </p>
+        <t:backtomainpage t:message="${message:page.hint_two.404}" t:linktext="${message:page.naviagte-to-main.url-txt}"/>
+
     </div>
 
 </html>

@@ -15,18 +15,13 @@
         </t:if>
 
     </t:if>
-<t:remove>
-    <t:if test="storingMessage">
-        <ul id="storingSuccess">
-            <li>
-                ${message:mileage.stored}
-            </li>
-        </ul>
-    </t:if>
-</t:remove>
+
+    <img class="logo" src="images/logo-happy.jpg" alt="happy user"/>
+
     <span>
         <t:outputraw value="mileageMessage"/>
     </span>
+
     <img src="${prop:mileageCaptchaUrl}" alt="mileagecaptcha"/>
 
 </t:container>

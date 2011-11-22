@@ -5,10 +5,8 @@ import java.util.Date;
 /**
  * just for the view (don't want pass entities in the view)
  */
-@Deprecated
-public class CarDataPojo //implements CarData
+public class CarDataPojo implements CarData
 {
-/*
     private long identifier;
     private String carId;
     private int lastMileage;
@@ -110,5 +108,4 @@ public class CarDataPojo //implements CarData
             + ", attemptsLeft=" + attemptsLeft + ", showTrustLevel="
             + showTrustLevel + ", version=" + version + "]";
     }
-//*/
 }

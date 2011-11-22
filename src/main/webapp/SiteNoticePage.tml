@@ -8,7 +8,7 @@
       xmlns:p="tapestry:parameter">
 
     <div id="sitenotice">
-        <img class="logo" src="${context:images/logo-smart.jpg}" alt="smart-user"/>
+        <img class="logo logomod" src="${context:images/logo-smart.jpg}" alt="smart-user"/>
 
         <h2>
             ${message:sitenotice.txt.headline}
@@ -16,13 +16,23 @@
 
         <ul>
             <li>
-                Nikolaus Bruck
+                <t:outputraw value="message:text.name.nik"/>
             </li>
             <li>
-                Dennis Gerhardt
+                <t:outputraw value="message:text.name.dennis"/>
             </li>
         </ul>
 
+        <p>
+            <t:outputraw value="message:text.site.guarantee"/>
+        </p>
+
+        <br/>
+        <br/>
+
+        <p>
+            <t:outputraw value="message:text.browser.check"/>
+        </p>
     </div>
 
 </html>

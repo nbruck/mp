@@ -7,60 +7,65 @@
 
     <div id="resultpage">
         <t:if test="mileageResultAvailable"/>
+
         <t:if test="errorMessage">
-            <div class="t-error">
-                <ul>
-                    <li>${prop:errorMessage}</li>
-                </ul>
-            </div>
+            <img class="logo" src="${context:images/logo-sorry.jpg}" alt="sorry user"/>
+            <h2>${prop:errorMessage}</h2>
+
+            <t:backtomainpage/>
         </t:if>
+
         <t:delegate to="prop:activeBlock"/>
     </div>
 
     <t:block t:id="viewOnlyBlock">
         <t:if test="otherMessage">
-            <span>
+            <h2>
                 ${prop:otherMessage}
-            </span>
+            </h2>
         </t:if>
         <t:if test="mileageResultAvailable">
             <div id="result">
                 <t:resultRenderer showCarTrustLevel="prop:showTrustLevelOfCarData" storingDate="prop:storingDate"/>
-                <p>
-                    <t:pagelink page="index">${message:success.back-to-main}</t:pagelink>
-                </p>
+
+                <t:backtomainpage/>
             </div>
         </t:if>
     </t:block>
 
     <t:block t:id="newCarBlock">
         <!-- here we can decide if we want to show trustlevel and different messages -->
-        <t:if test="validStoringRequest">
-            <span>
+            <h2>
                 ${message:success.mileage.stored}
-            </span>
-        </t:if>
-        <span>
-            ${message:success.mileage.stored.optional}
-        </span>
-        <t:registrationDateComponent buttonBlock="block:yesOrNoButtonBlock"/>
+            </h2>
+
+        <t:delegate to="block:sharedBlockForNewAndNoRegdate"/>
     </t:block>
 
     <t:block t:id="noRegdateStoredBeforeBlock">
-        <!-- look above -->
-        <t:if test="validStoringRequest">
-            <span>
+            <h2>
                 ${message:success.mileage.updated}
-            </span>
-        </t:if>
+            </h2>
+
+        <t:delegate to="block:sharedBlockForNewAndNoRegdate"/>
+    </t:block>
+
+    <t:block t:id="sharedBlockForNewAndNoRegdate">
+        <img class="logo" src="${context:images/logo-happy.jpg}" alt="happy user" style="margin-bottom: 2em"/>
+
         <span>
-            ${message:success.mileage.stored.optional}
+            <t:outputRaw value="message:success.mileage.stored.optional"/>
         </span>
-        <t:registrationDateComponent buttonBlock="block:yesOrNoButtonBlock"/>
+        <br/>
+        <br/>
+        <br/>
+        <t:registrationDateComponent t:buttonBlock="block:yesOrNoButtonBlock"/>
     </t:block>
 
     <t:block t:id="regDateStoredBeforeBlock">
-        <!-- message -->
+        <h2>
+            ${message:success.mileage.updated}
+        </h2>
         <t:delegate to="block:viewOnlyBlock"/>
     </t:block>
 

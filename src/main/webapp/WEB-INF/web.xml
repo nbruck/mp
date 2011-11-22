@@ -24,9 +24,10 @@
     <listener>
         <listener-class>com.motorpast.services.additionalbase.MotorSessionListener</listener-class>
     </listener>
--->
+    -->
+
     <session-config>
-        <session-timeout>8</session-timeout>
+        <session-timeout>9</session-timeout>
     </session-config>
     
     <error-page>

@@ -1,6 +1,8 @@
 package com.motorpast.pages;
 
 import org.apache.tapestry5.Block;
+import org.apache.tapestry5.annotations.InjectPage;
+import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PersistentLocale;
 
@@ -10,8 +12,7 @@ import com.motorpast.base.BasePage;
 
 @UrlRewrite(
     mappings={
-        "/de/helppage", "/hilfe"
-        /*"/en/helppage", "/help"*/
+        "/de/helppage", "/hilfe" /*"/en/helppage", "/help"*/
     },
     sitemap={
         "changefreq", "monthly",
@@ -25,6 +26,12 @@ public class HelpPage extends BasePage
     @Inject
     private Block de_helpBlock, en_helpBlock;
 
+    @InjectPage
+    private ConfirmationPage confirmationPage;
+
+    @InjectPage
+    private ResultPage resultPage;
+
 
     public String getPageName() {
         return HelpPage.class.getSimpleName();
@@ -33,6 +40,12 @@ public class HelpPage extends BasePage
     @Override
     public Class<?>[] getNavigation() {
         return MotorPages.getPagesForNavigation();
+    }
+
+    @SetupRender
+    void init() {
+        confirmationPage.setPageParameter(null, null, null);
+        resultPage.setPageParameter(null, null, null);
     }
 
     /**

@@ -1,5 +1,6 @@
 package com.motorpast.pages;
 
+import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.Locale;
 
@@ -22,11 +23,13 @@ import com.motorpast.base.BasePage;
 import com.motorpast.dataobjects.CarData;
 import com.motorpast.services.business.BusinessService;
 import com.motorpast.services.business.MotorpastBusinessException;
+import com.motorpast.services.business.MotorpastBusinessException.BusinessErrorCode;
 import com.motorpast.services.persistence.MotorpastPersistenceException;
+import com.motorpast.services.persistence.MotorpastPersistenceException.PersistenceErrorCode;
 import com.motorpast.services.persistence.PersistenceService;
 
 /**
- * only storing requests are allowed to see this page //TODO: secure me!
+ * only storing requests are allowed to see this page
  */
 @UrlRewrite(
     mappings={
@@ -78,8 +81,8 @@ public class ConfirmationPage extends BasePage
     }
 
     @SetupRender
-    void init() throws MotorpastBusinessException {
-        super.checkForRedirect(Index.class, carId, mileage);
+    boolean init() throws MotorpastBusinessException {
+        boolean abort = super.checkForRedirect(Index.class, carId, mileage);
 
         if(carData != null) {
             logger.debug("cardata has been set with " + carData.toString());
@@ -87,19 +90,21 @@ public class ConfirmationPage extends BasePage
             try {
                 carData = persistenceService.getDataForCarId(carId);
             } catch (MotorpastPersistenceException e) {
-                //throw new MotorpastBusinessException(BusinessErrorCode.system_error);
-                logger.debug("cardata will be null");
+                if(PersistenceErrorCode.data_notFound_carId.name().equals(e.getErrorCode())) {
+                    logger.debug("cardata will be null");
+                } else {
+                    throw new MotorpastBusinessException(BusinessErrorCode.system_error);
+                }
             }
         }
 
-        //if(motorRequestState == null) {
         motorRequestState = businessService.getMotorRequestStateByCarData(carData);
-        //}
-        super.checkForRedirect(ErrorPage.class, motorRequestState); // state maybe is null
+        abort = super.checkForRedirect(ErrorPage.class, motorRequestState); // state maybe is null
         logger.debug("motorRequestSate has been set to:" + motorRequestState);
 
         // reset
         resultPage.setPageParameter(null, null, null);
+        return !abort;
     }
 
     void cleanupRender() {
@@ -127,13 +132,19 @@ public class ConfirmationPage extends BasePage
         return getFormattedBlockedMessage(carData);
     }
 
+    public String getDecimalFormattedMileage() {
+        DecimalFormat df = new DecimalFormat(messages.get("global.text.format.seperator-thousend"));
+
+        return df.format(Integer.valueOf(mileage));
+    }
+
     public Object onSelectedFromOk() {
         resultPage.setValidStoringRequest(true);
         return resetDataAndGoOn(ResultPage.class);
     }
 
-    public void onGotoErrorPage() {
-        super.checkForRedirect(ErrorPage.class, businessService.getRedirectNullCheck());
+    public Object onGotoErrorPage() {
+        return ErrorPage.class;
     }
 
     String onHandleValidateBubbleUp(final String day, final String month, final String year) throws MotorpastPersistenceException {
@@ -142,14 +153,11 @@ public class ConfirmationPage extends BasePage
 
         String returnMessage = null;
         if(carDataForSecurityCheck.getAttemptsLeft() == 0) {
-            //regDateForm.recordError(getFormattedBlockedMessage(carDataForSecurityCheck));
             returnMessage = getFormattedBlockedMessage(carDataForSecurityCheck);
-            //motorRequestState = MotorRequestState.CarTupelNoAttemtsLeftAndBlocked;
-            //return;
         } else if(carDataForSecurityCheck.getRegistrationdate().getTime() != enteredDate.getTime()) {
             persistenceService.updateCarDataAttempts(carDataForSecurityCheck, carDataForSecurityCheck.getAttemptsLeft() - 1);
-            //regDateForm.recordError(messages.format("validation.error.regdate-invalid", carDataForSecurityCheck.getAttemptsLeft()));
-            returnMessage = messages.format("validation.error.regdate-invalid", carDataForSecurityCheck.getAttemptsLeft());
+            //returnMessage = messages.format("validation.error.regdate-invalid", carDataForSecurityCheck.getAttemptsLeft());
+            returnMessage = messages.get("validation.error.regdate-invalid");
         } else if(carDataForSecurityCheck.getRegistrationdate().getTime() == enteredDate.getTime() && carDataForSecurityCheck.getAttemptsLeft() != 2) {
             persistenceService.updateCarDataAttempts(carDataForSecurityCheck);
         }
@@ -166,7 +174,7 @@ public class ConfirmationPage extends BasePage
 
     Object onHandleSuccessBubbleUp(final String day, final String month, final String year) {
         resultPage.setValidStoringRequest(true);
-        return resetDataAndGoOn(ResultPage.class); //TODO: sorry, don't working (navigation)
+        return resetDataAndGoOn(ResultPage.class);
     }
 
     private Object resetDataAndGoOn(Class<?> clazz) {
@@ -177,7 +185,7 @@ public class ConfirmationPage extends BasePage
         return clazz;
     }
 
-    void setPageParameter(final MotorRequestState state, final String carId, final String mileage) {
+    public void setPageParameter(final MotorRequestState state, final String carId, final String mileage) {
         this.motorRequestState = state;
         this.carId = carId;
         this.mileage = mileage;

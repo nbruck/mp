@@ -25,6 +25,7 @@ import com.motorpast.dataobjects.UserSessionObj;
 import com.motorpast.services.business.BusinessService;
 import com.motorpast.services.business.MotorpastBusinessException;
 import com.motorpast.services.persistence.MotorpastPersistenceException;
+import com.motorpast.services.persistence.MotorpastPersistenceException.PersistenceErrorCode;
 import com.motorpast.services.persistence.PersistenceService;
 
 /**
@@ -94,8 +95,8 @@ public class ResultPage extends BasePage
 
     @SuppressWarnings("unchecked")
     @SetupRender
-    void init() {
-        super.checkForRedirect(Index.class, carId, motorRequestState);
+    boolean init() {
+        boolean abort = super.checkForRedirect(Index.class, carId, motorRequestState);
 
         switch (motorRequestState) {
             case SimpleViewRequest:
@@ -105,7 +106,7 @@ public class ResultPage extends BasePage
             case SaveCompleteNewCarTupel:
             case UpdateCarTupelWhichDoesntAlreadyHaveRegistrationDate:
             case UpdateCarTupelWithAttemptsLeft:
-                super.checkForRedirect(ErrorPage.class, mileage);
+                abort = super.checkForRedirect(ErrorPage.class, mileage);
 
                 if(validStoringRequest) {
                     final CarData carDataSave = doSystemRequestMehtod(mileage);
@@ -117,11 +118,12 @@ public class ResultPage extends BasePage
                 }
                 break;
             default:
-                super.checkForRedirect(Index.class, businessService.getRedirectNullCheck());
+                abort = super.checkForRedirect(Index.class, businessService.getRedirectNullCheck());
                 break;
         }
 
         confirmationPage.setPageParameter(null, null, null);
+        return !abort;
     }
 
     void cleanupRender() {
@@ -143,7 +145,7 @@ public class ResultPage extends BasePage
             storingDate = carData.getLastMileageStoringDate();
             logger.debug(carData.toString());
         } catch (MotorpastPersistenceException e) {
-            if(motorRequestState == MotorRequestState.SimpleViewRequest) {
+            if(motorRequestState == MotorRequestState.SimpleViewRequest && PersistenceErrorCode.data_notFound_carId.name().equals(e.getErrorCode())) {
                 sessionObj.setMileageResultCaptcha(null); // reset for displaying the else block in .tml for data not found
             } else {
                 checkForRedirect(ErrorPage.class, businessService.getRedirectNullCheck());
@@ -199,15 +201,15 @@ public class ResultPage extends BasePage
         }
     }
 
-    public void onGotoErrorPage() {
-        super.checkForRedirect(ErrorPage.class, businessService.getRedirectNullCheck());
+    public Object onGotoErrorPage() {
+        return ErrorPage.class;
     }
 
     void setValidStoringRequest(final boolean store) {
         this.validStoringRequest = store;
     }
 
-    void setPageParameter(final MotorRequestState state, final String carId, final String mileage) {
+    public void setPageParameter(final MotorRequestState state, final String carId, final String mileage) {
         this.motorRequestState = state;
         this.carId = carId;
         this.mileage = mileage;

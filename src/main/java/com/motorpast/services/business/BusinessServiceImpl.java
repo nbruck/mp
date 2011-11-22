@@ -64,7 +64,7 @@ public class BusinessServiceImpl implements BusinessService<CarData, HttpServlet
 
     @Override
     public CarData doSystemRequest(final String carId, final String miles, final HttpServletRequest request) throws MotorpastPersistenceException, MotorpastBusinessException {
-        logger.error("doSystemRequest called with values: carId=" + carId + ", mileage=" + miles);
+        logger.info("doSystemRequest called with values: carId=" + carId + ", mileage=" + miles);
 
         // both values have been set - store or update
         if(isStoringRequest(carId, miles)) {
