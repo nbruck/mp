@@ -116,6 +116,10 @@ public class MileageEnterComponent
             mileEnterForm.recordError(messages.get("error.carId.regex-invalid"));
             return;
         }
+        if(!validationService.validateCarId(mileage)) {
+            mileEnterForm.recordError(messages.get("error.mileage.no-number"));
+            return;
+        }
 
         // check date for spambot detection
         if(text6 == 0                                                       // field is missing -> spam
