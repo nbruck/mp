@@ -36,12 +36,21 @@
             <version>2.5</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
+     <dependency>
             <groupId>net.sourceforge</groupId>
             <artifactId>simplecaptcha</artifactId>
             <version>1.1.1</version>
-            <scope>compile</scope>
+            <!-- <scope>compile</scope> -->
         </dependency>
+        
+        
+   <!--
+<dependency>
+<groupId>org.gatein.captcha</groupId>
+<artifactId>simplecaptcha</artifactId>
+<version>1.1.1-GA-Patch01</version>
+</dependency>
+-->
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
@@ -87,6 +96,27 @@
     <build>
         <finalName>motorpast</finalName>
         <plugins>
+         <plugin>
+<groupId>org.apache.maven.plugins</groupId>
+<artifactId>maven-dependency-plugin</artifactId>
+<version>2.3</version>
+<executions>
+<execution>
+<phase>package</phase>
+<goals><goal>copy</goal></goals>
+<configuration>
+<artifactItems>
+<artifactItem>
+<groupId>org.mortbay.jetty</groupId>
+<artifactId>jetty-runner</artifactId>
+<version>7.4.5.v20110725</version>
+<destFileName>jetty-runner.jar</destFileName>
+</artifactItem>
+</artifactItems>
+</configuration>
+</execution>
+</executions>
+</plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -104,11 +134,12 @@
                     <!-- Log to the console. -->
                     <requestLog implementation="org.mortbay.jetty.NCSARequestLog">
                         <!-- This doesn't do anything for Jetty, but is a workaround for a Maven bug
-                             that prevents the requestLog from being set. -->
+that prevents the requestLog from being set. -->
                         <append>true</append>
                     </requestLog>
                 </configuration>
             </plugin>
+            
         </plugins>
     </build>
 
@@ -127,6 +158,14 @@
     </reporting>
 
     <repositories>
+    
+     <repository>
+        <id>local-libs-dir</id>
+         <name>locallib</name>
+     <url>file:${project.basedir}/lib</url>
+</repository>
+
+    
         <!-- This repository is only needed if the Tapestry released artifacts haven't made it to the central Maven repository yet. -->
         <repository>
             <id>tapestry</id>
@@ -148,12 +187,14 @@
             <name>OpenQA Release Repository</name>
             <url>http://archiva.openqa.org/repository/releases/</url>
         </repository>
+        
+        
 
     </repositories>
 
     <pluginRepositories>
         <!-- As above, this can be commented out when access to the snapshot version
-             of a Tapestry Maven plugin is not required.   -->
+of a Tapestry Maven plugin is not required. -->
         <pluginRepository>
             <id>tapestry-snapshots</id>
             <url>http://tapestry.formos.com/maven-snapshot-repository/</url>
