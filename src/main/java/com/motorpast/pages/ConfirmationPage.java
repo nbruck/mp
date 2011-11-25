@@ -1,6 +1,6 @@
 package com.motorpast.pages;
 
-import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.Date;
 import java.util.Locale;
 
@@ -133,9 +133,9 @@ public class ConfirmationPage extends BasePage
     }
 
     public String getDecimalFormattedMileage() {
-        DecimalFormat df = new DecimalFormat(messages.get("global.text.format.seperator-thousend"));
+        NumberFormat numberFormatter = NumberFormat.getInstance(locale);
 
-        return df.format(Integer.valueOf(mileage));
+        return numberFormatter.format(Double.valueOf(mileage));
     }
 
     public Object onSelectedFromOk() {

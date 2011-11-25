@@ -116,7 +116,7 @@ public class MileageEnterComponent
             mileEnterForm.recordError(messages.get("error.carId.regex-invalid"));
             return;
         }
-        if(!validationService.validateCarId(mileage)) {
+        if(!validationService.validateMileage(mileage)) {
             mileEnterForm.recordError(messages.get("error.mileage.no-number"));
             return;
         }
