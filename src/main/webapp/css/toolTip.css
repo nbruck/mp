@@ -1,0 +1,37 @@
+
+div.help {
+    cursor: help;
+    height: 24px;
+    width: 24px;
+    margin: 0 4.5em 0 5px;
+    background: url('../images/help.gif') no-repeat 0 0px;
+    right: -4em;
+}
+div.help:hover {
+    background: url('../images/help.gif') no-repeat 0 -24px;
+}
+
+div.help p {
+    background-color: #fff;
+    display: none;
+    line-height: 1.32em;
+    font-size: 0.9em;
+    left: 26px;
+    top: 8px;
+    width: 22em;
+    z-index: 1000;
+    border: 1px solid #90b0ea;
+    padding: 10px;
+    border-top-left-radius: 0px;
+    -moz-border-radius-topleft: 0px;
+    -moz-box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.2), inset 0px 1px 1px rgba(255, 255, 255, 0.8);
+    -webkit-box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.2), inset 0px 1px 1px rgba(255, 255, 255, 0.8);
+    box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.2), inset 0px 1px 1px rgba(255, 255, 255, 0.8);
+}
+div.help:hover p {
+    display: block;
+}
+div.help p,
+div.help p * {
+    position: relative !important;
+}

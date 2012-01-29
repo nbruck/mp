@@ -1,0 +1,182 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-size: 0.98em;
+    font-family: Arial, Helvetica,Verdana, sans-serif;
+    line-height: 1.5em;
+    color: #353535;
+}
+body {
+    background: url("../images/motorBg.gif") repeat-x;
+    background-color: #ededed;
+}
+a {
+    border-bottom: 1px dotted;
+    text-decoration: none;
+}
+a:hover {
+    border-bottom: 1px solid;
+}
+input:focus {
+    outline: none;
+}
+input[type=submit],
+input[type=text],
+select {
+    border-color: #ccc #ccc #aaa;
+    border-width: 1px;
+    border-style: solid;
+}
+input[type=submit] {
+    background: -moz-linear-gradient(center top , #fff 0pt, #e0e0e0 100%);
+    background: -webkit-gradient(linear, center top, center bottom, color-stop(0%,#fff), color-stop(100%,#e0e0e0));
+    filter: progid:dximagetransform.microsoft.gradient(startcolorstr='#fff', endcolorstr='#e0e0e0',gradienttype=0 );
+    padding: 0.1em 0.8em;
+}
+input[type=submit]:hover {
+    background: -moz-linear-gradient(center top , #fff, #ebebeb) repeat scroll 0 0 #f3f3f3;
+    background: -webkit-gradient(linear, center top, center bottom, color-stop(0%,#fff), color-stop(100%,#ebebeb)) repeat scroll 0 0 #f3f3f3;
+}
+input[type=submit]:hover,
+input[type=text].active {
+    -moz-box-shadow: 0 0 3px #999;
+    -webkit-box-shadow: 0 0 3px #999;
+    box-shadow: 0 0 3px #999;
+    filter: progid:dximagetransform.microsoft.gradient(startcolorstr='#fff', endcolorstr='#ebebeb',gradienttype=0);
+    border-color: #999;
+    outline: 0 none;
+}
+input[type=text] {
+    padding: 0.2em 0.2em 0.2em 0.8em;
+}
+select.stretch {
+    width: 5em;
+    height: 1.75em;
+    padding: 2px;
+}
+
+div#headerBlock {
+    background-color: #f5f5f5;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 4em;
+    background: -moz-linear-gradient(top, #ececec 0%, #ccc 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ececec), color-stop(100%,#ccc));
+    filter: progid:dximagetransform.microsoft.gradient( startcolorstr='#ececec', endcolorstr='#ccc',gradienttype=0 );
+    border-bottom: 2px groove honeydew;
+    z-index: 100;
+}
+div#leftBlock {
+    float: left;
+}
+div#rightBlock {
+    float: right;
+}
+div#mainBlock {
+    margin: 5.25em auto 5em;
+    width: 38em;
+    min-height: 35em;
+    background-color: #f5f5f5;
+    position: relative;
+    padding: 0 1em;
+}
+div#footerBlock {
+    background-color: #f5f5f5;
+    margin: 0 auto;
+    clear: both;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 3em;
+    background: -moz-linear-gradient(top, #ccc 0%, #ececec 100%);
+    background: -webkit-gradient(linear, left top, left bottom, from(#ccc), to(#ececec));
+    filter: progid:dximagetransform.microsoft.gradient( startcolorstr='#ccc', endcolorstr='#ececec',gradienttype=0 );
+    border-top: 2px groove honeydew;
+}
+
+div#headerBlock ul#nav {
+    list-style: none;
+    width: 40em;
+    /*margin: 2.25em auto 0 auto;*/
+    margin: 0 auto;
+}
+div#headerBlock ul#nav li {
+    float: left;
+    padding: 2.1em 0.5em;
+    height: 0em;
+    border-left: 2px groove gainsboro;
+}
+div#headerBlock ul#nav li:hover,
+div#headerBlock ul#nav li.navselected {
+    background-color: lightgrey;
+}
+div#headerBlock ul#nav li.navlast {
+    border-right: 2px groove gainsboro;
+}
+div#headerBlock ul#nav li span {
+    border-top: 3px solid cornflowerblue;
+    padding-top: 2px;
+}
+
+div.wrapper {
+    background-color: #ebebeb;
+    border: 1px solid gainsboro;
+    margin-top: 1em;
+    padding: 0.7em;
+    position: absolute;
+    width: 550px;
+}
+.round {
+    -moz-border-radius: 12px;
+    -webkit-border-radius: 12px;
+    border-radius: 12px;
+}
+.bigShadow {
+    -moz-box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.1), -8px 8px 8px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.1), -8px 8px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.1), -8px 8px 8px rgba(0, 0, 0, 0.1);
+}
+
+.boxShadow {
+    -moz-box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+/*error*/
+form div.t-error {
+    border: none;
+}
+form div.t-error ul {
+    list-style-type: none;
+}
+form div.t-error ul li {
+    position: absolute;
+    color: red;
+    white-space: nowrap;
+    top: -3em;
+    text-align: center;
+}
+form div.t-error div {
+    display: none;
+}
+div#helppage {
+    padding-top: 0.2em;
+}
+div#helppage ul,
+div#sitenotice ul {
+    margin-left: 1em;
+}
+div#helppage div.wrapper {
+    position: relative;
+}
+div#helppage div#answers a {
+    font-weight: bold;
+}
+div#sitenotice p {
+    margin-top: 2em;
+}
+
+form#regDateForm {
+    top: 2em;
+}
