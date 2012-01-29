@@ -8,18 +8,15 @@
         <label for="dayselect">
             ${message:label.registration-date}
         </label>
-        <div class="wrapSelect">
-            <t:select model="daymodel" value="day" clientId="dayselect" validate="min=1,max=31"
-                  blanklabel="message:select.day.blank-option"/>
-        </div>
-        <div class="wrapSelect">
-            <t:select model="monthmodel" value="month" validate="min=1,max=12"
-                  blanklabel="message:select.month.blank-option"/>
-        </div>
-        <div class="wrapSelect">
-            <t:select model="yearmodel" value="year" validate="regexp=\d\d\d\d"
-                  blanklabel="message:select.year.blank-option"/>
-        </div>
+        <t:select model="daymodel" value="day" clientId="dayselect" validate="min=1,max=31" class="round stretch"
+              blanklabel="message:select.day.blank-option"/>
+
+        <t:select model="monthmodel" value="month" clientId="monthselect" validate="min=1,max=12" class="round stretch"
+              blanklabel="message:select.month.blank-option"/>
+
+        <t:select model="yearmodel" value="year" clientId="yearselect" validate="regexp=\d\d\d\d" class="round stretch"
+              blanklabel="message:select.year.blank-option"/>
+
         <t:hidden t:id="text1" value="text1"/>
 
         <div class="${prop:cssClass}">

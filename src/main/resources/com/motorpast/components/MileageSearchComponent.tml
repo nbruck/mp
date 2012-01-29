@@ -2,20 +2,28 @@
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
       xmlns:p="tapestry:parameter">
 
-    <div id="searchLayout">
-        <p class="headline">
-            <label onmousedown="return false" for="vinSearch">
-                ${message:txt.fieldset.legend.mileage-search}
-            </label>
-        </p>
-        <t:motorform t:id="mileSearchForm" clientValidation="literal:false" autofocus="literal:false">
+    <div id="searchbox" class="wrapper round boxShadow">
+        <div id="container1" class="round">
+            ${message:txt.checkDigit}
+            <p id="checkDigit1">6</p>
+        </div>
+
+        <t:motorform t:id="mileSearchForm" clientValidation="literal:false" autofocus="literal:false"
+              t:mixins="uniqueToken,checkRequestTime">
             <t:errors/>
 
+            <h3>
+                <label onmousedown="return false" for="vinSearch">
+                    ${message:txt.fieldset.legend.mileage-search}
+                </label>
+            </h3>
+
             <t:textfield t:id="text1"
+                class="round"
                 clientId="vinSearch"
                 value="prop:text1"
-                onfocus="tooglePlaceholder(this);"
-                onblur="tooglePlaceholder(this);"
+                onfocus="handleFocus(this);"
+                onblur="handleBlur(this);"
                 onkeyup="check(this,1)"
                 autocomplete="off"
                 maxlength="17"/>
@@ -25,27 +33,13 @@
                 <t:textfield clientId="vin-Enter1" value="prop:text2" t:id="text2"/>
             </div>
 
-            <t:hidden value="prop:text3" t:id="text3"/>
-            <t:hidden value="prop:text4" t:id="text4"/>
+            <label onmousedown="return false" for="vinSearch" class="vinSearchLabel"></label>
 
-            <label onmousedown="return false" for="vinSearch" class="vinSearchLabel">
-            </label>
-
-            <t:submit t:id="vinSearchButton" value="message:txt.submit.search-now"/>
+            <t:submit class="round" t:id="vinSearchButton" value="message:txt.submit.search-now"/>
 
         </t:motorform>
 
-        <div class="help">
-            <p>
-                <t:outputRaw value="message:tooltip.carId"/>
-            </p>
-        </div>
-
-        <div id="container1">
-            ${message:txt.checkDigit}
-            <p id="checkDigit1">6</p>
-        </div>
-
+        <t:toolTipComponent helpText="message:tooltip.carId" parameter="prop:toolTipParameter"/>
     </div>
 
 </t:container>

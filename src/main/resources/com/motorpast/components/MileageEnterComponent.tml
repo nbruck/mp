@@ -2,68 +2,61 @@
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
       xmlns:p="tapestry:parameter">
 
-    <div id="enterLayout">
-        <p class="headline">
-            <label for="vinEnter" onmousedown="return false">
-                ${message:txt.fieldset.legend.mileage-enter}
-            </label>
-        </p>
-        <t:motorform t:id="mileEnterForm" clientValidation="literal:false" autofocus="literal:false">
-            <t:errors/>
-
-            <div class="fieldWrapper">
-                <label for="vinEnter" onmousedown="return false">
-                    ${message:txt.carId}
-                </label>
-                <div>
-                    <div class="text3 text4">
-                        <label for="vin-Enter">${message:txt.fake2}</label>
-                        <t:textfield clientId="vin-Enter" value="prop:text1"/>
-    
-                        <label for="mileage-Enter">${message:txt.fake3}</label>
-                        <t:textfield clientId="mileage-Enter" value="prop:text2"/>
-                    </div>
-    
-                    <t:textfield value="prop:text3"
-                        clientId="vinEnter"
-                        onfocus="tooglePlaceholder(this);"
-                        onblur="tooglePlaceholder(this);"
-                        onkeyup="check(this,2)"
-                        autocomplete="off"
-                        maxlength="17"/>
-                </div>
-            </div>
-            <div class="fieldWrapper">
-                <label for="mileageEnter" onmousedown="return false">
-                    ${message:txt.mileage}
-                </label>
-                <div>
-                    <t:textfield value="prop:text4"
-                        clientId="mileageEnter"
-                        onfocus="tooglePlaceholder(this);"
-                        onblur="tooglePlaceholder(this);"
-                        autocomplete="off"
-                        maxlength="7"/>
-                </div>
-            </div>
-            <div class="submitWrapper">
-                <t:hidden value="prop:text5" t:id="text5"/>
-                <t:hidden value="prop:text6" t:id="text6"/>
-    
-                <input type="submit" value="${message:txt.submit.enter-now}"/>
-            </div>
-        </t:motorform>
-
-        <div class="help">
-            <p>
-                <t:outputRaw value="message:tooltip.mileage"/>
-            </p>
-        </div>
-
-        <div id="container2">
+    <div id="enterbox" class="wrapper round boxShadow">
+        <div id="container2" class="round">
             ${message:txt.checkDigit}
             <p id="checkDigit2"></p>
         </div>
+
+        <t:motorform t:id="mileEnterForm" clientValidation="literal:false" autofocus="literal:false" t:mixins="uniqueToken,checkRequestTime">
+            <t:errors/>
+
+            <h3>
+                <label for="vinEnter" onmousedown="return false">
+                    ${message:txt.fieldset.legend.mileage-enter}
+                </label>
+            </h3>
+
+            <label id="entervin-label" for="vinEnter" onmousedown="return false">
+                ${message:txt.carId}
+            </label>
+
+            <div class="text3 text4">
+                <label for="vin-Enter">${message:txt.fake2}</label>
+                <t:textfield clientId="vin-Enter" value="prop:text1"/>
+
+                <label for="mileage-Enter">${message:txt.fake3}</label>
+                <t:textfield clientId="mileage-Enter" value="prop:text2"/>
+            </div>
+
+            <t:textfield value="prop:text3"
+                t:id="text3"
+                class="round"
+                clientId="vinEnter"
+                onfocus="handleFocus(this);"
+                onblur="handleBlur(this);"
+                onkeyup="check(this,2)"
+                autocomplete="off"
+                maxlength="17"/>
+
+            <label id="entermile-label" for="mileageEnter" onmousedown="return false">
+                ${message:txt.mileage}
+            </label>
+
+            <t:textfield value="prop:text4"
+                t:id="text4"
+                class="round"
+                clientId="mileageEnter"
+                onfocus="handleFocus(this);"
+                onblur="handleBlur(this);"
+                autocomplete="off"
+                maxlength="7"/>
+
+            <input class="round" type="submit" value="${message:txt.submit.enter-now}"/>
+        </t:motorform>
+
+        <t:toolTipComponent helpText="message:tooltip.mileage" parameter="prop:toolTipParameter"/>
+
     </div>
 
 </t:container>

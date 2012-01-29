@@ -16,12 +16,11 @@
 
     </t:if>
 
-    <img class="logo" src="images/logo-happy.jpg" alt="happy user"/>
+    <t:outputraw value="mileageMessage"/>
 
-    <span>
-        <t:outputraw value="mileageMessage"/>
-    </span>
-
-    <img src="${prop:mileageCaptchaUrl}" alt="mileagecaptcha"/>
+    <div>
+        ${message:mileage.found-two}
+        <img src="${prop:mileageCaptchaUrl}" alt="mileagecaptcha"/>
+    </div>
 
 </t:container>

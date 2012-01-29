@@ -27,14 +27,24 @@
         </div>
 
         <div id="leftBlock">
-            <t:delegate to="prop:leftBlock"/>
+            <t:if test="prop:leftBlock">
+                <t:delegate to="prop:leftBlock"/>
+            <p:else>
+                <t:delegate to="block:leftBlock"/>
+            </p:else>
+            </t:if>
         </div>
 
         <div id="rightBlock">
-            <t:delegate to="prop:rightBlock"/>
+            <t:if test="prop:rightBlock">
+                <t:delegate to="prop:rightBlock"/>
+            <p:else>
+                <t:delegate to="block:rightBlock"/>
+            </p:else>
+            </t:if>
         </div>
 
-        <div id="mainBlock">
+        <div id="mainBlock" class="round bigShadow">
             <t:body/>
         </div>
 
@@ -49,22 +59,30 @@
     </body>
 
     <t:block t:id="headerBlock">
-        <t:pagelink page="index">
-            <span id="brandname">motorpast.com</span>
-        </t:pagelink>
-    </t:block>
-
-    <t:block t:id="footerBlock">
-        <ul>
-            <t:loop source="prop:navigation" value="prop:currentNavigationEntry" element="li">
+        <ul id="nav">
+            <t:loop source="prop:navigation" value="prop:currentNavigationEntry" index="prop:navCounter">
                 <t:if test="activepage">
-                    <span>${prop:currentNavigationLinkText}</span>
+                    <li class="${prop:additionalStyleClass} navselected">
+                        <span>${prop:currentNavigationLinkText}</span>
+                    </li>
                 <p:else>
-                    <t:pagelink page="prop:currentNavigationEntry">${prop:currentNavigationLinkText}</t:pagelink>
+                    <li class="${prop:additionalStyleClass}">
+                        <t:pagelink page="prop:currentNavigationEntry">${prop:currentNavigationLinkText}</t:pagelink>
+                    </li>
                 </p:else>
                 </t:if>
             </t:loop>
         </ul>
+    </t:block>
+
+    <t:block t:id="leftBlock">
+    </t:block>
+
+    <t:block t:id="rightBlock">
+    </t:block>
+
+    <t:block t:id="footerBlock">
+        bla
     </t:block>
 
 </html>
