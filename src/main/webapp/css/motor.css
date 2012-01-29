@@ -2,40 +2,70 @@
     margin: 0;
     padding: 0;
     font-size: 0.98em;
-    font-family: Arial,Helvetica,Verdana,sans-serif;
-    line-height: 150%;
+    font-family: Arial, Helvetica,Verdana, sans-serif;
+    line-height: 1.5em;
     color: #353535;
+}
+body {
+    background: url("../images/motorBg.gif") repeat-x;
+    background-color: #ededed;
 }
 a {
     border-bottom: 1px dotted;
     text-decoration: none;
-    color: navy;
-}
-ul {
-    list-style-type: none;
-}
-div#headerBlock a {
-    border: none;
 }
 a:hover {
     border-bottom: 1px solid;
 }
-div#indexpage form * {
-    line-height: 1.2em;
+input:focus {
+    outline: none;
 }
-p#back-nav {
-    margin: 2em 0 0 106px;
+input[type=submit],
+input[type=text],
+select {
+    border-color: #ccc #ccc #aaa;
+    border-width: 1px;
+    border-style: solid;
+}
+input[type=submit] {
+    background: -moz-linear-gradient(center top , #fff 0pt, #e0e0e0 100%);
+    background: -webkit-gradient(linear, center top, center bottom, color-stop(0%,#fff), color-stop(100%,#e0e0e0));
+    filter: progid:dximagetransform.microsoft.gradient(startcolorstr='#fff', endcolorstr='#e0e0e0',gradienttype=0 );
+    padding: 0.1em 0.8em;
+}
+input[type=submit]:hover {
+    background: -moz-linear-gradient(center top , #fff, #ebebeb) repeat scroll 0 0 #f3f3f3;
+    background: -webkit-gradient(linear, center top, center bottom, color-stop(0%,#fff), color-stop(100%,#ebebeb)) repeat scroll 0 0 #f3f3f3;
+}
+input[type=submit]:hover,
+input[type=text].active {
+    -moz-box-shadow: 0 0 3px #999;
+    -webkit-box-shadow: 0 0 3px #999;
+    box-shadow: 0 0 3px #999;
+    filter: progid:dximagetransform.microsoft.gradient(startcolorstr='#fff', endcolorstr='#ebebeb',gradienttype=0);
+    border-color: #999;
+    outline: 0 none;
+}
+input[type=text] {
+    padding: 0.2em 0.2em 0.2em 0.8em;
+}
+select.stretch {
+    width: 5em;
+    height: 1.75em;
+    padding: 2px;
 }
 
 div#headerBlock {
-    background-color: #b0b0b0;
-    height: 40px;
-}
-div#headerBlock span#brandname {
-    color: white;
-    margin-left: 4em;
-    font-family: fantasy;
-    font-size: 1.8em;
+    background-color: #f5f5f5;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 4em;
+    background: -moz-linear-gradient(top, #ececec 0%, #ccc 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ececec), color-stop(100%,#ccc));
+    filter: progid:dximagetransform.microsoft.gradient( startcolorstr='#ececec', endcolorstr='#ccc',gradienttype=0 );
+    border-bottom: 2px groove honeydew;
+    z-index: 100;
 }
 div#leftBlock {
     float: left;
@@ -44,268 +74,142 @@ div#rightBlock {
     float: right;
 }
 div#mainBlock {
-    margin: 0 auto;
-    width: 39.25em;
+    margin: 5.25em auto 5em;
+    width: 38em;
+    min-height: 35em;
+    background-color: #f5f5f5;
+    position: relative;
+    padding: 0 1em;
 }
 div#footerBlock {
+    background-color: #f5f5f5;
+    margin: 0 auto;
     clear: both;
-}
-div#mainBlock div#indexpage,
-div#mainBlock div#sitenotice,
-div#mainBlock div#confirmationpage,
-div#mainBlock div#resultpage {
-    height: 30em;
-}
-div#mainBlock div#helppage {
-    height: 30.5em;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 3em;
+    background: -moz-linear-gradient(top, #ccc 0%, #ececec 100%);
+    background: -webkit-gradient(linear, left top, left bottom, from(#ccc), to(#ececec));
+    filter: progid:dximagetransform.microsoft.gradient( startcolorstr='#ccc', endcolorstr='#ececec',gradienttype=0 );
+    border-top: 2px groove honeydew;
 }
 
-div#footerBlock ul {
-    padding: 0.5em;
+div#headerBlock ul#nav {
+    list-style: none;
+    width: 40em;
+    /*margin: 2.25em auto 0 auto;*/
+    margin: 0 auto;
+}
+div#headerBlock ul#nav li {
+    float: left;
+    padding: 2.1em 0.5em;
+    height: 0em;
+    border-left: 2px groove gainsboro;
+}
+div#headerBlock ul#nav li:hover,
+div#headerBlock ul#nav li.navselected {
+    background-color: lightgrey;
+}
+div#headerBlock ul#nav li.navlast {
+    border-right: 2px groove gainsboro;
+}
+div#headerBlock ul#nav li span {
+    border-top: 3px solid cornflowerblue;
+    padding-top: 2px;
+}
+
+div.wrapper {
+    background-color: #ebebeb;
+    border: 1px solid gainsboro;
+    margin-top: 1em;
+    padding: 0.7em;
+    position: absolute;
+    width: 550px;
+}
+.round {
+    -moz-border-radius: 12px;
+    -webkit-border-radius: 12px;
+    border-radius: 12px;
+}
+.bigShadow {
+    -moz-box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.1), -8px 8px 8px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.1), -8px 8px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.1), -8px 8px 8px rgba(0, 0, 0, 0.1);
+}
+
+.boxShadow {
+    -moz-box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+/*error*/
+form div.t-error {
+    border: none;
+}
+form div.t-error ul {
+    list-style-type: none;
+}
+form div.t-error ul li {
+    position: absolute;
+    color: red;
+    white-space: nowrap;
+    top: -3em;
     text-align: center;
 }
-div#footerBlock ul li {
-    display: inline;
-    margin-right: 8px;
+form div.t-error div {
+    display: none;
 }
-div#footerBlock ul li span {
-    color: #909090;
-    border-top: 3px solid lightCoral;
+div#helppage {
+    padding-top: 0.2em;
 }
-div#indexpage h1,
+div#helppage ul,
+div#sitenotice ul {
+    margin-left: 1em;
+}
+div#helppage div.wrapper {
+    position: relative;
+}
+div#helppage div#answers a {
+    font-weight: bold;
+}
+div#sitenotice p {
+    margin-top: 2em;
+}
+
+form#regDateForm {
+    top: 2em;
+}
+
+ul.input,
+input#Ok {
+    margin-left: 6.5em;
+}
+ul.input {
+    margin-bottom: 1em;
+    margin-top: 1em;
+}
+div#confirmationpage div#withRegDate {
+    height: 16em;
+}
+div#confirmationpage form#regDateForm input[type=submit] {
+    left: 31.5em;
+}
+div#confirmationpage form#regDateForm div.t-error ul li {
+    white-space: normal;
+    width: 35em;
+    top: -3.5em;
+}
+
+
 div#mainBlock h2 {
     margin: 12px 0;
 }
 div#indexpage h2 {
     font-weight: normal;
 }
-div#indexpage label {
-    cursor: pointer;
-}
-div#indexpage div#searchLayout,
-div#indexpage div#enterLayout {
-    border: 1px solid #90b0ea;
-    float: left;
-    width: 410px;
-    margin-left: 5.5em;
-    position: relative;
-}
-div#indexpage div#searchLayout {
-    -moz-border-radius: 20px;
-    border-radius: 20px;
-    padding: 0 0 2px 8px;
-    height: 32px;
-}
-div#indexpage div#searchLayout p.headline,
-div#indexpage div#enterLayout p.headline {
-    position: absolute;
-    left: 2.7em;
-    background-color: white;
-    z-index: 100;
-    padding: 0 8px;
-    height: 1em;
-}
-div#indexpage div#searchLayout p.headline {
-    bottom: 2.2em;
-}
-div#indexpage div#enterLayout p.headline {
-    bottom: 6.7em;
-}
-div#indexpage div#searchLayout input#vinSearch {
-    width: 260px;
-    border: none;
-    height: 20px;
-    margin: 0.5em 0 0 0.9em;
-    color: #999;
-}
-div#indexpage div#searchLayout label.vinSearchLabel {
-    background: url('../images/loupe.jpg') no-repeat;
-    height: 24px;
-    width: 24px;
-    float: left;
-    margin-top: 0.5em;
-}
-div#indexpage div#enterLayout div.submitWrapper input,
-div#indexpage div#searchLayout input#vinSearchButton {
-    float: right;
-    border: 1px solid #b0b0b0;
-    background-color: #efefef;
-    cursor: pointer;
-    padding: 0 2px 2px 2px;
-}
-div#indexpage div#searchLayout input#vinSearchButton {
-    margin: 2px 2px 0 0 ;
-    height: 30px;
-    -moz-border-radius: 0 15px 15px 0;
-    border-radius: 0 15px 15px 0;
-    width: 105px;
-}
-div#indexpage div#enterLayout {
-    -moz-border-radius: 32px;
-    border-radius: 32px;
-    padding: 0 0 0 8px;
-    margin-top: 2.5em;
-}
-div#indexpage div#enterLayout div.fieldWrapper {
-    margin: 0 0 8px 0;
-    padding: 8px 0 10px 0;
-}
-div#indexpage div#enterLayout div.fieldWrapper label {
-    float: left;
-    width: 100px;
-    margin: 7px 0 0 2.75em;
-}
-div#indexpage div#enterLayout div.fieldWrapper div {
-    border: 1px solid silver;
-    float: right;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
-    width: 245px;
-    margin: 7px 18px 0 0;
-}
-div#indexpage div#enterLayout div.fieldWrapper div input {
-    width: 230px;
-    color: #999;
-    border: none;
-    margin: 0 0 0 8px;
-}
-div#indexpage div#enterLayout div.submitWrapper {
-    float: right;
-    margin: 0 18px 5px 0;
-}
-div#indexpage div#enterLayout div.submitWrapper input {
-    height: 24px;
-    -moz-border-radius: 15px;
-    border-radius: 15px;
-    width: 190px;
-    margin-top: 10px;
-}
-div#indexpage div#searchLayout div#container1,
-div#indexpage div#enterLayout div#container2 {
-    display: none;
-    position: absolute;
-    padding: 6px;
-    text-align: center;
-    left: -6em;
-    height: 2em;
-    background-color: goldenrod;
-    color: white;
-    border-radius: 12px;
-    -moz-border-radius: 12px;
-    line-height: 1em;
-}
-div#indexpage div#searchLayout div#container1 p,
-div#indexpage div#enterLayout div#container2 p {
-    color: white;
-}
-div#indexpage div#searchLayout div#container1 {
-    bottom: -0.2em;
-}
-div#indexpage div#enterLayout div#container2 {
-    bottom: 3em;
-}
-div#mainBlock img.logo {
-    float: left;
-    margin-right: 42px;
-}
-div#helppage img.logo {
-    margin-bottom: 16px;
-    margin-top: 16px;
-}
-div#indexpage ul#page-description {
-    font-size: 0.95em;
-    margin-bottom: 3em;
-}
-
-form div.t-error {
-    position: absolute;
-    left: -3em;
-    width: 36em;
-}
-div#confirmationpage form div.t-error {
-    width: 45em;
-}
-form#mileSearchForm div.t-error {
-    bottom: 3.2em;
-}
-form#mileEnterForm div.t-error {
-    bottom: 7.8em;
-}
-div#confirmationpage form#regDateForm div.t-error {
-    bottom: -0.6em;
-    left: -1em;
-}
-div#resultpage form#regDateForm div.t-error {
-    bottom: 0em;
-}
-form#regDateForm div.t-error {
-    left: 0em;
-}
-form div.t-error div {
-    display: none;
-}
-div.t-error ul {
-    list-style-type: none;
-}
-div.t-error ul li {
-    text-align: center;
-    color: tomato;
-    vertical-align: text-bottom;
-}
-
-form#regDateForm {
-    position: relative;
-}
-form#regDateForm div.regDateButtonsSingle {
-    float: left;
-    margin-left: 27.5em;
-}
-form#regDateForm div.regDateButtonsMore {
-    margin-left: 10.5em;
-}
-form#regDateForm div.regDateButtonsSingle div.wrapButton,
-form#regDateForm div.regDateButtonsMore div.wrapButton {
-    float: left;
-}
-form#regDateForm label {
-    float: left;
-    padding-top: 10px;
-    width: 170px;
-}
-form#regDateForm div.wrapSelect {
-    padding-left: 10px;
-    width: 80px;
-    float: left;
-    margin-left: 8px;
-}
-form#regDateForm select {
-    border: none;
-    width: 70px;
-}
-div#indexpage div.help {
-    cursor: help;
-    height: 15px;
-    width: 16px;
-    margin: 0 4.5em 0 5px;
-    background: url('../images/info.gif') no-repeat 0 -15px;
-    position: absolute;
-    right: -6em;
-}
-div#indexpage div#searchLayout div.help {
-    bottom: 0.7em;
-}
-div#indexpage div#enterLayout div.help {
-    margin-top: -1em;
-}
-div#indexpage div.help:hover {
-    background: url('../images/info.gif') no-repeat 0 0;
-}
-form div.wrapText, form div.wrapSelect {
-    border: 1px solid #90b0ea;
-    margin: 10px 0 10px 0;
-    -moz-border-radius: 15px;
-    -webkit-border-radius: 15px;
-    border-radius: 15px;
+ul#page-description {
+    margin-left: 7em;
 }
 form .text1 {
     display: none;
@@ -319,132 +223,231 @@ form .text3 {
 form .text4 {
     display: none !important;
 }
-div#indexpage div.help p {
+div#searchbox,
+div#enterbox,
+div#searchbox *,
+div#enterbox * {
+    position: absolute;
+}
+div#searchbox {
+    top: 15.5em;
+    height: 3.5em;
+}
+div#enterbox {
+    top: 22.5em;
+    height: 10em;
+}
+div#searchbox input[type=submit],
+div#enterbox input[type=submit] {
+    left: 21em;
+}
+div#searchbox input[type=submit] {
+    top: 1em;
+}
+div#searchbox label,
+div#enterbox label {
+    white-space: nowrap;
+    left: 2em;
+}
+div#searchbox h3,
+div#enterbox h3 {
+    top: -0.5em;
+}
+div#enterbox label#entervin-label {
+    top: 1.5em;
+}
+div#enterbox label#entermile-label {
+    top: 5.5em;
+}
+div#searchbox input[type=text],
+div#enterbox input[type=text] {
+    width: 18em;
+    color: #999;
+    left: 1em;
+}
+div#searchbox input[type=text] {
+    top: 1em;
+}
+img#vinSearch_icon,
+img#vinEnter_icon,
+img#mileageEnter_icon {
+    left: -1.5em;
+}
+img#vinSearch_icon {
+    top: 1.3em;
+}
+img#vinEnter_icon {
+    top: 3.3em;
+}
+img#mileageEnter_icon {
+    top: 7.3em;
+}
+div#container2,
+div#enterbox input#vinEnter {
+    top: 3em;
+}
+div#enterbox input#mileageEnter,
+div#enterbox input[type=submit] {
+    top: 7em;
+}
+div#container1,
+div#container2 {
     display: none;
-    position: relative;
+    background-color: cornflowerblue;
+    color: #fff;
+    height: 44px;
+    width: 72px;
+    text-align: center;
+    padding-top: 0.2em;
+    border: 2px ridge honeydew;
+    z-index: 100;
+}
+div#container1 p,
+div#container2 p {
+    color: white;
+    margin-left: 2.25em;
+}
+form#mileSearchForm,
+form#mileEnterForm {
+    left: 6em;
+}
+
+
+form#regDateForm {
+    position: relative !important;
+}
+form#regDateForm * {
+    position: absolute !important;
+}
+form#regDateForm select#dayselect {
+    left: 13em;
+}
+form#regDateForm select#monthselect {
+    left: 18.5em;
+}
+form#regDateForm select#yearselect {
+    left: 24em;
+}
+form#regDateForm div.t-error ul li {
+    left: 6em;
+}
+input#yesStore,
+input#noThankYou {
+    top: 2.25em;
+}
+input#yesStore {
+    left: 10em;
+}
+input#noThankYou {
+    left: 22em;
+}
+
+div#result div img {
+    vertical-align: middle;
+}
+
+div#resultpage div.wrapper {
+    height: 18em;
+}
+
+div.help {
+    cursor: help;
+    height: 24px;
+    width: 24px;
+    margin: 0 4.5em 0 5px;
+    background: url('../images/help.gif') no-repeat 0 0px;
+    right: -4em;
+}
+div.help:hover {
+    background: url('../images/help.gif') no-repeat 0 -24px;
+}
+
+div.help p {
+    background-color: #fff;
+    display: none;
     line-height: 1.32em;
     font-size: 0.9em;
-    left: 24px;
+    left: 26px;
     top: 8px;
-    width: 215px;
+    width: 22em;
     z-index: 1000;
     border: 1px solid #90b0ea;
     padding: 10px;
-    border-top-right-radius: 20px;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-    -moz-border-radius-topright: 20px;
-    -moz-border-radius-bottomleft: 20px;
-    -moz-border-radius-bottomright: 20px;
+    border-top-left-radius: 0px;
+    -moz-border-radius-topleft: 0px;
     -moz-box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.2), inset 0px 1px 1px rgba(255, 255, 255, 0.8);
     -webkit-box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.2), inset 0px 1px 1px rgba(255, 255, 255, 0.8);
     box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.2), inset 0px 1px 1px rgba(255, 255, 255, 0.8);
 }
-div#indexpage div.help:hover p {
+div.help:hover p {
     display: block;
 }
-form div.wrapButton input {
-    height: 26px;
-    -moz-border-radius: 15px;
-    border-radius: 15px;
-    border: 1px solid #b0b0b0;
-    padding: 0 16px;
-    background-color: #efefef;
-    margin: 0 22px 0 0;
-    text-decoration: none;
-    cursor: pointer;
+div.help p,
+div.help p * {
+    position: relative !important;
 }
-form div.wrapButton input:hover,
-div#indexpage div#searchLayout input#vinSearchButton:hover,
-div#indexpage div#enterLayout div.submitWrapper input:hover {
-    background-color: #b0b0b0;
+
+/* Tapestry styles all start with "t-" */
+DIV.t-error {
+    border: 1px solid red;
+    padding: 0px;
+    margin: 4px 0px;
+}
+
+DIV.t-error DIV {
+    padding: 2px;
+    display: block;
+    margin: 0px;
+    background-color: red;
+    color: white;
+    font-weight: bold;
+}
+
+DIV.t-error UL {
+    margin: 2px 0px;
+    background-color: white;
+    color: red;
+}
+
+DIV.t-error LI {
+    margin-left: 20px;
+}
+
+DIV.t-error-single {
+    padding: 2px;
+    display: block;
+    margin: 0px;
+    background-color: red;
     color: white;
 }
-form#okForm div.wrapButton input {
-    margin-left: 7.5em;
+
+HTML>BODY DIV.t-error LI {
+    margin-left: -20px;
 }
 
-div#indexpage ul#social {
-    padding: 1.5em 0 16px 0;
-    clear: both;
-    list-style: none;
+.t-invisible {
+    display: none;
 }
-div#indexpage ul#social li {
-    display: inline;
-    margin-left: 12px;
+
+LABEL.t-error {
+    color: red;
 }
-div#indexpage ul#social li a {
-    display: block;
-    height: 22px;
-    width: 65px;
-    border: 1px solid #90b0ea;
-    -moz-border-radius: 12px;
-    -webkit-border-radius: 12px;
-    border-radius: 12px;
-    padding-left: 8px;
-    font-size: 1.1em;
+
+INPUT.t-error, TEXTAREA.t-error, SELECT.t-error {
+    border-color: red;
+    font-style: italic;
+    color: red;
 }
-div#indexpage ul#social li a:hover {
-    border-color: #7090c8;
+
+IMG.t-error-icon {
+    margin-left: 4px;
+    width: 16px;
+    height: 16px;
+    background: url(../images/field-error-marker.gif);
 }
-div#indexpage ul#social li a img {
+
+/*
+IMG {
     border: none;
-    width: 22px;
-    height: 18px;
-    vertical-align: middle;
-    margin-bottom: 6px;
 }
-div#indexpage ul#social a img,
-div#indexpage ul#social iframe {
-    height: 24px;
-}
-div#indexpage ul#social iframe {
-    overflow: hidden;
-    width: 46px;
-}
-
-div#mainBlock div#resultpage img {
-    vertical-align: middle;
-}
-div#mainBlock div#resultpage p a {
-    margin-right: 64px;
-}
-div#mainBlock div#resultpage p a:hover {
-    border-bottom: 1px solid;
-}
-
-div#confirmationpage ul.input {
-    margin: 1.5em 0 2.5em 0;
-    list-style-type: none;
-}
-div#confirmationpage ul li span {
-    float: left;
-    font-weight: bold;
-    width: 8.5em;
-}
-img.logomod {
-    margin-top: 1em;
-    margin-bottom: 4em;
-}
-div#helppage ul {
-    margin: 0 0 3em 0;
-}
-div#helppage ul li {
-    margin: 4px 0;
-}
-div#helppage div#answers {
-    overflow-y: scroll;
-    padding: 0 4px 0 0;
-    height: 17.5em;
-}
-div#helppage div#answers a {
-    border: none;
-    display: block;
-    margin: 0 0 4px 0;
-}
-div#helppage div#answers p {
-    margin: 0 0 12px 20px;
-}
-div#sitenotice ul {
-    margin-bottom: 21em;
-}
+*/

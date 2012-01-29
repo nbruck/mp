@@ -7,8 +7,7 @@
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
       xmlns:p="tapestry:parameter">
 
-    <div id="error404">
-        <img class="logo logomod" src="${context:images/logo-sorry-url.jpg}" alt="sorry_not_found"/>
+    <div class="wrapper round boxShadow">
         ${message:page.hint_one.404}
 
         <t:backtomainpage t:message="${message:page.hint_two.404}" t:linktext="${message:page.naviagte-to-main.url-txt}"/>

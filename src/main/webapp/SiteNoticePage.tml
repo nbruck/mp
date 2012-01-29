@@ -8,31 +8,30 @@
       xmlns:p="tapestry:parameter">
 
     <div id="sitenotice">
-        <img class="logo logomod" src="${context:images/logo-smart.jpg}" alt="smart-user"/>
 
-        <h2>
-            ${message:sitenotice.txt.headline}
-        </h2>
+        <div class="wrapper round boxShadow">
+            <h2>${message:sitenotice.txt.headline}</h2>
 
-        <ul>
-            <li>
-                <t:outputraw value="message:text.name.nik"/>
-            </li>
-            <li>
-                <t:outputraw value="message:text.name.dennis"/>
-            </li>
-        </ul>
+            <ul>
+                <li>
+                    <t:outputraw value="message:text.name.nik"/>
+                </li>
+                <li>
+                    <t:outputraw value="message:text.name.dennis"/>
+                </li>
+            </ul>
 
-        <p>
-            <t:outputraw value="message:text.site.guarantee"/>
-        </p>
+            <p>
+                <t:outputraw value="message:text.site.guarantee"/>
+            </p>
 
-        <br/>
-        <br/>
+            <br/>
+            <br/>
 
-        <p>
-            <t:outputraw value="message:text.browser.check"/>
-        </p>
+            <p>
+                <t:outputraw value="message:text.browser.check"/>
+            </p>
+        </div>
     </div>
 
 </html>

@@ -6,16 +6,17 @@
       xmlns:p="tapestry:parameter">
 
     <div id="resultpage">
-        <t:if test="mileageResultAvailable"/>
+        <div class="wrapper round boxShadow">
+            <t:if test="mileageResultAvailable"/>
 
-        <t:if test="errorMessage">
-            <img class="logo" src="${context:images/logo-sorry.jpg}" alt="sorry user"/>
-            <h2>${prop:errorMessage}</h2>
+            <t:if test="errorMessage">
+                <h2>${prop:errorMessage}</h2>
 
-            <t:backtomainpage/>
-        </t:if>
+                <t:backtomainpage/>
+            </t:if>
 
-        <t:delegate to="prop:activeBlock"/>
+            <t:delegate to="prop:activeBlock"/>
+        </div>
     </div>
 
     <t:block t:id="viewOnlyBlock">
@@ -51,8 +52,6 @@
     </t:block>
 
     <t:block t:id="sharedBlockForNewAndNoRegdate">
-        <img class="logo" src="${context:images/logo-happy.jpg}" alt="happy user" style="margin-bottom: 2em"/>
-
         <span>
             <t:outputRaw value="message:success.mileage.stored.optional"/>
         </span>
@@ -70,12 +69,8 @@
     </t:block>
 
     <t:block t:id="yesOrNoButtonBlock">
-        <div class="wrapButton">
-            <t:submit t:id="yesStore" value="message:submit.yes-store.txt"/>
-        </div>
-        <div class="wrapButton">
-            <t:submit t:id="noThankYou" value="message:submit.no-thank-you.txt"/>
-        </div>
+        <t:submit t:id="yesStore" value="message:submit.yes-store.txt" class="round"/>
+        <t:submit t:id="noThankYou" value="message:submit.no-thank-you.txt" class="round"/>
     </t:block>
 
     <t:block t:id="fallbackBlock">

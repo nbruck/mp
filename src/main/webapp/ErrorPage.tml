@@ -7,8 +7,7 @@
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
       xmlns:p="tapestry:parameter">
 
-    <div id="error">
-        <img class="logo" src="${context:images/logo-sorry.jpg}" alt="sorry_not_found"/>
+    <div class="wrapper round boxShadow">
         <t:outputRaw value="prop:message"/>
 
         <t:backtomainpage/>

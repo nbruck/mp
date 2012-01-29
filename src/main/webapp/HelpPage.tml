@@ -8,54 +8,65 @@
       xmlns:p="tapestry:parameter">
 
     <div id="helppage">
-        <h1>${message:page.headline}</h1>
+        <div class="wrapper round boxShadow">
+            <h1>${message:page.headline}</h1>
 
-        <img class="logo" src="images/logo-help.jpg" alt="happy user"/>
-
-        <ul>
-            <li>
-                <a href="${literal:#}${message:anchor.why}">${message:help.question.why-i-should}</a>
-            </li>
-            <li>
-                <a href="${literal:#}${message:anchor.how2search}">${message:help.question.start-search }</a>
-            </li>
-            <li>
-                <a href="${literal:#}${message:anchor.where-is-vin}">${message:help.question.where-is-vin}</a>
-            </li>
-            <li>
-                <a href="${literal:#}${message:anchor.whatis-checkdigit}">${message:help.question.checkdigit}</a>
-            </li>
-            <li>
-                <a href="${literal:#}${message:anchor.about-my-data}">${message:help.question.what-about-my-data}</a>
-            </li>
-        </ul>
+            <ul>
+                <li>
+                    <a href="${literal:#}${message:anchor.why-join}">${message:help.question.why-i-should}</a>
+                </li>
+                <li>
+                    <a href="${literal:#}${message:anchor.how2search}">${message:help.question.start-search }</a>
+                </li>
+                <li>
+                    <a href="${literal:#}${message:anchor.where-is-vin}">${message:help.question.where-is-vin}</a>
+                </li>
+                <li>
+                    <a href="${literal:#}${message:anchor.whatis-checkdigit}">${message:help.question.checkdigit}</a>
+                </li>
+                <li>
+                    <a href="${literal:#}${message:anchor.about-my-data}">${message:help.question.what-about-my-data}</a>
+                </li>
+            </ul>
+        </div>
 
         <div id="answers">
             <t:delegate to="prop:activeBlock"/>
+            <br/>
         </div>
     </div>
 
     <t:block t:id="de_helpBlock">
-        <a name="${message:anchor.why}">${message:help.question.why-i-should}</a>
-        <p>
-            <t:outputraw value="message:help.answer.why-i-should"/>
-        </p>
-        <a name="${message:anchor.how2search}">${message:help.question.start-search}</a>
-        <p>
-            <t:outputraw value="message:help.answer.start-search"/>
-        </p>
-        <a name="${message:anchor.where-is-vin}">${message:help.question.where-is-vin}</a>
-        <p>
-            <t:outputraw value="message:help.answer.where-is-vin"/>
-        </p>
-        <a name="${message:anchor.whatis-checkdigit}">${message:help.question.checkdigit}</a>
-        <p>
-            <t:outputraw value="message:help.answer.checkdigit"/>
-        </p>
-        <a name="${message:anchor.about-my-data}">${message:help.question.what-about-my-data}</a>
-        <p>
-            <t:outputraw value="message:help.answer.what-about-my-data"/>
-        </p>
+        <div class="wrapper round boxShadow">
+            <a name="${message:anchor.why-join}">${message:help.question.why-i-should}</a>
+            <p>
+                <t:outputraw value="message:help.answer.why-i-should"/>
+            </p>
+        </div>
+        <div class="wrapper round boxShadow"> 
+            <a name="${message:anchor.how2search}">${message:help.question.start-search}</a>
+            <p>
+                <t:outputraw value="message:help.answer.start-search"/>
+            </p>
+        </div>
+        <div class="wrapper round boxShadow">
+            <a name="${message:anchor.where-is-vin}">${message:help.question.where-is-vin}</a>
+            <p>
+                <t:outputraw value="message:help.answer.where-is-vin"/>
+            </p>
+        </div>
+        <div class="wrapper round boxShadow">
+            <a name="${message:anchor.whatis-checkdigit}">${message:help.question.checkdigit}</a>
+            <p>
+                <t:outputraw value="message:help.answer.checkdigit"/>
+            </p>
+        </div>
+        <div class="wrapper round boxShadow">
+            <a name="${message:anchor.about-my-data}">${message:help.question.what-about-my-data}</a>
+            <p>
+                <t:outputraw value="message:help.answer.what-about-my-data"/>
+            </p>
+        </div>
     </t:block>
 
     <t:block t:id="en_helpBlock">

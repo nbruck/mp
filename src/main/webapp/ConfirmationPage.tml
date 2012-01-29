@@ -11,40 +11,35 @@
 
 
     <t:block t:id="confirmOnlyBlock">
-        <h2>
+        <div class="wrapper round boxShadow">
+            <h2>
             ${message:text.data.please-confirm}
-        </h2>
-        <t:delegate to="block:confirmDataBlock"/>
+            </h2>
+            <t:delegate to="block:confirmDataBlock"/>
 
-        <t:motorform t:id="okForm">
-            <div class="wrapButton">
-                <t:submit value="literal:OK" t:id="Ok"/>
-            </div>
-        </t:motorform>
-    </t:block>
-
-    <t:block t:id="notBlockedBlock">
-        <h2>
-            ${message:text.data.confirm.head.enter-regdate}
-        </h2>
-        <p>
-            <t:outputraw value="message:text.data.confirm-enter-regdate"/>
-        </p>
-        <t:delegate to="block:confirmDataBlock"/>
-
-        <t:registrationDateComponent buttonBlock="block:checkDateButtonBlock"/>
-
-    </t:block>
-
-    <t:block t:id="checkDateButtonBlock">
-        <div class="wrapButton">
-            <t:submit t:id="checkDate" value="message:submit.regdate-check.txt"/>
+            <t:motorform t:id="okForm">
+                <t:submit value="literal:OK" t:id="Ok" class="round"/>
+            </t:motorform>
         </div>
     </t:block>
 
-    <t:block t:id="confirmDataBlock">
-        <img class="logo" src="${context:images/logo-asking.jpg}" alt="asking user"/>
+    <t:block t:id="notBlockedBlock">
+        <div id="withRegDate" class="wrapper round boxShadow">
+            <h2>${message:text.data.confirm.head.enter-regdate}</h2>
+            <p>
+                <t:outputraw value="message:text.data.confirm-enter-regdate"/>
+            </p>
+            <t:delegate to="block:confirmDataBlock"/>
 
+            <t:registrationDateComponent buttonBlock="block:checkDateButtonBlock"/>
+        </div>
+    </t:block>
+
+    <t:block t:id="checkDateButtonBlock">
+        <t:submit t:id="checkDate" value="message:submit.regdate-check.txt" class="round"/>
+    </t:block>
+
+    <t:block t:id="confirmDataBlock">
         <ul class="input">
             <li>
                 <span>${message:text.carId}</span>
@@ -58,10 +53,13 @@
     </t:block>
 
     <t:block t:id="blockedBlock">
-        <img class="logo logomod" src="${context:images/logo-worried.jpg}" alt="worried user"/>
-        <t:outputRaw value="prop:blockedMessage"/>
+        <div class="wrapper round boxShadow">
+            <h3>
+                <t:outputRaw value="prop:blockedMessage"/>
+            </h3>
 
-        <t:backtomainpage/>
+            <t:backtomainpage/>
+        </div>
     </t:block>
 
     <t:block t:id="fallbackBlock">
