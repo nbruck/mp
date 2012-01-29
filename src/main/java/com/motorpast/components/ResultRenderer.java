@@ -7,7 +7,6 @@ import java.util.Locale;
 import java.util.Map;
 
 import org.apache.tapestry5.annotations.Parameter;
-import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -63,7 +62,7 @@ public class ResultRenderer
     }
 
     public String getMileageMessage() {
-        return messages.format("mileage.found", getStoringDate());
+        return messages.format("mileage.found-one", getStoringDate());
     }
 
     private String getStoringDate() {

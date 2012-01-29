@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.PersistenceConstants;
+import org.apache.tapestry5.annotations.Import;
 import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
@@ -37,6 +38,7 @@ import com.motorpast.services.persistence.PersistenceService;
     },
     putInSitemap = false
 )
+//@Import(stylesheet = {"context:css/confirm.css"})
 public class ConfirmationPage extends BasePage
 {
     @Inject

@@ -20,7 +20,7 @@ public class UserSessionObj
     /**
      * for checking against spambots
      */
-    private long timestamp;
+    private String timestamp;
 
 
     public final void testForCreation() {
@@ -55,10 +55,10 @@ public class UserSessionObj
         this.uniqueToken = uniqueToken;
     }
 
-    public final long getTimestamp() {
+    public final String getTimestamp() {
         return timestamp;
     }
-    public final void setTimestamp(final long timestamp) {
+    public final void setTimestamp(final String timestamp) {
         this.timestamp = timestamp;
     }
 }

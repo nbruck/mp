@@ -37,14 +37,6 @@ public class HibernatePostgresSessionFactory implements HibernateSessionFactory
         cfg.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
         cfg.setProperty("hibernate.hbm2ddl.auto", "create");
 
-        //here the c3po settings are coming
-        cfg.setProperty("hibernate.c3p0.max_size", "30");
-        cfg.setProperty("hibernate.c3p0.min_size", "10");
-        cfg.setProperty("hibernate.c3p0.timeout", "1800");
-        cfg.setProperty("hibernate.c3p0.acquire_increment", "1");
-        cfg.setProperty("hibernate.c3p0.idle_test_period", "120");
-        cfg.setProperty("hibernate.c3p0.max_statements", "60");
-
         cfg.addAnnotatedClass(CarDataEntity.class);
         cfg.addAnnotatedClass(CarMileageEntity.class); 
 

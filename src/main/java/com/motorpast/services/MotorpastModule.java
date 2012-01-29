@@ -14,6 +14,7 @@ import org.apache.tapestry5.ioc.annotations.SubModule;
 import org.apache.tapestry5.ioc.annotations.Symbol;
 import org.apache.tapestry5.services.ApplicationStateManager;
 import org.apache.tapestry5.services.ClientInfrastructure;
+import org.apache.tapestry5.services.ComponentEventResultProcessor;
 import org.apache.tapestry5.services.ComponentSource;
 import org.apache.tapestry5.services.ExceptionReporter;
 import org.apache.tapestry5.services.PageRenderLinkSource;
@@ -22,6 +23,7 @@ import org.apache.tapestry5.services.Response;
 import org.apache.tapestry5.services.ResponseRenderer;
 import org.slf4j.Logger;
 
+import com.motorpast.additional.HttpStatusCode;
 import com.motorpast.additional.MotorApplicationConstants;
 import com.motorpast.additional.MotorpastException;
 import com.motorpast.annotations.MileageResultCaptcha;
@@ -84,13 +86,13 @@ public class MotorpastModule
 
         configuration.add(SymbolConstants.OMIT_GENERATOR_META, "true");
 
-        configuration.add(SymbolConstants.PRODUCTION_MODE, "true");
+        configuration.add(SymbolConstants.PRODUCTION_MODE, "false");
 
         configuration.add(SymbolConstants.EXCEPTION_REPORT_PAGE, ErrorPage.class.getSimpleName());
 
         configuration.add(MotorApplicationConstants.ShowTrustLevel, "true");
 
-        configuration.add(MotorApplicationConstants.AntiSpambotTime, "2139"); // not too long
+        configuration.add(MotorApplicationConstants.AntiSpambotTime, "1788"); // not too long
 
         configuration.add(MotorApplicationConstants.IndexPageUrl, "http://www.motorpast.com");
 
@@ -146,5 +148,19 @@ public class MotorpastModule
         }
 
         return e;
+    }
+
+    public static void contributeComponentEventResultProcessor(
+            MappedConfiguration<Class<?>, ComponentEventResultProcessor<HttpStatusCode>> configuration,
+            final Response response)
+    {
+        configuration.add(HttpStatusCode.class, new ComponentEventResultProcessor<HttpStatusCode>() 
+        {
+            public void processResultValue(HttpStatusCode httpStatusCode) throws IOException {
+                if (!httpStatusCode.getLocation().isEmpty())
+                    response.setHeader("Location", httpStatusCode.getLocation());
+                    response.sendError(httpStatusCode.getStatusCode(), "");
+                }
+        });
     }
 }

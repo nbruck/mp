@@ -2,28 +2,30 @@ package com.motorpast.components;
 
 import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.InjectPage;
-import org.apache.tapestry5.annotations.Parameter;
+import org.apache.tapestry5.annotations.Mixin;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
+import org.apache.tapestry5.corelib.components.TextField;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.services.PageRenderLinkSource;
 import org.slf4j.Logger;
 
 import com.motorpast.additional.MotorRequestState;
 import com.motorpast.additional.MotorpastException;
 import com.motorpast.dataobjects.UserSessionObj;
+import com.motorpast.mixins.CheckRequestTime;
+import com.motorpast.pages.HelpPage;
 import com.motorpast.pages.ResultPage;
 import com.motorpast.services.business.MotorpastBusinessException;
 import com.motorpast.services.business.MotorpastBusinessException.BusinessErrorCode;
 import com.motorpast.services.business.ValidationService;
 import com.motorpast.services.security.MotorpastSecurityException;
 import com.motorpast.services.security.MotorpastSecurityException.SecurityErrorCode;
-import com.motorpast.services.security.SecurityService;
 
 /**
  * text1 = carid for search request
  * text2 = fake field for bad spam bots
- * text3 = unique token, text4 = timestamp : both values created in page and passed by parameters
  */
 public class MileageSearchComponent
 {
@@ -34,13 +36,13 @@ public class MileageSearchComponent
     private Logger logger;
 
     @Inject
+    private PageRenderLinkSource pageRenderLinkSource;
+
+    @Inject
     private Messages messages;
 
     @Inject
     private ValidationService validationService;
-
-    @Inject
-    private SecurityService securityService;
 
     @InjectPage
     private ResultPage resultPage;
@@ -48,13 +50,11 @@ public class MileageSearchComponent
     @InjectComponent
     private MotorForm mileSearchForm;
 
-    @Parameter(required = true, name = "token")
-    @Property
-    private String text3;
+    @Mixin
+    private CheckRequestTime checkRequestTime;
 
-    @Parameter(required = true, name = "date")
-    @Property
-    private long text4;
+    @InjectComponent(value="text1")
+    private TextField vinsearch;
 
     @Property
     private String text1, text2; // carid for search only, second field is fake
@@ -74,12 +74,7 @@ public class MileageSearchComponent
     }
 
     void onValidateFormFromMileSearchForm() throws MotorpastSecurityException {
-        logger.debug("received values from mileSearchForm:  text1=" + text1 + ", text3=" + text3 + ", text4=" + text4 + " ...end");
-
-        // this is an attempt to prevent CSRF
-        if(!text3.equals(sessionObj.getUniqueToken())) {
-            throw new MotorpastSecurityException(SecurityErrorCode.error_security);
-        }
+        logger.debug("received values from mileSearchForm:  text1=" + text1 + ", fakefield=" + text2 + "(which should be null or empty)");
 
         if(text2 != null) {
             logger.info("hidden fake-textfield has been filled with value=" + text2);
@@ -89,31 +84,30 @@ public class MileageSearchComponent
         if(messages.get("txt.input.vin.placeholder").equals(text1)) {
             text1 = null;
         }
-        carId = text1;
+        carId = text1 != null ? text1.toUpperCase() : null;
 
         //carid only is required
         if(carId == null || carId.isEmpty()) {
-            mileSearchForm.recordError(messages.get("error.carId.required"));
+            mileSearchForm.recordError(vinsearch, messages.get("error.carId.required"));
             return;
         }
 
         if(!validationService.validateCarId(carId)) {
-            mileSearchForm.recordError(messages.get("error.carId.regex-invalid"));
+            mileSearchForm.recordError(vinsearch, messages.get("error.carId.regex-invalid"));
             return;
         }
 
-        // check date for spambot detection
-        if(text4 == 0                                                       // field is missing -> spam
-            || !validationService.validateNumeric(String.valueOf(text4))    // manipulation
-            || text4 != sessionObj.getTimestamp()                           // manipulation
-            || text4 >= securityService.generateCheckTimestamp()            // too fast -> spam
-        ) {
-            throw new MotorpastSecurityException(SecurityErrorCode.error_security);
-        }
+        checkRequestTime.validateRequestTime();
     }
 
     Object onSuccessFromMileSearchForm() throws MotorpastException {
         resultPage.setPageParameter(MotorRequestState.SimpleViewRequest, carId, null);
         return resultPage;
+    }
+
+    public Object[] getToolTipParameter() {
+        return new Object[] {
+            pageRenderLinkSource.createPageRenderLink(HelpPage.class).toURI()
+        };
     }
 }

@@ -4,6 +4,7 @@ import org.apache.tapestry5.Asset;
 import org.apache.tapestry5.BindingConstants;
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.ComponentResources;
+import org.apache.tapestry5.annotations.Import;
 import org.apache.tapestry5.annotations.InjectContainer;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Path;
@@ -13,6 +14,7 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 
 import com.motorpast.base.BasePage;
 
+//@Import(stylesheet = {"context:css/mainLayout.css"})
 public class MainLayout
 {
     @InjectContainer
@@ -54,6 +56,9 @@ public class MainLayout
     @Property
     private String currentNavigationEntry;
 
+    @Property
+    private int navCounter;
+
 
     public String getOtherPageText() {
         return messages.get(componentResources.getPageName());
@@ -83,5 +88,13 @@ public class MainLayout
 
     public String getCurrentNavigationLinkText() {
         return messages.get("page." + currentNavigationEntry);
+    }
+
+    public String getAdditionalStyleClass() {
+        if(navCounter == navigation.length -1) {
+            return "navlast";
+        } else {
+            return "";
+        }
     }
 }

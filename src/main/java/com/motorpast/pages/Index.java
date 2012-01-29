@@ -2,24 +2,25 @@ package com.motorpast.pages;
 
 import java.io.IOException;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.tapestry5.EventContext;
+import org.apache.tapestry5.annotations.Import;
 import org.apache.tapestry5.annotations.InjectPage;
-import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.services.PageRenderLinkSource;
 import org.apache.tapestry5.services.Response;
 import org.slf4j.Logger;
 
+import com.motorpast.additional.HttpStatusCode;
 import com.motorpast.additional.MotorPages;
 import com.motorpast.annotations.UrlRewrite;
 import com.motorpast.base.BasePage;
 import com.motorpast.dataobjects.UserSessionObj;
 import com.motorpast.services.business.MotorpastBusinessException;
-import com.motorpast.services.security.SecurityService;
 
 @UrlRewrite(
     mappings={
@@ -29,17 +30,17 @@ import com.motorpast.services.security.SecurityService;
         "changefreq", "monthly",
         "priority", "1.0"
 })
+//@Import(stylesheet = {"context:css/index.css"})
 public class Index extends BasePage
 {
     @SessionState(create = true)
     private UserSessionObj sessionObj;
 
-
     @Inject
     private Response response;
 
     @Inject
-    private HttpServletRequest httpServletRequest;
+    private PageRenderLinkSource pageRenderLinkSource;
 
     @Inject
     private Logger logger;
@@ -47,20 +48,11 @@ public class Index extends BasePage
     @Inject
     private Messages messages;
 
-    @Inject
-    private SecurityService securityService;
-
     @InjectPage
     private ResultPage resultPage;
 
     @InjectPage
     private ConfirmationPage confirmationPage;
-
-    @Property
-    private String token;
-
-    @Property
-    private long date;
 
     private boolean sessionObjExists;
 
@@ -78,14 +70,19 @@ public class Index extends BasePage
     /**
      * catching all senseless urls for our application and sending 404
      */
-    void onActivate(EventContext eventContext) {
+    Object onActivate(EventContext eventContext) {
         if(eventContext != null && eventContext.getCount()  > 0) {
+            /*
             try {
                 response.sendError(404, "not found");
             } catch (IOException e) {
                 logger.error("ioException while try sending error 404");
             }
+            */
+            response.disableCompression();
+            return new HttpStatusCode(HttpServletResponse.SC_NOT_FOUND, pageRenderLinkSource.createPageRenderLink(Error404.class).toAbsoluteURI()) ;
         }
+        return true;
     }
 
     @SetupRender
@@ -96,16 +93,6 @@ public class Index extends BasePage
         // reset stuff
         confirmationPage.setPageParameter(null, null, null);
         resultPage.setPageParameter(null, null, null);
-    }
-
-    void beginRender() {
-        final String token = securityService.generateToken(httpServletRequest);
-        this.token = token;
-        sessionObj.setUniqueToken(token);
-
-        final long timestamp = securityService.generateTimestamp();
-        this.date = timestamp;
-        sessionObj.setTimestamp(timestamp);
     }
 
     public String getPageDescription() {

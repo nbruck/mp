@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.ComponentEventCallback;
 import org.apache.tapestry5.ComponentResources;
+import org.apache.tapestry5.annotations.Import;
 import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
@@ -24,6 +25,7 @@ import com.motorpast.services.security.MotorpastSecurityException;
 import com.motorpast.services.security.MotorpastSecurityException.SecurityErrorCode;
 import com.motorpast.services.security.SecurityService;
 
+//@Import(stylesheet = {"context:css/registercomponent.css"})
 public class RegistrationDateComponent
 {
     @SessionState(create = false)

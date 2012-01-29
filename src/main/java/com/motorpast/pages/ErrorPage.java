@@ -55,7 +55,7 @@ public class ErrorPage extends BasePage implements ExceptionReporter
             sessionObj.setMileageResultCaptcha(null);
             sessionObj.setTrustLevel(null);
             sessionObj.setUniqueToken(null);
-            sessionObj.setTimestamp(0L);
+            sessionObj.setTimestamp(null);
         }
     }
 

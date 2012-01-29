@@ -94,7 +94,7 @@ public class BusinessServiceImpl implements BusinessService<CarData, HttpServlet
 
                 setLastMileageForDisplaying(newCardata.getLastMileage());
                 return newCardata;
-            } else /*if(selectedCarData.getRegistrationdate() == null)*/ { // car exists but no regdate formerly stored //TODO: remove uncomment code if it works
+            } else { // car exists
                 final CarData carData = persistenceService.updateCarData(selectedCarData, new Date(), mileage, ip, hostInfo);
                 setLastMileageForDisplaying(carData.getLastMileage());
                 return carData;

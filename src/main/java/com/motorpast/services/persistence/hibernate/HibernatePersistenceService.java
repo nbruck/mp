@@ -203,21 +203,25 @@ public class HibernatePersistenceService implements PersistenceService<CarDataEn
                 selectedCar.setAttemptsLeft(attemptsLeft);
 
                 if(attemptsLeft == 0) { // set blocking date and update then
-                    final Calendar calendar = new GregorianCalendar();
-                    calendar.set(Calendar.HOUR_OF_DAY, 0);
-                    calendar.set(Calendar.MINUTE, 0);
-                    calendar.set(Calendar.SECOND, 1);
-                    calendar.add(Calendar.DATE, blockForDays);
-                    final Date blockingDate = calendar.getTime();
-
-                    selectedCar.setBlockingdate(blockingDate);
-                    logger.info("Blocking date for carid=" + selectedCar.getCarId() + " set to " + blockingDate.toString());
+                    setBlockingDate(selectedCar);
                 }
                 session.update(selectedCar);
 
                 return selectedCar;
             }
         });
+    }
+
+    private void setBlockingDate(final CarDataEntity selectedCar) {
+        final Calendar calendar = new GregorianCalendar();
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 1);
+        calendar.add(Calendar.DATE, blockForDays);
+        final Date blockingDate = calendar.getTime();
+
+        selectedCar.setBlockingdate(blockingDate);
+        logger.info("Blocking date for carid=" + selectedCar.getCarId() + " set to " + blockingDate.toString());
     }
 
     @Override
