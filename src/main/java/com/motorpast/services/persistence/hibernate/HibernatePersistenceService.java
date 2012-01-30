@@ -6,10 +6,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.StaleObjectStateException;
-import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,6 +22,7 @@ public class HibernatePersistenceService implements PersistenceService<CarDataEn
 {
     private final Logger logger;
     private final HibernateSessionFactory sessionFactory;
+    private final HibernateTransactionalBehaviour tx;
 
     private final int initialAttempts;
     private final int blockForDays;
@@ -33,8 +31,10 @@ public class HibernatePersistenceService implements PersistenceService<CarDataEn
     public HibernatePersistenceService(final HibernateSessionFactory sessionFactory, final int initialAttempts, final int blockForDays) {
         this.logger = LoggerFactory.getLogger(HibernatePersistenceService.class);
         this.sessionFactory = sessionFactory;
+        this.tx = new HibernateTransactionalBehaviour(logger);
         this.initialAttempts = initialAttempts;
         this.blockForDays = blockForDays;
+
         logger.info("HibernatePersistenceService startet...");
     }
 
@@ -42,7 +42,7 @@ public class HibernatePersistenceService implements PersistenceService<CarDataEn
     public CarData getDataForCarId(final String carId) throws MotorpastPersistenceException {
         final Session session = getSession();
 
-        return wrapHibernateCommandIntoTransaction(
+        return tx.wrapCommandIntoTxReturn(
             new HibernateCommand<CarData>(session) {
                 CarData execute() throws MotorpastPersistenceException {
                     return getDataForCarIdInternal(session, carId);
@@ -102,7 +102,7 @@ public class HibernatePersistenceService implements PersistenceService<CarDataEn
     public List<CarMileage> getAllMileageDataForCar(final String carId) throws MotorpastPersistenceException {
         final Session session = getSession();
 
-        return wrapHibernateCommandIntoTransaction(
+        return tx.wrapCommandIntoTxReturn(
             new HibernateCommand<List<CarMileage>>(session) {
                 List<CarMileage> execute() throws MotorpastPersistenceException {
                     CarDataEntity selectedCar = (CarDataEntity)session.createQuery("from CarDataEntity c where c.carId = :carId")
@@ -138,7 +138,7 @@ public class HibernatePersistenceService implements PersistenceService<CarDataEn
     public CarData saveNewCarData(final CarDataEntity carToSave, final String ip, final String hostInfo) throws MotorpastPersistenceException {
         final Session session = getSession();
 
-        return wrapHibernateCommandIntoTransaction(
+        return tx.wrapCommandIntoTxReturn(
             new HibernateCommand<CarData>(session) {
                 CarData execute() {
                     session.save(carToSave);
@@ -170,7 +170,7 @@ public class HibernatePersistenceService implements PersistenceService<CarDataEn
     {
         final Session session = getSession();
 
-        return wrapHibernateCommandIntoTransaction(new HibernateCommand<CarData>(session) {
+        return tx.wrapCommandIntoTxReturn(new HibernateCommand<CarData>(session) {
             CarData execute() {
                 selectedCar.setLastMileage(newMileage);
                 selectedCar.setLastMileageStoringDate(newStoringDate);
@@ -187,7 +187,7 @@ public class HibernatePersistenceService implements PersistenceService<CarDataEn
     public CarData updateCarDataAttempts(final CarDataEntity selectedCar, final int... attemptsLeftParameter) throws MotorpastPersistenceException {
         final Session session = getSession();
 
-        return wrapHibernateCommandIntoTransaction(new HibernateCommand<CarData>(session) {
+        return tx.wrapCommandIntoTxReturn(new HibernateCommand<CarData>(session) {
             CarData execute() throws MotorpastPersistenceException {
                 int attemptsLeft = -1;
                 if(attemptsLeftParameter == null || attemptsLeftParameter.length == 0) {
@@ -228,7 +228,7 @@ public class HibernatePersistenceService implements PersistenceService<CarDataEn
     public CarData updateCarDataWithRegistrationDate(final String carId, final Date regDate) throws MotorpastPersistenceException {
         final Session session = getSession();
 
-        return wrapHibernateCommandIntoTransaction(new HibernateCommand<CarData>(session) {
+        return tx.wrapCommandIntoTxReturn(new HibernateCommand<CarData>(session) {
             CarData execute() throws MotorpastPersistenceException {
                 final CarData selectedCarData = getDataForCarIdInternal(session, carId);
                 selectedCarData.setRegistrationdate(regDate);
@@ -244,55 +244,5 @@ public class HibernatePersistenceService implements PersistenceService<CarDataEn
      */
     private Session getSession() {
         return sessionFactory.getInstance().getCurrentSession();
-    }
-
-    /**
-     * wrapping all hibernate calls into a transaction
-     * @throws MotorpastPersistenceException bubble up for later handling
-     */
-    @SuppressWarnings("unchecked")
-    private<R> R wrapHibernateCommandIntoTransaction(HibernateCommand<?> command) throws MotorpastPersistenceException {
-        Transaction tx = null;
-        Object result = null;
-
-        try {
-            tx = command.getSession().beginTransaction();
-
-            result = command.execute();
-
-            tx.commit();
-        } catch(StaleObjectStateException e) {
-            logger.warn("StaleObjectStateException: two clients tried to modify same car(id) which can be suspicious");
-            logger.info("StaleObjectStateException: some values for councurrent writing access: entityname=" + e.getEntityName() +
-                    " , identifier=" + e.getIdentifier());
-            // concurrent access to one object, maybe some database-info statements?
-            throw new RuntimeException(e);
-        } catch(RuntimeException runtimeException) {
-            try {
-                logger.error("runtime-exception... try to rollback");
-
-                if(tx != null) {
-                    tx.rollback();
-                }
-            } catch(HibernateException hibernateException) {
-                logger.error("Transaction could not be rolled back!");
-
-                throw hibernateException;
-            }
-
-            if(runtimeException.getCause() != null && runtimeException.getCause() instanceof StaleObjectStateException) {
-                throw new MotorpastPersistenceException(PersistenceErrorCode.concurrent_writing_access);
-            }
-
-            throw runtimeException;
-        } finally {
-            if(command.getSession() != null && command.getSession().isOpen()) {
-                // in case of current_session_context_class = thread
-                // session is automatically closed by tx.commit() or tx.rollback()
-                command.getSession().close(); 
-            }
-        }
-
-        return (R)result;
     }
 }
