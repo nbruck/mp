@@ -145,13 +145,11 @@ public class BusinessServiceImpl implements BusinessService<CarData, HttpServlet
         return trustLevel;
     }
 
-    @Override
-    public boolean isViewRequest(final String carId, final String mileage) {
+    private boolean isViewRequest(final String carId, final String mileage) {
         return carId != null && !"".equals(carId) && mileage == null || "".equals(mileage);
     }
 
-    @Override
-    public boolean isStoringRequest(final String carId, final String mileage) {
+    private boolean isStoringRequest(final String carId, final String mileage) {
         return carId != null && !"".equals(carId) && mileage != null && !"".equals(mileage);
     }
 

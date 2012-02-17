@@ -40,16 +40,16 @@
     </t:block>
 
     <t:block t:id="confirmDataBlock">
-        <ul class="input">
-            <li>
-                <span>${message:text.carId}</span>
-                ${prop:carId}
-            </li>
-            <li>
-                <span>${message:text.mileage}</span>
-                ${prop:decimalFormattedMileage}
-            </li>
-        </ul>
+        <table class="input">
+            <tr>
+                <td>${message:text.carId}</td>
+                <td>${prop:carId}</td>
+            </tr>
+            <tr>
+                <td>${message:text.mileage}</td>
+                <td>${prop:decimalFormattedMileage}</td>
+            </tr>
+        </table>
     </t:block>
 
     <t:block t:id="blockedBlock">

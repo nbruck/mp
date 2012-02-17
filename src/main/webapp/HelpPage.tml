@@ -32,7 +32,6 @@
 
         <div id="answers">
             <t:delegate to="prop:activeBlock"/>
-            <br/>
         </div>
     </div>
 

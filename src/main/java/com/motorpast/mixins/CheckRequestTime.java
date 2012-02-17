@@ -5,16 +5,16 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.tapestry5.MarkupWriter;
 import org.apache.tapestry5.annotations.BeforeRenderTemplate;
 import org.apache.tapestry5.annotations.MixinAfter;
-import org.apache.tapestry5.annotations.SessionState;
+import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.annotations.SessionAttribute;
 import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.slf4j.Logger;
 
-import com.motorpast.dataobjects.UserSessionObj;
 import com.motorpast.services.business.ValidationService;
 import com.motorpast.services.security.MotorpastSecurityException;
-import com.motorpast.services.security.SecurityService;
 import com.motorpast.services.security.MotorpastSecurityException.SecurityErrorCode;
+import com.motorpast.services.security.SecurityService;
 
 /**
  * creates and check timestamp for spambot-detection
@@ -23,11 +23,8 @@ import com.motorpast.services.security.MotorpastSecurityException.SecurityErrorC
 @MixinAfter
 public class CheckRequestTime
 {
-    private final static String DateTokenKey = "timeStampToken";
-
-
-    @SessionState
-    private UserSessionObj sessionObj;
+    private final static String TimeStampSubmitToken = "TimeStampSubmitToken";
+    public final static String TimeStampSessionToken = "TimeStampSessionToken";
 
     @Inject
     private HttpServletRequest httpServletRequest;
@@ -41,16 +38,17 @@ public class CheckRequestTime
     @Inject
     private ValidationService validationService;
 
-    private String timeStamp;
+    @SessionAttribute(value = TimeStampSessionToken)
+    private String sessionTimeStamp;
+
+    @Property
+    private String submitTimeStamp;
 
 
     @SetupRender
     void generateTimeStamp() {
-        if(sessionObj.getTimestamp() == null) {
-            timeStamp = String.valueOf(securityService.generateTimestamp());
-            sessionObj.setTimestamp(timeStamp);
-        } else {
-            timeStamp = sessionObj.getTimestamp();
+        if(sessionTimeStamp == null) {
+            sessionTimeStamp = submitTimeStamp = String.valueOf(securityService.generateTimestamp());
         }
     }
 
@@ -58,22 +56,20 @@ public class CheckRequestTime
     void createHiddenField(MarkupWriter writer) {
         writer.element("input",
                        "type", "hidden",
-                       "name", DateTokenKey,
-                       "value", timeStamp);
+                       "name", TimeStampSubmitToken,
+                       "value", sessionTimeStamp);
         writer.end();
     }
 
     /**
-     * validate is called before enclosing formcomponents validate-eventmethod
+     * method is called before enclosing formcomponents success-eventmethod
      * @throws MotorpastSecurityException
      */
-    //void onValidateForm() throws MotorpastSecurityException {
-    public void validateRequestTime() throws MotorpastSecurityException {
-        final String timeStampFromSession = sessionObj.getTimestamp();
-        final String timeStampFromSubmit = httpServletRequest.getParameter(DateTokenKey);
+    public void onSuccess() throws MotorpastSecurityException {
+        final String timeStampFromSession = sessionTimeStamp;
+        final String timeStampFromSubmit = httpServletRequest.getParameter(TimeStampSubmitToken);
 
-        sessionObj.setTimestamp(null);                        //reset
-        httpServletRequest.setAttribute(DateTokenKey, null);  //reset
+        sessionTimeStamp = null;
         logger.debug("token from session=" + timeStampFromSession + ", token from submitRequest=" + timeStampFromSubmit);
 
         // check date for spambot detection

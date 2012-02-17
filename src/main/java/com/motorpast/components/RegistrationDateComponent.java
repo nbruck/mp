@@ -3,16 +3,14 @@ package com.motorpast.components;
 import java.util.Calendar;
 import java.util.Date;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.ComponentEventCallback;
 import org.apache.tapestry5.ComponentResources;
-import org.apache.tapestry5.annotations.Import;
 import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
+import org.apache.tapestry5.corelib.components.Select;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.ioc.annotations.Symbol;
@@ -25,7 +23,6 @@ import com.motorpast.services.security.MotorpastSecurityException;
 import com.motorpast.services.security.MotorpastSecurityException.SecurityErrorCode;
 import com.motorpast.services.security.SecurityService;
 
-//@Import(stylesheet = {"context:css/registercomponent.css"})
 public class RegistrationDateComponent
 {
     @SessionState(create = false)
@@ -38,9 +35,6 @@ public class RegistrationDateComponent
     private ComponentResources componentResources;
 
     @Inject
-    private HttpServletRequest httpServletRequest;
-
-    @Inject
     private Messages messages;
 
     @Inject
@@ -48,6 +42,9 @@ public class RegistrationDateComponent
 
     @InjectComponent
     private MotorForm regDateForm;
+
+    @InjectComponent
+    private Select dayselect, monthselect, yearselect;
 
     @Parameter(required = true)
     @Property(write = false)
@@ -72,7 +69,7 @@ public class RegistrationDateComponent
         return null;
     }
     void onPrepareForRenderFromRegDateForm() {
-        final String token = securityService.generateToken(httpServletRequest);
+        final String token = securityService.generateToken();
         text1 = token;
         sessionObj.setUniqueToken(token);
     }
@@ -88,7 +85,21 @@ public class RegistrationDateComponent
             throw new MotorpastSecurityException(SecurityErrorCode.error_security);
         }
 
-        if(day == null || "".equals(day) || month == null || "".equals(month) || year == null || "".equals(year)) {
+        boolean isDaySet = is(day);
+        boolean isMonthSet = is(month);
+        boolean isYearSet = is(year);
+
+        if(!isDaySet) {
+            regDateForm.recordError(dayselect, ".");
+        }
+        if(!isMonthSet) {
+            regDateForm.recordError(monthselect, ".");
+        }
+        if(!isYearSet) {
+            regDateForm.recordError(yearselect, ".");
+        }
+
+        if(!isDaySet || !isMonthSet || !isYearSet) {
             regDateForm.recordError(messages.get("validation.error.date-not-complete"));
             final ComponentEventCallback<Void> callback = new ComponentEventCallback<Void>()
             {
@@ -113,6 +124,10 @@ public class RegistrationDateComponent
         };
 
         componentResources.triggerEvent("handleValidateBubbleUp", new Object[] {day, month, year}, callback);
+    }
+
+    private boolean is(final String value) {
+        return value != null && !value.isEmpty();
     }
 
     Object onSuccessFromRegDateForm() {

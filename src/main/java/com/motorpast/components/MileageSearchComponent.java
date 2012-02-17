@@ -2,7 +2,6 @@ package com.motorpast.components;
 
 import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.InjectPage;
-import org.apache.tapestry5.annotations.Mixin;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.corelib.components.TextField;
@@ -14,7 +13,6 @@ import org.slf4j.Logger;
 import com.motorpast.additional.MotorRequestState;
 import com.motorpast.additional.MotorpastException;
 import com.motorpast.dataobjects.UserSessionObj;
-import com.motorpast.mixins.CheckRequestTime;
 import com.motorpast.pages.HelpPage;
 import com.motorpast.pages.ResultPage;
 import com.motorpast.services.business.MotorpastBusinessException;
@@ -49,9 +47,6 @@ public class MileageSearchComponent
 
     @InjectComponent
     private MotorForm mileSearchForm;
-
-    @Mixin
-    private CheckRequestTime checkRequestTime;
 
     @InjectComponent(value="text1")
     private TextField vinsearch;
@@ -96,8 +91,6 @@ public class MileageSearchComponent
             mileSearchForm.recordError(vinsearch, messages.get("error.carId.regex-invalid"));
             return;
         }
-
-        checkRequestTime.validateRequestTime();
     }
 
     Object onSuccessFromMileSearchForm() throws MotorpastException {

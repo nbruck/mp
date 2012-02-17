@@ -18,7 +18,7 @@ var weight=[9, 8, 7, 6, 5, 4, 3, 2, 10, 9, 8, 7, 6, 5, 4, 3, 2];
 
 var messages = {
     vinEnter : "${message:txt.input.vin.placeholder}",
-    mileageEnter : "${message:txt.input.mileage.placeholder}",
+    mileageEnter : "${message:global.txt.input.mileage.placeholder}",
     vinSearch : "${message:txt.input.vin.placeholder}"
 };
 

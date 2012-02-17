@@ -34,7 +34,7 @@
     </div>
 <t:remove><!-- <t:outputRaw value="message:global.operators.lower-than"/> --></t:remove>
 <script type="text/javascript">
-var ebcdic={A:1,B:2,C:3,D:4,E:5,F:6,G:7,H:8,I:9,J:1,K:2,L:3,M:4,N:5,O:0,P:7,Q:8,R:9,S:2,T:3,U:4,V:5,W:6,X:7,Y:8,Z:9,"%C4":1,"%D6":0,"%DC":4,0:0,1:1,2:2,3:3,4:4,5:5,6:6,7:7,8:8,9:9},weight=[9,8,7,6,5,4,3,2,10,9,8,7,6,5,4,3,2],messages={vinEnter:"${message:txt.input.vin.placeholder}",mileageEnter:"${message:txt.input.mileage.placeholder}",vinSearch:"${message:txt.input.vin.placeholder}"};
+var ebcdic={A:1,B:2,C:3,D:4,E:5,F:6,G:7,H:8,I:9,J:1,K:2,L:3,M:4,N:5,O:0,P:7,Q:8,R:9,S:2,T:3,U:4,V:5,W:6,X:7,Y:8,Z:9,"%C4":1,"%D6":0,"%DC":4,0:0,1:1,2:2,3:3,4:4,5:5,6:6,7:7,8:8,9:9},weight=[9,8,7,6,5,4,3,2,10,9,8,7,6,5,4,3,2],messages={vinEnter:"${message:txt.input.vin.placeholder}",mileageEnter:"${message:global.txt.input.mileage.placeholder}",vinSearch:"${message:txt.input.vin.placeholder}"};
 function check(a,e){if(a.value.length==17){var c=a.value.toUpperCase();a=c.split("");var b=0;c=c.length;for(var d=0;d<t:outputRaw value="message:global.operators.lower-than"/>c;d++){var f=ebcdic[escape(a[d])];if(f==null)return;b+=f*weight[d]}b%=11;if(b==10)b="X";document.getElementById("checkDigit"+e).innerHTML=b;document.getElementById("container"+e).style.display="block"}}function handleFocus(a){a.className+=" active";tooglePlaceholder(a)}function handleBlur(a){a.className="round";tooglePlaceholder(a)}
 function tooglePlaceholder(a){if(a.value===messages[a.id]){a.style.color="#777";a.value=""}else if(a.value===""){a.style.color="#999";a.value=messages[a.id]}};
 </script>

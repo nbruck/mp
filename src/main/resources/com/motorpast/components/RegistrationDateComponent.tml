@@ -2,26 +2,34 @@
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
       xmlns:p="tapestry:parameter">
 
-    <t:motorform clientId="regDateForm" t:id="regDateForm" clientValidation="literal:false" autofocus="literal:false">
-        <t:errors/>
+    <t:motorform clientId="regDateForm" t:id="regDateForm" clientValidation="literal:false" autofocus="literal:false"
+          t:mixins="uniqueToken">
+        <t:motorerrors/>
 
-        <label for="dayselect">
-            ${message:label.registration-date}
-        </label>
-        <t:select model="daymodel" value="day" clientId="dayselect" validate="min=1,max=31" class="round stretch"
-              blanklabel="message:select.day.blank-option"/>
+        <ul class="floatline">
+            <li>
+                <label for="dayselect">
+                    ${message:label.registration-date}
+                </label>
 
-        <t:select model="monthmodel" value="month" clientId="monthselect" validate="min=1,max=12" class="round stretch"
-              blanklabel="message:select.month.blank-option"/>
+                <t:select model="daymodel" value="day" t:id="dayselect" clientId="dayselect" validate="min=1,max=31" class="round stretch"
+                      blanklabel="message:select.day.blank-option"/>
 
-        <t:select model="yearmodel" value="year" clientId="yearselect" validate="regexp=\d\d\d\d" class="round stretch"
-              blanklabel="message:select.year.blank-option"/>
+                <t:select model="monthmodel" value="month" t:id="monthselect" clientId="monthselect" validate="min=1,max=12" class="round stretch"
+                      blanklabel="message:select.month.blank-option"/>
 
-        <t:hidden t:id="text1" value="text1"/>
+                <t:select model="yearmodel" value="year" t:id="yearselect" clientId="yearselect" validate="regexp=\d\d\d\d" class="round stretch"
+                      blanklabel="message:select.year.blank-option"/>
 
-        <div class="${prop:cssClass}">
-            <t:delegate to="prop:buttonBlock"/>
-        </div>
+                <t:hidden t:id="text1" value="text1"/>
+            </li>
+            <li>
+                <div class="${prop:cssClass}">
+                    <t:delegate to="prop:buttonBlock"/>
+                </div>
+            </li>
+        </ul>
+
     </t:motorform>
 
 </t:container>

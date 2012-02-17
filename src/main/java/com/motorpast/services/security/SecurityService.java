@@ -1,6 +1,5 @@
 package com.motorpast.services.security;
 
-import javax.servlet.http.HttpServletRequest;
 
 public interface SecurityService
 {
@@ -23,7 +22,7 @@ public interface SecurityService
     /**
      * generates a unique token for each request
      */
-    public String generateToken(final HttpServletRequest httpServletRequest);
+    public String generateToken(/*final HttpServletRequest httpServletRequest*/);
 
     /**
      * anti-spambot timestamp for validation

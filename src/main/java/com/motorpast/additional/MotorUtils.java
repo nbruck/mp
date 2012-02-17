@@ -1,7 +1,5 @@
 package com.motorpast.additional;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -13,13 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 
 public class MotorUtils
 {
-    final public static String convertThrowable(Throwable throwable) {
-        final StringWriter stringWriter = new StringWriter();
-
-        throwable.printStackTrace(new PrintWriter(stringWriter));
-        return stringWriter.toString();
-    }
-
     /**
      * useful for debug-output
      */

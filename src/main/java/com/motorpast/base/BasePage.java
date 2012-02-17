@@ -13,7 +13,7 @@ import org.apache.tapestry5.services.Request;
 import org.apache.tapestry5.services.Response;
 import org.slf4j.Logger;
 
-public abstract class BasePage
+public abstract class BasePage extends BaseRenderable
 {
     @Inject
     private Request request;

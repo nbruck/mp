@@ -19,6 +19,7 @@ import org.apache.tapestry5.services.ComponentSource;
 import org.apache.tapestry5.services.ExceptionReporter;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 import org.apache.tapestry5.services.RequestExceptionHandler;
+import org.apache.tapestry5.services.RequestGlobals;
 import org.apache.tapestry5.services.Response;
 import org.apache.tapestry5.services.ResponseRenderer;
 import org.slf4j.Logger;
@@ -58,9 +59,10 @@ public class MotorpastModule
     }
 
     public static SecurityService buildSecurityService(
+        final RequestGlobals requestGlobals,
         @Inject @Symbol(MotorApplicationConstants.AntiSpambotTime) final long antiSpambotTime
     ) {
-        return new SecurityServiceImpl(antiSpambotTime);
+        return new SecurityServiceImpl(requestGlobals, antiSpambotTime);
     }
 
     public static BusinessService<CarData, HttpServletRequest> buildBusinessService(

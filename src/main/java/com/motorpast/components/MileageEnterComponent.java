@@ -2,7 +2,7 @@ package com.motorpast.components;
 
 import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.InjectPage;
-import org.apache.tapestry5.annotations.Mixin;
+import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.corelib.components.TextField;
@@ -12,8 +12,8 @@ import org.apache.tapestry5.services.PageRenderLinkSource;
 import org.slf4j.Logger;
 
 import com.motorpast.additional.MotorpastException;
+import com.motorpast.base.BaseRenderable;
 import com.motorpast.dataobjects.UserSessionObj;
-import com.motorpast.mixins.CheckRequestTime;
 import com.motorpast.pages.ConfirmationPage;
 import com.motorpast.pages.HelpPage;
 import com.motorpast.services.business.MotorpastBusinessException;
@@ -26,8 +26,14 @@ import com.motorpast.services.security.MotorpastSecurityException.SecurityErrorC
  * text1 = fake, text2 = fake;
  * text3 = carid, text4 = mileage
  */
-public class MileageEnterComponent
+public class MileageEnterComponent extends BaseRenderable
 {
+    @Parameter
+    private String carIdParameter;
+
+    @Parameter
+    private String headerLabel;
+
     @SessionState
     private UserSessionObj sessionObj;
 
@@ -49,9 +55,6 @@ public class MileageEnterComponent
     @InjectComponent
     private MotorForm mileEnterForm;
 
-    @Mixin
-    private CheckRequestTime checkRequestTime;
-
     @InjectComponent(value = "text3")
     private TextField vinenter;
 
@@ -69,8 +72,12 @@ public class MileageEnterComponent
 
 
     void onPrepareForRenderFromMileEnterForm() {
-        text3 = messages.get("txt.input.vin.placeholder");
-        text4 = messages.get("txt.input.mileage.placeholder");
+        if(carIdParameter != null) {
+            text3 = carIdParameter;
+        } else {
+            text3 = messages.get("txt.input.vin.placeholder");
+        }
+        text4 = messages.get("global.txt.input.mileage.placeholder");
     }
 
     void onPrepareForSubmitFromMileEnterForm() throws MotorpastBusinessException {
@@ -91,7 +98,7 @@ public class MileageEnterComponent
         if(messages.get("txt.input.vin.placeholder").equals(text3)) {
             text3 = null;
         }
-        if(messages.get("txt.input.mileage.placeholder").equals(text4)) {
+        if(messages.get("global.txt.input.mileage.placeholder").equals(text4)) {
             text4 = null;
         }
         carId = text3 != null ? text3.toUpperCase() : null;
@@ -118,8 +125,6 @@ public class MileageEnterComponent
             mileEnterForm.recordError(mileageenter, messages.get("error.mileage.no-number"));
             return;
         }
-
-        checkRequestTime.validateRequestTime();
     }
 
     Object onSuccessFromMileEnterForm() throws MotorpastException {
@@ -131,5 +136,9 @@ public class MileageEnterComponent
         return new Object[] {
             pageRenderLinkSource.createPageRenderLink(HelpPage.class).toURI()
         };
+    }
+
+    public String getHeaderLabel() {
+        return headerLabel != null ? headerLabel : messages.get("txt.fieldset.legend.mileage-enter");
     }
 }

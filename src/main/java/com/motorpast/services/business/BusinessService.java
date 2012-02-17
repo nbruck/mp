@@ -21,16 +21,6 @@ public interface BusinessService<R, T>
           throws MotorpastPersistenceException, MotorpastBusinessException;
 
     /**
-     * only decides by parameter if true or not - only id is set then it's true
-     */
-    public boolean isViewRequest(final String carId, final String mileage);
-
-    /**
-     * only decides by parameter if true or not - both values set then it's true
-     */
-    public boolean isStoringRequest(final String carId, final String mileage);
-
-    /**
      * returns the value 81% or 8/10 for example
      */
     public String getTrustLevel(final CarData carData, final String carId) throws MotorpastPersistenceException;

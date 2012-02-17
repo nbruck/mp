@@ -8,51 +8,59 @@
             <p id="checkDigit2"></p>
         </div>
 
-        <t:motorform t:id="mileEnterForm" clientValidation="literal:false" autofocus="literal:false" t:mixins="uniqueToken,checkRequestTime">
-            <t:errors/>
+        <t:motorform t:id="mileEnterForm" clientValidation="literal:false" autofocus="literal:false"
+              t:mixins="uniqueToken,checkRequestTime">
+            <t:motorerrors/>
 
-            <h3>
-                <label for="vinEnter" onmousedown="return false">
-                    ${message:txt.fieldset.legend.mileage-enter}
-                </label>
-            </h3>
+            <ul class="floatline">
+                <li>
+                    <h3>
+                        <label for="vinEnter" onmousedown="return false">
+                            ${prop:headerLabel}
+                        </label>
+                    </h3>
+                </li>
+                <li>
+                    <label id="entervin-label" for="vinEnter" onmousedown="return false">
+                        ${message:txt.carId}
+                    </label>
+                     <t:textfield value="prop:text3"
+                          t:id="text3"
+                          class="round"
+                          clientId="vinEnter"
+                          onfocus="handleFocus(this);"
+                          onblur="handleBlur(this);"
+                          onkeyup="check(this,2)"
+                          autocomplete="off"
+                          maxlength="17"/>
 
-            <label id="entervin-label" for="vinEnter" onmousedown="return false">
-                ${message:txt.carId}
-            </label>
+                    <div class="text3 text4">
+                        <label for="vin-Enter">${message:txt.fake2}</label>
+                        <t:textfield clientId="vin-Enter" value="prop:text1"/>
 
-            <div class="text3 text4">
-                <label for="vin-Enter">${message:txt.fake2}</label>
-                <t:textfield clientId="vin-Enter" value="prop:text1"/>
+                        <label for="mileage-Enter">${message:txt.fake3}</label>
+                        <t:textfield clientId="mileage-Enter" value="prop:text2"/>
+                    </div>
+                </li>
+                <li>
+                    <label id="entermile-label" for="mileageEnter" onmousedown="return false">
+                        ${message:txt.mileage}
+                    </label>
 
-                <label for="mileage-Enter">${message:txt.fake3}</label>
-                <t:textfield clientId="mileage-Enter" value="prop:text2"/>
-            </div>
+                    <t:textfield value="prop:text4"
+                          t:id="text4"
+                          class="round"
+                          clientId="mileageEnter"
+                          onfocus="handleFocus(this);"
+                          onblur="handleBlur(this);"
+                          autocomplete="off"
+                          maxlength="7"/>
+                </li>
+                <li>
+                    <input class="round" type="submit" value="${message:txt.submit.enter-now}" style="float: right; margin-right: 6.8em;"/>
+                </li>
+            </ul>
 
-            <t:textfield value="prop:text3"
-                t:id="text3"
-                class="round"
-                clientId="vinEnter"
-                onfocus="handleFocus(this);"
-                onblur="handleBlur(this);"
-                onkeyup="check(this,2)"
-                autocomplete="off"
-                maxlength="17"/>
-
-            <label id="entermile-label" for="mileageEnter" onmousedown="return false">
-                ${message:txt.mileage}
-            </label>
-
-            <t:textfield value="prop:text4"
-                t:id="text4"
-                class="round"
-                clientId="mileageEnter"
-                onfocus="handleFocus(this);"
-                onblur="handleBlur(this);"
-                autocomplete="off"
-                maxlength="7"/>
-
-            <input class="round" type="submit" value="${message:txt.submit.enter-now}"/>
         </t:motorform>
 
         <t:toolTipComponent helpText="message:tooltip.mileage" parameter="prop:toolTipParameter"/>

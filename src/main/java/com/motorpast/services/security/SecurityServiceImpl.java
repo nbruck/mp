@@ -5,15 +5,19 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.tapestry5.ioc.annotations.EagerLoad;
+import org.apache.tapestry5.services.RequestGlobals;
 
 import com.motorpast.additional.MotorUtils;
 
 @EagerLoad
 public class SecurityServiceImpl implements SecurityService
 {
-	/**
+    private RequestGlobals requestGlobals;
+
+    /**
      * defined css classes - have to match with css
      */
     private static enum CssClasses {
@@ -55,7 +59,8 @@ public class SecurityServiceImpl implements SecurityService
     private final long antiSpambotTime;
 
  
-    public SecurityServiceImpl(final long antiSpambotTime) {
+    public SecurityServiceImpl(final RequestGlobals requestGlobals, final long antiSpambotTime) {
+        this.requestGlobals = requestGlobals;
         this.antiSpambotTime = antiSpambotTime;
 
         combosForTextboxes = new int[][] {
@@ -103,8 +108,11 @@ public class SecurityServiceImpl implements SecurityService
     }
 
     @Override
-    public String generateToken(final HttpServletRequest httpServletRequest) {
-        final String id = httpServletRequest.getSession().getId();
+    public String generateToken(/*final HttpServletRequest httpServletRequest*/) {
+        final HttpServletRequest httpServletRequest = requestGlobals.getHTTPServletRequest();
+        final HttpSession httpSession = httpServletRequest.getSession();
+
+        final String id = httpSession != null ? httpSession.getId() : String.valueOf(System.currentTimeMillis());
 
         try {
             long current = System.currentTimeMillis();

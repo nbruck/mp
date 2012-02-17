@@ -10,32 +10,35 @@
 
         <t:motorform t:id="mileSearchForm" clientValidation="literal:false" autofocus="literal:false"
               t:mixins="uniqueToken,checkRequestTime">
-            <t:errors/>
+            <t:motorerrors/>
 
-            <h3>
-                <label onmousedown="return false" for="vinSearch">
-                    ${message:txt.fieldset.legend.mileage-search}
-                </label>
-            </h3>
+            <ul class="floatline">
+                <li>
+                    <h3>
+                        <label onmousedown="return false" for="vinSearch">
+                            ${message:txt.fieldset.legend.mileage-search}
+                        </label>
+                    </h3>
+                </li>
+                <li>
+                    <t:textfield t:id="text1"
+                          class="round"
+                          clientId="vinSearch"
+                          value="prop:text1"
+                          onfocus="handleFocus(this);"
+                          onblur="handleBlur(this);"
+                          onkeyup="check(this,1)"
+                          autocomplete="off"
+                          maxlength="17"/>
 
-            <t:textfield t:id="text1"
-                class="round"
-                clientId="vinSearch"
-                value="prop:text1"
-                onfocus="handleFocus(this);"
-                onblur="handleBlur(this);"
-                onkeyup="check(this,1)"
-                autocomplete="off"
-                maxlength="17"/>
+                    <div class="text2 text4">
+                        <label for="vin-Enter1">${message:txt.fake1}</label>
+                        <t:textfield clientId="vin-Enter1" value="prop:text2" t:id="text2"/>
+                    </div>
 
-            <div class="text2 text4">
-                <label for="vin-Enter1">${message:txt.fake1}</label>
-                <t:textfield clientId="vin-Enter1" value="prop:text2" t:id="text2"/>
-            </div>
-
-            <label onmousedown="return false" for="vinSearch" class="vinSearchLabel"></label>
-
-            <t:submit class="round" t:id="vinSearchButton" value="message:txt.submit.search-now"/>
+                    <t:submit class="round" t:id="vinSearchButton" value="message:txt.submit.search-now"/>
+                </li>
+            </ul>
 
         </t:motorform>
 

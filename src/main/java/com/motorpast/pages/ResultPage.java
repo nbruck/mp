@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.PersistenceConstants;
 import org.apache.tapestry5.annotations.Cached;
-import org.apache.tapestry5.annotations.Import;
 import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
@@ -38,7 +37,6 @@ import com.motorpast.services.persistence.PersistenceService;
     },
     putInSitemap = false
 )
-//@Import(stylesheet = {"context:css/result.css"})
 public class ResultPage extends BasePage
 {
     @SessionState
@@ -76,6 +74,9 @@ public class ResultPage extends BasePage
 
     @Property(write = false)
     private Date storingDate;
+
+    @Property(write = false)
+    private boolean showEnterComponent;
 
     @Persist(PersistenceConstants.FLASH) @Property(write = false)
     private boolean validStoringRequest;
@@ -130,7 +131,7 @@ public class ResultPage extends BasePage
 
     void cleanupRender() {
         switch (motorRequestState) {
-            case SimpleViewRequest: // don't render again if it once has been displayed
+            //case SimpleViewRequest: // don't render again if it once has been displayed //TODO: keep this in mind!
             case UpdateCarTupelWithAttemptsLeft:
                 carId = mileage = null;
                 motorRequestState = null;
@@ -198,13 +199,17 @@ public class ResultPage extends BasePage
         if(sessionObj != null && sessionObj.isMileageAvailable()) {
             return true;
         } else {
-            errorMessage = messages.get("error.data.notFound.carId");
+            errorMessage = messages.format("error.data.notFound.carId", carId);
             return false;
         }
     }
 
     public Object onGotoErrorPage() {
         return ErrorPage.class;
+    }
+
+    public void onShowEnterComponent() {
+        showEnterComponent = true;
     }
 
     void setValidStoringRequest(final boolean store) {

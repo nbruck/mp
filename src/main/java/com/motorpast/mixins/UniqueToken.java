@@ -5,12 +5,12 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.tapestry5.MarkupWriter;
 import org.apache.tapestry5.annotations.BeforeRenderTemplate;
 import org.apache.tapestry5.annotations.MixinAfter;
-import org.apache.tapestry5.annotations.SessionState;
+import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.annotations.SessionAttribute;
 import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.slf4j.Logger;
 
-import com.motorpast.dataobjects.UserSessionObj;
 import com.motorpast.services.security.MotorpastSecurityException;
 import com.motorpast.services.security.MotorpastSecurityException.SecurityErrorCode;
 import com.motorpast.services.security.SecurityService;
@@ -22,11 +22,8 @@ import com.motorpast.services.security.SecurityService;
 @MixinAfter
 public class UniqueToken
 {
-    private final static String UniqueTokenKey = "motorUniqueToken";
-
-
-    @SessionState
-    private UserSessionObj sessionObj;
+    private final static String UniqueSubmitToken = "UniqueSubmitToken";
+    public final static String UniqueSessionToken = "UniqueSessionToken";
 
     @Inject
     private HttpServletRequest httpServletRequest;
@@ -37,16 +34,17 @@ public class UniqueToken
     @Inject
     private SecurityService securityService;
 
-    private String token;
+    @SessionAttribute(value = UniqueSessionToken)
+    private String sessionToken;
+
+    @Property
+    private String submitToken;
 
 
     @SetupRender
     void generateToken() {
-        if(sessionObj.getUniqueToken() == null) {
-            token = securityService.generateToken(httpServletRequest);
-            sessionObj.setUniqueToken(token);
-        } else {
-            token = sessionObj.getUniqueToken();
+        if(sessionToken == null) {
+            sessionToken = submitToken = securityService.generateToken();
         }
     }
 
@@ -54,8 +52,8 @@ public class UniqueToken
     void createHiddenField(MarkupWriter writer) {
         writer.element("input",
                        "type", "hidden",
-                       "name", UniqueTokenKey,
-                       "value", token);
+                       "name", UniqueSubmitToken,
+                       "value", sessionToken);
         writer.end();
     }
 
@@ -64,11 +62,11 @@ public class UniqueToken
      * @throws MotorpastSecurityException
      */
     void onValidateForm() throws MotorpastSecurityException {
-        final String tokenFromSession = sessionObj.getUniqueToken();
-        final String tokenFromSubmit = httpServletRequest.getParameter(UniqueTokenKey);
+        final String tokenFromSession = sessionToken;
+        final String tokenFromSubmit = httpServletRequest.getParameter(UniqueSubmitToken);
 
-        sessionObj.setUniqueToken(null);                        //reset
-        httpServletRequest.setAttribute(UniqueTokenKey, null);  //reset
+        sessionToken = null;
+
         logger.debug("token from session=" + tokenFromSession + ", token from submitRequest=" + tokenFromSubmit);
 
         if(tokenFromSession == null || tokenFromSubmit == null || ! tokenFromSubmit.equals(tokenFromSession)) {
