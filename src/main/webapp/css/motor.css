@@ -30,7 +30,6 @@ select {
 input[type=submit] {
     background: -moz-linear-gradient(center top , #fff 0pt, #e0e0e0 100%);
     background: -webkit-gradient(linear, center top, center bottom, color-stop(0%,#fff), color-stop(100%,#e0e0e0));
-    filter: progid:dximagetransform.microsoft.gradient(startcolorstr='#fff', endcolorstr='#e0e0e0',gradienttype=0 );
     background: -o-linear-gradient(top, #fff, #e0e0e0);
     padding: 0.1em 0.8em;
     margin: 0 0.5em;
@@ -44,7 +43,6 @@ input[type=text].active {
     -moz-box-shadow: 0 0 3px #999;
     -webkit-box-shadow: 0 0 3px #999;
     box-shadow: 0 0 3px #999;
-    filter: progid:dximagetransform.microsoft.gradient(startcolorstr='#fff', endcolorstr='#ebebeb',gradienttype=0);
     border-color: #999;
     outline: 0 none;
 }
@@ -66,7 +64,7 @@ div#headerBlock {
     height: 4em;
     background: -moz-linear-gradient(top, #ececec 0%, #ccc 100%);
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ececec), color-stop(100%,#ccc));
-    filter: progid:dximagetransform.microsoft.gradient( startcolorstr='#ececec', endcolorstr='#ccc',gradienttype=0 );
+    filter: progid:dximagetransform.microsoft.gradient(startcolorstr='#ececec',endcolorstr='#cccccc',gradienttype=0);
     background: -o-linear-gradient(top, #ececec, #ccc);
     border-bottom: 2px groove honeydew;
     z-index: 100;
@@ -93,7 +91,7 @@ div#footerBlock {
     height: 3em;
     background: -moz-linear-gradient(top, #ccc 0%, #ececec 100%);
     background: -webkit-gradient(linear, left top, left bottom, from(#ccc), to(#ececec));
-    filter: progid:dximagetransform.microsoft.gradient( startcolorstr='#ccc', endcolorstr='#ececec',gradienttype=0 );
+    filter: progid:dximagetransform.microsoft.gradient(startcolorstr='#cccccc',endcolorstr='#ececec',gradienttype=0);
     background: -o-linear-gradient(top, #ccc, #ececec);
     border-top: 2px groove honeydew;
 }
@@ -306,4 +304,3 @@ div.help p * {
 input.t-error, textarea.t-error, select.t-error {
     border: 1px solid red;
 }
-
