@@ -25,11 +25,6 @@ public class SocialNetworksBar
 
 
     @Inject
-    @Symbol(MotorApplicationConstants.IndexPageUrl)
-    @Property(write = false)
-    private String mainUrl;
-
-    @Inject
     private Locale locale;
 
     @Inject
@@ -40,10 +35,10 @@ public class SocialNetworksBar
 
 
     public String getFacebookHref() {
-        return String.format(FacebookHref, mainUrl, urlEncoder.encode(pageHeadline));
+        return String.format(FacebookHref/*, mainUrl*/, urlEncoder.encode(pageHeadline));
     }
 
     public String getGooglePlusSrc() {
-        return String.format(GooglePlusSrc, mainUrl, locale.getLanguage());
+        return String.format(GooglePlusSrc/*, mainUrl*/, locale.getLanguage());
     }
 }

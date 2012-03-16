@@ -10,7 +10,6 @@ import org.apache.tapestry5.urlrewriter.URLRewriteContext;
 import org.apache.tapestry5.urlrewriter.URLRewriterRule;
 
 import com.motorpast.pages.ConfirmationPage;
-import com.motorpast.pages.Error404;
 import com.motorpast.pages.ErrorPage;
 import com.motorpast.pages.HelpPage;
 import com.motorpast.pages.Index;
@@ -30,7 +29,6 @@ public class MotorpastUrlRewriteModule
             HelpPage.class,
             SiteNoticePage.class,
             ErrorPage.class,
-            Error404.class,
             ResultPage.class,
             ConfirmationPage.class
         );

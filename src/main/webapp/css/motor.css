@@ -304,3 +304,10 @@ div.help p * {
 input.t-error, textarea.t-error, select.t-error {
     border: 1px solid red;
 }
+div#socialbar {
+    margin: 0.5em auto;
+    width: 38em;
+}
+div#socialbar a {
+    border-bottom: none;
+}

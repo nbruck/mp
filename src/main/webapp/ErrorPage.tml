@@ -1,5 +1,5 @@
 <html t:type="mainLayout"
-      p:title="literal: error | motorpast"
+      p:title="prop:pagetitle"
       p:description="message:meta.description"
       p:keywords="message:meta.keywords"
       p:robot="literal: noindex, nofollow"

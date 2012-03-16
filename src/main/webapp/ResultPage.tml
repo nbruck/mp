@@ -1,5 +1,5 @@
 <html t:type="mainLayout"
-      p:title="message:meta.title"
+      p:title="prop:pagetitle"
       p:robot="literal:noxindex,nofollow"
       p:navigation="prop:navigation"
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"

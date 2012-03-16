@@ -45,7 +45,6 @@ public class ErrorPage extends BasePage implements ExceptionReporter
         return ErrorPage.class.getSimpleName();
     }
 
-
     @SetupRender
     void initErrorpage() {
         confirmationPage.setPageParameter(null, null, null);

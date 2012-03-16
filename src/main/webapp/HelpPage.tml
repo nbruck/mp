@@ -1,5 +1,5 @@
 <html t:type="mainLayout"
-      p:title="message:meta.title"
+      p:title="prop:pagetitle"
       p:description="message:meta.description"
       p:keywords="message:meta.keywords"
       p:robot="prop:robotText"
@@ -63,7 +63,7 @@
         <div class="wrapper round boxShadow">
             <a name="${message:anchor.about-my-data}">${message:help.question.what-about-my-data}</a>
             <p>
-                <t:outputraw value="message:help.answer.what-about-my-data"/>
+                <t:outputraw value="prop:mydata"/>
             </p>
         </div>
     </t:block>

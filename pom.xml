@@ -6,7 +6,7 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.motorpast</groupId>
-    <artifactId>motorpast</artifactId>
+    <artifactId>kilometerstand-abzocke</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>application Tapestry 5 Application</name>

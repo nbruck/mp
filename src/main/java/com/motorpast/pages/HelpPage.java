@@ -3,6 +3,7 @@ package com.motorpast.pages;
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.SetupRender;
+import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PersistentLocale;
 
@@ -20,6 +21,9 @@ import com.motorpast.base.BasePage;
     })
 public class HelpPage extends BasePage
 {
+    @Inject
+    private Messages messages;
+
     @Inject
     private PersistentLocale persistentLocale;
 
@@ -40,6 +44,10 @@ public class HelpPage extends BasePage
     @Override
     public Class<?>[] getNavigation() {
         return MotorPages.getPagesForNavigation();
+    }
+
+    public String getMyData() {
+        return messages.format("help.answer.what-about-my-data", messages.get("global.application-name"));
     }
 
     @SetupRender

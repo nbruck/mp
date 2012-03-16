@@ -44,6 +44,10 @@ public class SiteNoticePage extends BasePage
         return messages.get("page.meta.robot.no-index");
     }
 
+    public String getGuarantee() {
+        return messages.format("text.site.guarantee", messages.get("global.application-name"), messages.get("global.application-name"));
+    }
+
     @SetupRender
     void init() {
         confirmationPage.setPageParameter(null, null, null);

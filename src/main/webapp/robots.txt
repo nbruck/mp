@@ -1,0 +1,10 @@
+Sitemap: ==location==/sitemapxml
+
+User-agent: *
+Disallow: /css/
+Disallow: /js/
+
+Disallow: /*:*?*:
+Disallow: /*:*?
+Allow: /*?*:
+Disallow: /*:

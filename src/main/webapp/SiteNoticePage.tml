@@ -1,5 +1,5 @@
 <html t:type="mainLayout"
-      p:title="message:meta.title"
+      p:title="prop:pagetitle"
       p:description="message:meta.description"
       p:keywords="message:meta.keywords"
       p:robot="prop:robotText"
@@ -22,7 +22,7 @@
             </ul>
 
             <p>
-                <t:outputraw value="message:text.site.guarantee"/>
+                <t:outputraw value="prop:guarantee"/>
             </p>
 
             <br/>

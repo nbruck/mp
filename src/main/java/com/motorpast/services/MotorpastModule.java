@@ -81,27 +81,16 @@ public class MotorpastModule
 
     public static void contributeApplicationDefaults(MappedConfiguration<String, String> configuration) {
         configuration.add(SymbolConstants.SUPPORTED_LOCALES, "de"); //en is ready
-
         configuration.add(SymbolConstants.APPLICATION_VERSION, "0.0.1-SNAPSHOT");
-
         configuration.add(SymbolConstants.DEFAULT_STYLESHEET, "context:css/motor-compressed.css");
-
         configuration.add(SymbolConstants.OMIT_GENERATOR_META, "true");
-
-        configuration.add(SymbolConstants.PRODUCTION_MODE, "false");
-
+        configuration.add(SymbolConstants.PRODUCTION_MODE, "true");
         configuration.add(SymbolConstants.EXCEPTION_REPORT_PAGE, ErrorPage.class.getSimpleName());
 
         configuration.add(MotorApplicationConstants.ShowTrustLevel, "true");
-
         configuration.add(MotorApplicationConstants.AntiSpambotTime, "1788"); // not too long
-
-        configuration.add(MotorApplicationConstants.IndexPageUrl, "http://www.motorpast.com");
-
-        configuration.add(MotorApplicationConstants.BlockingTime, "7"); // means days
-
+        configuration.add(MotorApplicationConstants.BlockingTime, "7"); // meaning days
         configuration.add(MotorApplicationConstants.RegistrationDateAttempts, "2"); // stored in db
-
         configuration.add(MotorApplicationConstants.MaximumRegistrationYearRange, "50"); // 50 years from actual year (2011 - 50 for example)
     }
 

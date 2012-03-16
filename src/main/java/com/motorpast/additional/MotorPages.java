@@ -3,7 +3,6 @@ package com.motorpast.additional;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.motorpast.pages.Error404;
 import com.motorpast.pages.ErrorPage;
 import com.motorpast.pages.HelpPage;
 import com.motorpast.pages.Index;
@@ -21,7 +20,6 @@ public enum MotorPages
     Help(HelpPage.class, true),
     SiteNotice(SiteNoticePage.class, true),
     Error(ErrorPage.class, false),
-    Error404(Error404.class, false),
     MileageResultCaptcha(MileageResultCaptchaPage.class, false),
     MileageResult(ResultPage.class, false),
     Sitemap(SitemapXml.class, false),

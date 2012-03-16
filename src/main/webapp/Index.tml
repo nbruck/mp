@@ -1,5 +1,5 @@
 <html t:type="mainLayout"
-      p:title="message:meta.title"
+      p:title="prop:pagetitle"
       p:description="message:meta.description"
       p:keywords="message:meta.keywords"
       p:robot="prop:robotText"

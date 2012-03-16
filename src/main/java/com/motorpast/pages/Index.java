@@ -9,6 +9,7 @@ import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.services.PageRenderLinkSource;
 
 import com.motorpast.additional.MotorPages;
 import com.motorpast.additional.TextStreamResponseWithStatus;
@@ -34,6 +35,9 @@ public class Index extends BasePage
 
     @Inject
     private Messages messages;
+
+    @Inject
+    private PageRenderLinkSource linkSource;
 
     @InjectPage
     private ResultPage resultPage;
@@ -65,7 +69,14 @@ public class Index extends BasePage
      */
     Object onActivate(EventContext eventContext) {
         if(eventContext != null && eventContext.getCount()  > 0) {
-            return new TextStreamResponseWithStatus("text/html", messages.get("render.404"), HttpServletResponse.SC_NOT_FOUND);
+            return new TextStreamResponseWithStatus("text/html",
+                    messages.format("render.404",
+                            messages.get("global.application-name"),
+                            linkSource.createPageRenderLink(Index.class),//TODO: something wrong here
+                            messages.get("global.application-name")
+                    ),
+                    HttpServletResponse.SC_NOT_FOUND
+            );
         }
 
         return true;
@@ -84,6 +95,6 @@ public class Index extends BasePage
     }
 
     public String getPageDescription() {
-        return messages.format("page.description-task", messages.get("page.description.searchlink"));
+        return messages.format("page.description-task", messages.get("page.description.searchlink"), messages.get("global.application-name"));
     }
 }

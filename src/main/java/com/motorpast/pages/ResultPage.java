@@ -95,7 +95,6 @@ public class ResultPage extends BasePage
         return navigation;
     }
 
-
     @SuppressWarnings("unchecked")
     @SetupRender
     boolean init() {
