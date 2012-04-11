@@ -1,4 +1,4 @@
-Sitemap: ==location==/sitemapxml
+Sitemap: ${app-xml-sitemap}
 
 User-agent: *
 Disallow: /css/

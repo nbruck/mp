@@ -47,7 +47,7 @@ public class HelpPage extends BasePage
     }
 
     public String getMyData() {
-        return messages.format("help.answer.what-about-my-data", messages.get("global.application-name"));
+        return messages.format("help.answer.what-about-my-data", super.getAppBrandName());
     }
 
     @SetupRender

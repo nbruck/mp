@@ -1,6 +1,7 @@
 package com.motorpast.services;
 
 import java.io.IOException;
+import java.util.Properties;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -80,13 +81,27 @@ public class MotorpastModule
     }
 
     public static void contributeApplicationDefaults(MappedConfiguration<String, String> configuration) {
-        configuration.add(SymbolConstants.SUPPORTED_LOCALES, "de"); //en is ready
+        Properties motorprops = new Properties();
+
+        try {
+            motorprops.load(MotorpastModule.class.getResourceAsStream("/filtered/motor.properties"));
+        } catch (IOException e) {
+            throw new IllegalStateException("motor.properties not found");
+        }
+
+        final String productionMode = (String)motorprops.get("app-production-mode");
+        final String applicationName = (String)motorprops.get("app-brandname");
+        final String appContextRoot = (String)motorprops.get("app-context-root");
+        final String appSitemap = (String)motorprops.get("app-xml-sitemap");
+
+        configuration.add(SymbolConstants.SUPPORTED_LOCALES, "de");
         configuration.add(SymbolConstants.APPLICATION_VERSION, "0.0.1-SNAPSHOT");
         configuration.add(SymbolConstants.DEFAULT_STYLESHEET, "context:css/motor-compressed.css");
         configuration.add(SymbolConstants.OMIT_GENERATOR_META, "true");
-        configuration.add(SymbolConstants.PRODUCTION_MODE, "true");
+        configuration.add(SymbolConstants.PRODUCTION_MODE, productionMode);
         configuration.add(SymbolConstants.EXCEPTION_REPORT_PAGE, ErrorPage.class.getSimpleName());
 
+        configuration.add(MotorApplicationConstants.AppBrandName, applicationName);
         configuration.add(MotorApplicationConstants.ShowTrustLevel, "true");
         configuration.add(MotorApplicationConstants.AntiSpambotTime, "1788"); // not too long
         configuration.add(MotorApplicationConstants.BlockingTime, "7"); // meaning days

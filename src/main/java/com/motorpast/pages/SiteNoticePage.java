@@ -45,7 +45,7 @@ public class SiteNoticePage extends BasePage
     }
 
     public String getGuarantee() {
-        return messages.format("text.site.guarantee", messages.get("global.application-name"), messages.get("global.application-name"));
+        return messages.format("text.site.guarantee", super.getAppBrandName(), super.getAppBrandName());
     }
 
     @SetupRender

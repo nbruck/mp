@@ -13,4 +13,6 @@ public class MotorApplicationConstants
     public final static String RegistrationDateAttempts = "motorpast.registrationdate.attempts";
 
     public final static String MaximumRegistrationYearRange = "motorpast.registrationdate.year-range";
+
+    public final static String AppBrandName = "motorpast.application-name";
 }

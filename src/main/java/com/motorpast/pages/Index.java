@@ -71,9 +71,9 @@ public class Index extends BasePage
         if(eventContext != null && eventContext.getCount()  > 0) {
             return new TextStreamResponseWithStatus("text/html",
                     messages.format("render.404",
-                            messages.get("global.application-name"),
+                            super.getAppBrandName(),
                             linkSource.createPageRenderLink(Index.class),//TODO: something wrong here
-                            messages.get("global.application-name")
+                            super.getAppBrandName()
                     ),
                     HttpServletResponse.SC_NOT_FOUND
             );
@@ -95,6 +95,6 @@ public class Index extends BasePage
     }
 
     public String getPageDescription() {
-        return messages.format("page.description-task", messages.get("page.description.searchlink"), messages.get("global.application-name"));
+        return messages.format("page.description-task", messages.get("page.description.searchlink"), super.getAppBrandName());
     }
 }
