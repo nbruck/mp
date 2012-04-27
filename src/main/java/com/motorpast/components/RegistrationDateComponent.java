@@ -20,8 +20,6 @@ import com.motorpast.dataobjects.UserSessionObj;
 import com.motorpast.services.business.MotorpastBusinessException;
 import com.motorpast.services.business.MotorpastBusinessException.BusinessErrorCode;
 import com.motorpast.services.security.MotorpastSecurityException;
-import com.motorpast.services.security.MotorpastSecurityException.SecurityErrorCode;
-import com.motorpast.services.security.SecurityService;
 
 public class RegistrationDateComponent
 {
@@ -37,9 +35,6 @@ public class RegistrationDateComponent
     @Inject
     private Messages messages;
 
-    @Inject
-    private SecurityService securityService;
-
     @InjectComponent
     private MotorForm regDateForm;
 
@@ -51,7 +46,7 @@ public class RegistrationDateComponent
     private Block buttonBlock;
 
     @Property
-    private String day, month, year, text1;
+    private String day, month, year;
 
     private Object navigate;
     private boolean sessionObjExists;
@@ -68,11 +63,6 @@ public class RegistrationDateComponent
 
         return null;
     }
-    void onPrepareForRenderFromRegDateForm() {
-        final String token = securityService.generateToken();
-        text1 = token;
-        sessionObj.setUniqueToken(token);
-    }
 
     void onPrepareForSubmitFromRegDateForm() throws MotorpastBusinessException {
         if(!sessionObjExists) {
@@ -81,10 +71,6 @@ public class RegistrationDateComponent
     }
 
     void onValidateFormFromRegDateForm() throws MotorpastSecurityException {
-        if(!text1.equals(sessionObj.getUniqueToken())) {
-            throw new MotorpastSecurityException(SecurityErrorCode.error_security);
-        }
-
         boolean isDaySet = is(day);
         boolean isMonthSet = is(month);
         boolean isYearSet = is(year);

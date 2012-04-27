@@ -19,12 +19,7 @@ public class HttpStatusCode implements Serializable
         this(statusCode);
         this.location = location;
     }
-/*
-    public HttpStatusCode(int statusCode, final String message) {
-        this(statusCode);
-        this.message = message;
-    }
-*/
+
     public int getStatusCode() {
         return statusCode;
     }

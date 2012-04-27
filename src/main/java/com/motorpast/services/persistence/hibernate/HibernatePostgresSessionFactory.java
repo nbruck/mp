@@ -35,7 +35,7 @@ public class HibernatePostgresSessionFactory implements HibernateSessionFactory
         cfg.setProperty("hibernate.transaction.factory_class", "org.hibernate.transaction.JDBCTransactionFactory");
         cfg.setProperty("hibernate.show_sql", "false");
         cfg.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
-        cfg.setProperty("hibernate.hbm2ddl.auto", "create");
+        //cfg.setProperty("hibernate.hbm2ddl.auto", "create");
 
         cfg.addAnnotatedClass(CarDataEntity.class);
         cfg.addAnnotatedClass(CarMileageEntity.class); 

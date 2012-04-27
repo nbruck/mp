@@ -70,7 +70,8 @@ public class UniqueToken
         logger.debug("token from session=" + tokenFromSession + ", token from submitRequest=" + tokenFromSubmit);
 
         if(tokenFromSession == null || tokenFromSubmit == null || ! tokenFromSubmit.equals(tokenFromSession)) {
-            throw new MotorpastSecurityException(SecurityErrorCode.error_security);
+            throw new MotorpastSecurityException(SecurityErrorCode.error_security,
+                    "unique token doesn't match! ours=%s, theirs=%s", tokenFromSession, tokenFromSubmit);
         }
     }
 }

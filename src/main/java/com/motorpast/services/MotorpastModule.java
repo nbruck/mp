@@ -91,8 +91,8 @@ public class MotorpastModule
 
         final String productionMode = (String)motorprops.get("app-production-mode");
         final String applicationName = (String)motorprops.get("app-brandname");
-        final String appContextRoot = (String)motorprops.get("app-context-root");
-        final String appSitemap = (String)motorprops.get("app-xml-sitemap");
+        //final String appContextRoot = (String)motorprops.get("app-context-root");
+        //final String appSitemap = (String)motorprops.get("app-xml-sitemap");
 
         configuration.add(SymbolConstants.SUPPORTED_LOCALES, "de");
         configuration.add(SymbolConstants.APPLICATION_VERSION, "0.0.1-SNAPSHOT");
@@ -126,7 +126,8 @@ public class MotorpastModule
             @Symbol(SymbolConstants.PRODUCTION_MODE) final boolean productionMode,
             final Object service
     ) {
-        if (!productionMode) return null;
+        // is a quite stupid line
+        // if (!productionMode) return null;
 
         final String errorpageName = ErrorPage.class.getSimpleName();
         final Link errorLink = pageRenderLinkSource.createPageRenderLink(ErrorPage.class);
@@ -137,8 +138,15 @@ public class MotorpastModule
                 final ExceptionReporter errorpage = (ExceptionReporter) componentSource.getPage(errorpageName);
 
                 if(throwable instanceof MotorpastException) {
-                    errorpage.reportException((MotorpastException) throwable);
+                    final MotorpastException ex = (MotorpastException) throwable;
+
+                    if(!ex.getLogMessage().isEmpty()) {
+                        logger.error(ex.getLogMessage());
+                    }
+
+                    errorpage.reportException(ex);
                 } else {
+                    logger.error("unexpected exception", throwable);
                     errorpage.reportException(exception);
                 }
 

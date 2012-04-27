@@ -20,8 +20,6 @@
 
                 <t:select model="yearmodel" value="year" t:id="yearselect" clientId="yearselect" validate="regexp=\d\d\d\d" class="round stretch"
                       blanklabel="message:select.year.blank-option"/>
-
-                <t:hidden t:id="text1" value="text1"/>
             </li>
             <li>
                 <div class="${prop:cssClass}">

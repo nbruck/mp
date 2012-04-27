@@ -72,7 +72,7 @@ public class Index extends BasePage
             return new TextStreamResponseWithStatus("text/html",
                     messages.format("render.404",
                             super.getAppBrandName(),
-                            linkSource.createPageRenderLink(Index.class),//TODO: something wrong here
+                            linkSource.createPageRenderLink(Index.class),
                             super.getAppBrandName()
                     ),
                     HttpServletResponse.SC_NOT_FOUND

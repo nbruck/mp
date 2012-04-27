@@ -47,11 +47,6 @@ public class MotorpastPersistenceException extends MotorpastException
         this.errorCode = errorCode;
     }
 
-
-    public boolean isShowErrorDialog() {
-        return true;
-    }
-
     public String getErrorCode() {
         return errorCode.name();
     }

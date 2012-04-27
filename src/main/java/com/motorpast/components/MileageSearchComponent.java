@@ -72,8 +72,8 @@ public class MileageSearchComponent
         logger.debug("received values from mileSearchForm:  text1=" + text1 + ", fakefield=" + text2 + "(which should be null or empty)");
 
         if(text2 != null) {
-            logger.info("hidden fake-textfield has been filled with value=" + text2);
-            throw new MotorpastSecurityException(SecurityErrorCode.error_security);
+            throw new MotorpastSecurityException(SecurityErrorCode.error_security,
+                    "hidden fake-textfield has been filled with value=%s", text2);
         }
 
         if(messages.get("txt.input.vin.placeholder").equals(text1)) {

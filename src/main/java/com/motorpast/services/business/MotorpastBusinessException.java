@@ -26,11 +26,6 @@ public class MotorpastBusinessException extends MotorpastException
     }
 
 
-    @Override
-    public boolean isShowErrorDialog() {
-        return true;
-    }
-
     public String getErrorCode() {
         return errorCode.name();
     }

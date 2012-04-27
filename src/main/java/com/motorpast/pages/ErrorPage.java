@@ -62,7 +62,7 @@ public class ErrorPage extends BasePage implements ExceptionReporter
     public void reportException(Throwable exception) {
         if(exception instanceof MotorpastException) {
             message = messages.get(MotorUtils.errorCodeToMessageString((MotorpastException)exception));
-            if(message.startsWith("[[m")) {
+            if(message.startsWith("[[m")) {             // if no translation found - show default
                 message = messages.get("error.unexpected");
             }
         } else {

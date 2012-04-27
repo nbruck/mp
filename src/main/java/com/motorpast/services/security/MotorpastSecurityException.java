@@ -21,13 +21,18 @@ public class MotorpastSecurityException extends MotorpastException
     private MotorpastSecurityException() {
     }
 
-    public MotorpastSecurityException(final SecurityErrorCode errorCode) {
+    public MotorpastSecurityException(final SecurityErrorCode errorCode, final String logMessage, final Object... param) {
         this.errorCode = errorCode;
+
+        if(param != null && param.length > 0) {
+            super.logMessage = String.format(logMessage, param);
+        } else {
+            super.logMessage = logMessage;
+        }
     }
 
-    @Override
-    public boolean isShowErrorDialog() {
-        return false;
+    public String getLogMessage() {
+        return super.logMessage;
     }
 
     @Override

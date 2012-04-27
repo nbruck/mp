@@ -91,8 +91,8 @@ public class MileageEnterComponent extends BaseRenderable
                 ", text4=" + text4 + " ...end");
 
         if(text1 != null || text2 != null) {
-            logger.info("hidden fake-textfield has been filled with value=" + text1 + " and " + text2);
-            throw new MotorpastSecurityException(SecurityErrorCode.error_security);
+            throw new MotorpastSecurityException(SecurityErrorCode.error_security,
+                    "hidden fake-textfield has been filled with value=%s and %s", text1, text2);
         }
 
         if(messages.get("txt.input.vin.placeholder").equals(text3)) {

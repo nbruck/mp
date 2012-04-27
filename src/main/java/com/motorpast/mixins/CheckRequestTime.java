@@ -78,7 +78,8 @@ public class CheckRequestTime
             || ! timeStampFromSubmit.equals(timeStampFromSession)                               // manipulation
             || Long.valueOf(timeStampFromSubmit) >= securityService.generateCheckTimestamp()    // too fast -> spam
         ) {
-            throw new MotorpastSecurityException(SecurityErrorCode.error_security);
+            throw new MotorpastSecurityException(SecurityErrorCode.error_security,
+                    "security request-time doesn't match or too fast! ours=%s, theirs=%s", timeStampFromSession, timeStampFromSubmit);
         }
     }
 }
