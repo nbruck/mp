@@ -14,7 +14,6 @@
             <meta name="keywords" content="${keywords}"></meta>
         </t:if>
         <meta name="robots" content="${robot}"></meta>
-        <link rel="shortcut icon" href="${favicon}"/>
     </head>
 
     <body>

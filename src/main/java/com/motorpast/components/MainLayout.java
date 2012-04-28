@@ -1,12 +1,10 @@
 package com.motorpast.components;
 
-import org.apache.tapestry5.Asset;
 import org.apache.tapestry5.BindingConstants;
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.ComponentResources;
 import org.apache.tapestry5.annotations.InjectContainer;
 import org.apache.tapestry5.annotations.Parameter;
-import org.apache.tapestry5.annotations.Path;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -23,10 +21,6 @@ public class MainLayout
 
     @Inject
     private Messages messages;
-
-    @Inject
-    @Path(value="context:favicon.ico")
-    private Asset favicon;
 
     @Property
     @Parameter(required = true, defaultPrefix = BindingConstants.LITERAL)
@@ -60,10 +54,6 @@ public class MainLayout
 
     public String getOtherPageText() {
         return messages.get(componentResources.getPageName());
-    }
-
-    public String getFavicon() {
-        return favicon.toClientURL();
     }
 
     public String[] getNavigation() {
