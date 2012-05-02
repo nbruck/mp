@@ -235,7 +235,7 @@
     </pluginRepositories>
 
     <properties>
-        <tapestry-release-version>5.2.5</tapestry-release-version>
+        <tapestry-release-version>5.2.6</tapestry-release-version>
 
         <!-- true if live - its used for database-connector (postgres live/mysql develop) -->
         <app-production-mode>true</app-production-mode>
