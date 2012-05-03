@@ -82,6 +82,9 @@
     </t:block>
 
     <t:block t:id="footerBlock">
+        <div>
+            <t:pagelink t:page="sitenoticepage">${message:page.SiteNoticePage}</t:pagelink>
+        </div>
         <div id="socialbar" class="addthis_toolbox addthis_default_style ">
             <t:outputraw value="message:social.link.facebook"/>
             <t:outputraw value="message:social.link.twitter"/>

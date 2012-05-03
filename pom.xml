@@ -3,8 +3,8 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.motorpast</groupId>
-    <artifactId>kilometerstand-abzocke</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <artifactId>kmabzocke</artifactId>
+    <version>1.0</version>
     <packaging>war</packaging>
     <name>application Tapestry 5 Application</name>
 
@@ -201,15 +201,15 @@
         <tapestry-release-version>5.2.6</tapestry-release-version>
 
         <!-- true if live - its used for database-connector (postgres live/mysql develop) -->
-        <app-production-mode>true</app-production-mode>
+        <app-production-mode>false</app-production-mode>
 
         <!-- change the artifactId above for the contextpath/root -->
         <app-context-root>${project.artifactId}</app-context-root>
 
         <!-- modify this to show google where our sitemap is located -->
-        <app-xml-sitemap>http://www.${project.artifactId}/sitemapxml</app-xml-sitemap>
+        <app-xml-sitemap>http://www.${project.artifactId}.de/sitemapxml</app-xml-sitemap>
 
         <!-- this property is the value for all translation-texts in properties-files -->
-        <app-brandname>Kilometerstand Abzocke</app-brandname>
+        <app-brandname>kmAbzocke</app-brandname>
     </properties>
 </project>
