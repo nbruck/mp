@@ -201,7 +201,7 @@
         <tapestry-release-version>5.2.6</tapestry-release-version>
 
         <!-- true if live - its used for database-connector (postgres live/mysql develop) -->
-        <app-production-mode>false</app-production-mode>
+        <app-production-mode>true</app-production-mode>
 
         <!-- change the artifactId above for the contextpath/root -->
         <app-context-root>${project.artifactId}</app-context-root>
