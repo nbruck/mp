@@ -58,7 +58,6 @@ select.stretch {
 
 div#headerBlock {
     background-color: #f5f5f5;
-    position: fixed;
     top: 0;
     width: 100%;
     height: 4em;
@@ -76,7 +75,7 @@ div#rightBlock {
     float: right;
 }
 div#mainBlock {
-    margin: 5.25em auto 5em;
+    margin: 2em auto 5em;
     width: 38em;
     background-color: #f5f5f5;
     padding: 1em 1em 0.1em 1em;
@@ -94,6 +93,10 @@ div#footerBlock {
     filter: progid:dximagetransform.microsoft.gradient(startcolorstr='#cccccc',endcolorstr='#ececec',gradienttype=0);
     background: -o-linear-gradient(top, #ccc, #ececec);
     border-top: 2px groove honeydew;
+}
+div#footerBlock div {
+    margin: 0.5em;
+    float: right;
 }
 div#headerBlock ul#nav {
     list-style: none;
@@ -114,7 +117,6 @@ div#headerBlock ul#nav li.navlast {
     border-right: 2px groove gainsboro;
 }
 div#headerBlock ul#nav li span {
-    border-top: 3px solid cornflowerblue;
     padding-top: 2px;
 }
 .round {
@@ -305,8 +307,7 @@ input.t-error, textarea.t-error, select.t-error {
     border: 1px solid red;
 }
 div#socialbar {
-    margin: 0.5em auto;
-    width: 38em;
+    width: 62em;
 }
 div#socialbar a {
     border-bottom: none;

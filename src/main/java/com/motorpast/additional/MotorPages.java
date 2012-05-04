@@ -18,7 +18,7 @@ public enum MotorPages
      */
     Index(Index.class, true),
     Help(HelpPage.class, true),
-    SiteNotice(SiteNoticePage.class, true),
+    SiteNotice(SiteNoticePage.class, false),
     Error(ErrorPage.class, false),
     MileageResultCaptcha(MileageResultCaptchaPage.class, false),
     MileageResult(ResultPage.class, false),
