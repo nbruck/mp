@@ -24,7 +24,7 @@ public class HibernatePostgresSessionFactory implements HibernateSessionFactory
         String[] credentials =   dbUrlComps[1].split("@")[0].split(":");
         // mpsimpleuser
         final String username = credentials[0];
-        // password
+        // password 
         final String password = credentials[1];
 
         cfg.setProperty("hibernate.connection.driver_class", "org.postgresql.Driver");
