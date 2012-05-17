@@ -8,14 +8,17 @@
       xmlns:p="tapestry:parameter">
 
     <div id="sitenotice">
-
-        <div class="wrapper round boxShadow">
+    
+		<div class="wrapper round boxShadow">
             <h2>${message:sitenotice.txt.headline}</h2>
 
             <ul>
                 <li>
+                	<p>
                     <t:outputraw value="message:text.name.nik"/>
-                </li>
+                 	</p>
+                 	
+                 </li>
                 <li>
                     <t:outputraw value="message:text.name.dennis"/>
                 </li>
@@ -32,6 +35,46 @@
                 <t:outputraw value="message:text.browser.check"/>
             </p>
         </div>
+		
+		 <div class="wrapper round boxShadow">
+		 	<h2>${message:sitenotice.txt.headlinedisclaimer}</h2>
+		 	<p>
+		 	 <t:outputraw value="message:sitenotice.txt.ab1"/>
+		 	</p>
+		 	<p>
+		 	 <t:outputraw value="message:sitenotice.txt.txt1"/>
+		 	</p>
+		 	
+		 	<p>
+		 	 <t:outputraw value="message:sitenotice.txt.ab2"/>
+		 	</p>
+		 	<p>
+		 	 <t:outputraw value="message:sitenotice.txt.txt2"/>
+		 	</p>
+		 	
+		 	<p>
+		 	 <t:outputraw value="message:sitenotice.txt.ab3"/>
+		 	</p>
+		 	<p>
+		 	 <t:outputraw value="message:sitenotice.txt.txt3"/>
+		 	</p>
+		 	
+		 	<p>
+		 	 <t:outputraw value="message:sitenotice.txt.ab4"/>
+		 	</p>
+		 	<p>
+		 	 <t:outputraw value="message:sitenotice.txt.txt4"/>
+		 	</p>
+		 	
+		 	<p>
+		 	 <t:outputraw value="message:sitenotice.txt.ab5"/>
+		 	</p>
+		 	<p>
+		 	 <t:outputraw value="message:sitenotice.txt.txt5"/>
+		 	</p>
+		 	
+		 </div>
+        
     </div>
 
 </html>

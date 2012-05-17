@@ -210,6 +210,6 @@
         <app-xml-sitemap>http://www.${project.artifactId}.de/sitemapxml</app-xml-sitemap>
 
         <!-- this property is the value for all translation-texts in properties-files -->
-        <app-brandname>kmAbzocke</app-brandname>
+        <app-brandname>kmabzocke</app-brandname>
     </properties>
 </project>
