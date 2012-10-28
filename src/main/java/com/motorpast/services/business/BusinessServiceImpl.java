@@ -126,7 +126,7 @@ public class BusinessServiceImpl implements BusinessService<CarData, HttpServlet
     }
 
     private CarData getDataForCarId(final String carId) throws MotorpastPersistenceException {
-        return persistenceService.getDataForCarId(carId);
+        return persistenceService.getCarDataById(carId);
     }
 
     @Override

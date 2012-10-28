@@ -8,11 +8,11 @@ import org.slf4j.Logger;
 import com.motorpast.services.persistence.MotorpastPersistenceException;
 import com.motorpast.services.persistence.MotorpastPersistenceException.PersistenceErrorCode;
 
-class HibernateTransactionalBehaviour
+public class MotorPastHibernateManager
 {
     final private Logger logger;
 
-    HibernateTransactionalBehaviour(final Logger logger) {
+    MotorPastHibernateManager(final Logger logger) {
         this.logger = logger;
     }
 
@@ -21,7 +21,7 @@ class HibernateTransactionalBehaviour
      * @throws MotorpastPersistenceException bubble up for later handling
      */
     @SuppressWarnings("unchecked")
-    <R> R wrapCommandIntoTxReturn(HibernateCommand<?> command) throws MotorpastPersistenceException {
+    <R> R executeCommand(HibernateCommand<?> command) throws MotorpastPersistenceException {
         Transaction tx = null;
         Object result = null;
 

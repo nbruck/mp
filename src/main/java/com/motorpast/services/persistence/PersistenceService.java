@@ -14,7 +14,7 @@ public interface PersistenceService<T extends CarData>
     /**
      * get data for a given car-id (car identifier)
      */
-    public CarData getDataForCarId(final String carId) throws MotorpastPersistenceException;
+    public CarData getCarDataById(final String carId) throws MotorpastPersistenceException;
 
     /**
      * only returns the mileage

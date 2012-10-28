@@ -22,7 +22,7 @@ public class HibernatePersistenceService implements PersistenceService<CarDataEn
 {
     private final Logger logger;
     private final HibernateSessionFactory sessionFactory;
-    private final HibernateTransactionalBehaviour tx;
+    private final MotorPastHibernateManager hibernateManager;
 
     private final int initialAttempts;
     private final int blockForDays;
@@ -31,7 +31,7 @@ public class HibernatePersistenceService implements PersistenceService<CarDataEn
     public HibernatePersistenceService(final HibernateSessionFactory sessionFactory, final int initialAttempts, final int blockForDays) {
         this.logger = LoggerFactory.getLogger(HibernatePersistenceService.class);
         this.sessionFactory = sessionFactory;
-        this.tx = new HibernateTransactionalBehaviour(logger);
+        this.hibernateManager = new MotorPastHibernateManager(logger);
         this.initialAttempts = initialAttempts;
         this.blockForDays = blockForDays;
 
@@ -39,15 +39,15 @@ public class HibernatePersistenceService implements PersistenceService<CarDataEn
     }
 
 
-    public CarData getDataForCarId(final String carId) throws MotorpastPersistenceException {
+    public CarData getCarDataById(final String carId) throws MotorpastPersistenceException {
         final Session session = getSession();
 
-        return tx.wrapCommandIntoTxReturn(
-            new HibernateCommand<CarData>(session) {
-                CarData execute() throws MotorpastPersistenceException {
-                    return getDataForCarIdInternal(session, carId);
+        return hibernateManager.executeCommand(
+                new HibernateCommand<CarData>(session) {
+                    CarData execute() throws MotorpastPersistenceException {
+                        return getDataForCarIdInternal(session, carId);
+                    }
                 }
-            }
         );
     }
 
@@ -81,7 +81,7 @@ public class HibernatePersistenceService implements PersistenceService<CarDataEn
     }
 
     public int getMileageForCarId(final String carId) throws MotorpastPersistenceException {
-        CarData carData = getDataForCarId(carId);
+        CarData carData = getCarDataById(carId);
 
         return carData.getLastMileage();
     }
@@ -102,52 +102,52 @@ public class HibernatePersistenceService implements PersistenceService<CarDataEn
     public List<CarMileage> getAllMileageDataForCar(final String carId) throws MotorpastPersistenceException {
         final Session session = getSession();
 
-        return tx.wrapCommandIntoTxReturn(
-            new HibernateCommand<List<CarMileage>>(session) {
-                List<CarMileage> execute() throws MotorpastPersistenceException {
-                    CarDataEntity selectedCar = (CarDataEntity)session.createQuery("from CarDataEntity c where c.carId = :carId")
-                    .setString("carId", carId)
-                    .uniqueResult();
+        return hibernateManager.executeCommand(
+                new HibernateCommand<List<CarMileage>>(session) {
+                    List<CarMileage> execute() throws MotorpastPersistenceException {
+                        CarDataEntity selectedCar = (CarDataEntity) session.createQuery("from CarDataEntity c where c.carId = :carId")
+                                .setString("carId", carId)
+                                .uniqueResult();
 
-                    if(selectedCar == null) {
-                        logger.debug("no data for carId=" + carId + " found");
-                        throw new MotorpastPersistenceException(PersistenceErrorCode.data_notFound_carId);
+                        if (selectedCar == null) {
+                            logger.debug("no data for carId=" + carId + " found");
+                            throw new MotorpastPersistenceException(PersistenceErrorCode.data_notFound_carId);
+                        }
+
+                        List<CarMileageEntity> mileageEntities = session.createQuery("from CarMileageEntity where carTupelId = "
+                                + selectedCar.getIdentifier()
+                                + " order by mileageStoringDate desc")
+                                .list();
+
+                        if (mileageEntities == null || mileageEntities.isEmpty()) {
+                            logger.debug("mileages are null or no data found for carId=" + carId);
+                            throw new MotorpastPersistenceException(PersistenceErrorCode.mileages_notFound_carId);
+                        }
+
+                        List<CarMileage> mileageData = new ArrayList<CarMileage>(mileageEntities.size());
+                        for (final CarMileageEntity currentMileageEntity : mileageEntities) {
+                            mileageData.add(currentMileageEntity);
+                        }
+
+                        return mileageData;
                     }
-
-                    List<CarMileageEntity> mileageEntities = session.createQuery("from CarMileageEntity where carTupelId = "
-                        + selectedCar.getIdentifier()
-                        + " order by mileageStoringDate desc")
-                        .list();
-
-                    if(mileageEntities == null || mileageEntities.isEmpty()) {
-                        logger.debug("mileages are null or no data found for carId=" + carId);
-                        throw new MotorpastPersistenceException(PersistenceErrorCode.mileages_notFound_carId);
-                    }
-
-                    List<CarMileage> mileageData = new ArrayList<CarMileage>(mileageEntities.size());
-                    for(final CarMileageEntity currentMileageEntity : mileageEntities) {
-                        mileageData.add(currentMileageEntity);
-                    }
-
-                    return mileageData;
                 }
-            }
         );
     }
 
     public CarData saveNewCarData(final CarDataEntity carToSave, final String ip, final String hostInfo) throws MotorpastPersistenceException {
         final Session session = getSession();
 
-        return tx.wrapCommandIntoTxReturn(
-            new HibernateCommand<CarData>(session) {
-                CarData execute() {
-                    session.save(carToSave);
+        return hibernateManager.executeCommand(
+                new HibernateCommand<CarData>(session) {
+                    CarData execute() {
+                        session.save(carToSave);
 
-                    storeMileageEntityForCar(session, carToSave, ip, hostInfo);
+                        storeMileageEntityForCar(session, carToSave, ip, hostInfo);
 
-                    return (CarData)carToSave;
+                        return (CarData) carToSave;
+                    }
                 }
-            }
         );
     }
 
@@ -170,7 +170,7 @@ public class HibernatePersistenceService implements PersistenceService<CarDataEn
     {
         final Session session = getSession();
 
-        return tx.wrapCommandIntoTxReturn(new HibernateCommand<CarData>(session) {
+        return hibernateManager.executeCommand(new HibernateCommand<CarData>(session) {
             CarData execute() {
                 selectedCar.setLastMileage(newMileage);
                 selectedCar.setLastMileageStoringDate(newStoringDate);
@@ -187,22 +187,22 @@ public class HibernatePersistenceService implements PersistenceService<CarDataEn
     public CarData updateCarDataAttempts(final CarDataEntity selectedCar, final int... attemptsLeftParameter) throws MotorpastPersistenceException {
         final Session session = getSession();
 
-        return tx.wrapCommandIntoTxReturn(new HibernateCommand<CarData>(session) {
+        return hibernateManager.executeCommand(new HibernateCommand<CarData>(session) {
             CarData execute() throws MotorpastPersistenceException {
                 int attemptsLeft = -1;
-                if(attemptsLeftParameter == null || attemptsLeftParameter.length == 0) {
+                if (attemptsLeftParameter == null || attemptsLeftParameter.length == 0) {
                     attemptsLeft = initialAttempts;
                 } else {
                     attemptsLeft = attemptsLeftParameter[0];
                 }
 
-                if(attemptsLeft == -1) {
+                if (attemptsLeft == -1) {
                     throw new MotorpastPersistenceException(PersistenceErrorCode.unexpected);
                 }
                 logger.debug("attempts for " + selectedCar.getCarId() + " will be set to=" + attemptsLeft);
                 selectedCar.setAttemptsLeft(attemptsLeft);
 
-                if(attemptsLeft == 0) { // set blocking date and update then
+                if (attemptsLeft == 0) { // set blocking date and update then
                     setBlockingDate(selectedCar);
                 }
                 session.update(selectedCar);
@@ -228,7 +228,7 @@ public class HibernatePersistenceService implements PersistenceService<CarDataEn
     public CarData updateCarDataWithRegistrationDate(final String carId, final Date regDate) throws MotorpastPersistenceException {
         final Session session = getSession();
 
-        return tx.wrapCommandIntoTxReturn(new HibernateCommand<CarData>(session) {
+        return hibernateManager.executeCommand(new HibernateCommand<CarData>(session) {
             CarData execute() throws MotorpastPersistenceException {
                 final CarData selectedCarData = getDataForCarIdInternal(session, carId);
                 selectedCarData.setRegistrationdate(regDate);

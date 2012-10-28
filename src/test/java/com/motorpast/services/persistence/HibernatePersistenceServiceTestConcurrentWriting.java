@@ -99,7 +99,7 @@ public class HibernatePersistenceServiceTestConcurrentWriting extends TestBase
 
                 CarData carData = null;
                 try {
-                    carData = persistenceService.getDataForCarId("t-" + threadId);
+                    carData = persistenceService.getCarDataById("t-" + threadId);
                 } catch (MotorpastPersistenceException e1) {
                     // TODO Auto-generated catch block
                     e1.printStackTrace();

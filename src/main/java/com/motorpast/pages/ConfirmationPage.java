@@ -88,7 +88,7 @@ public class ConfirmationPage extends BasePage
             logger.debug("cardata has been set with " + carData.toString());
         } else {
             try {
-                carData = persistenceService.getDataForCarId(carId);
+                carData = persistenceService.getCarDataById(carId);
             } catch (MotorpastPersistenceException e) {
                 if(PersistenceErrorCode.data_notFound_carId.name().equals(e.getErrorCode())) {
                     logger.debug("cardata will be null");
@@ -149,7 +149,7 @@ public class ConfirmationPage extends BasePage
 
     String onHandleValidateBubbleUp(final String day, final String month, final String year) throws MotorpastPersistenceException {
         final Date enteredDate = MotorUtils.createDateFromInput(Integer.valueOf(year), Integer.valueOf(month), Integer.valueOf(day));
-        final CarData carDataForSecurityCheck = persistenceService.getDataForCarId(carId);
+        final CarData carDataForSecurityCheck = persistenceService.getCarDataById(carId);
 
         String returnMessage = null;
         if(carDataForSecurityCheck.getAttemptsLeft() == 0) {
