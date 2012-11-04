@@ -17,14 +17,7 @@
     </head>
 
     <body>
-        <div id="logoBlock">
-            <t:if test="prop:logoBlock">
-                        <t:delegate to="prop:logoBlock"/>
-                    <p:else>
-                        <t:delegate to="block:logoBlock"/>
-                    </p:else>
-             </t:if>
-        </div>
+
         <div id="headerBlock">
             <t:if test="prop:headerBlock">
                 <t:delegate to="prop:headerBlock"/>
@@ -66,10 +59,8 @@
         </div>
     </body>
 
-    <t:block t:id="logoBlock">
-    </t:block>
-
     <t:block t:id="headerBlock">
+       <!-- <img id="logo" src="${asset:context:images/loupe.jpg}" alt="KM Stand pruefen"/> -->
         <ul id="nav">
             <t:loop source="prop:navigation" value="prop:currentNavigationEntry" index="prop:navCounter">
                 <t:if test="activepage">

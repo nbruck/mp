@@ -113,13 +113,19 @@ div#footerBlock div {
     margin: 0.5em;
     float: right;
 }
+
+div#headerBlock img#logo {
+    float: left;
+    margin: 0 auto;
+}
+
 div#headerBlock ul#nav {
     list-style: none;
     width: 40em;
     margin: 0 auto;
 }
 div#headerBlock ul#nav li {
-    float: left;
+    float: right;
     padding: 2.1em 0.5em;
     height: 0em;
     border-left: 2px groove gainsboro;
