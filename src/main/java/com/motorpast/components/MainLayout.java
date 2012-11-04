@@ -43,7 +43,7 @@ public class MainLayout
 
     @Property
     @Parameter(required = false, defaultPrefix = BindingConstants.LITERAL)
-    private Block headerBlock, leftBlock, rightBlock, footerBlock;
+    private Block logoBlock, headerBlock, leftBlock, rightBlock, footerBlock;
 
     @Property
     private String currentNavigationEntry;

@@ -10,14 +10,13 @@ import com.motorpast.additional.MotorApplicationConstants;
 import com.motorpast.dataobjects.hibernate.CarDataEntity;
 import com.motorpast.services.persistence.PersistenceService;
 
-public class MotorpastHibernateModule
-{
+public class MotorpastHibernateModule {
     @EagerLoad
     public static HibernateSessionFactory buildHibernateSessionFactory(
             @Symbol(SymbolConstants.PRODUCTION_MODE) final boolean productionMode,
             final Logger logger
     ) {
-        if(productionMode) {
+        if (productionMode) {
             logger.info("it's live, I'll take the real-live-sessionfactory");
 
             return new HibernatePostgresSessionFactory();
@@ -29,9 +28,9 @@ public class MotorpastHibernateModule
     }
 
     public static PersistenceService<CarDataEntity> buildPersistenceService(
-          final HibernateSessionFactory sessionFactory,
-          @Inject @Symbol(value = MotorApplicationConstants.RegistrationDateAttempts) final int initialAttempts,
-          @Inject @Symbol(value = MotorApplicationConstants.BlockingTime) final int blockForDays
+            final HibernateSessionFactory sessionFactory,
+            @Inject @Symbol(value = MotorApplicationConstants.RegistrationDateAttempts) final int initialAttempts,
+            @Inject @Symbol(value = MotorApplicationConstants.BlockingTime) final int blockForDays
     ) {
         return new HibernatePersistenceService(sessionFactory, initialAttempts, blockForDays);
     }

@@ -96,7 +96,7 @@ public class MotorpastModule
 
         configuration.add(SymbolConstants.SUPPORTED_LOCALES, "de");
         configuration.add(SymbolConstants.APPLICATION_VERSION, "0.0.1-SNAPSHOT");
-        configuration.add(SymbolConstants.DEFAULT_STYLESHEET, "context:css/motor-compressed.css");
+        configuration.add(SymbolConstants.DEFAULT_STYLESHEET, "context:css/motor.css");
         configuration.add(SymbolConstants.OMIT_GENERATOR_META, "true");
         configuration.add(SymbolConstants.PRODUCTION_MODE, productionMode);
         configuration.add(SymbolConstants.EXCEPTION_REPORT_PAGE, ErrorPage.class.getSimpleName());

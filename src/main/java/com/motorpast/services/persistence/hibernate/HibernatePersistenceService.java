@@ -22,7 +22,7 @@ public class HibernatePersistenceService implements PersistenceService<CarDataEn
 {
     private final Logger logger;
     private final HibernateSessionFactory sessionFactory;
-    private final MotorPastHibernateManager hibernateManager;
+    private final HibernateManager hibernateManager;
 
     private final int initialAttempts;
     private final int blockForDays;
@@ -31,7 +31,7 @@ public class HibernatePersistenceService implements PersistenceService<CarDataEn
     public HibernatePersistenceService(final HibernateSessionFactory sessionFactory, final int initialAttempts, final int blockForDays) {
         this.logger = LoggerFactory.getLogger(HibernatePersistenceService.class);
         this.sessionFactory = sessionFactory;
-        this.hibernateManager = new MotorPastHibernateManager(logger);
+        this.hibernateManager = new HibernateManager(logger);
         this.initialAttempts = initialAttempts;
         this.blockForDays = blockForDays;
 

@@ -8,11 +8,11 @@ import org.slf4j.Logger;
 import com.motorpast.services.persistence.MotorpastPersistenceException;
 import com.motorpast.services.persistence.MotorpastPersistenceException.PersistenceErrorCode;
 
-public class MotorPastHibernateManager
+public class HibernateManager
 {
     final private Logger logger;
 
-    MotorPastHibernateManager(final Logger logger) {
+    HibernateManager(final Logger logger) {
         this.logger = logger;
     }
 

@@ -17,6 +17,14 @@
     </head>
 
     <body>
+        <div id="logoBlock">
+            <t:if test="prop:logoBlock">
+                        <t:delegate to="prop:logoBlock"/>
+                    <p:else>
+                        <t:delegate to="block:logoBlock"/>
+                    </p:else>
+             </t:if>
+        </div>
         <div id="headerBlock">
             <t:if test="prop:headerBlock">
                 <t:delegate to="prop:headerBlock"/>
@@ -57,6 +65,9 @@
             </t:if>
         </div>
     </body>
+
+    <t:block t:id="logoBlock">
+    </t:block>
 
     <t:block t:id="headerBlock">
         <ul id="nav">
