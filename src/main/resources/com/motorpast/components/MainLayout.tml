@@ -64,6 +64,8 @@
 
         <ul id="nav">
            <img id="logo" src="${asset:context:images/logokmabzocke.png}" alt="Auto KM Stand pruefen"/>
+
+
             <t:loop source="prop:navigation" value="prop:currentNavigationEntry" index="prop:navCounter">
                 <t:if test="activepage">
                     <li class="${prop:additionalStyleClass} navselected">
@@ -80,6 +82,17 @@
     </t:block>
 
     <t:block t:id="leftBlock">
+              <script type="text/javascript"><!--
+              google_ad_client = "ca-pub-9409590854031803";
+              /* VerticalBannerLeft */
+              google_ad_slot = "9352422516";
+              google_ad_width = 120;
+              google_ad_height = 240;
+              //-->
+              </script>
+              <script type="text/javascript"
+              src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+              </script>
     </t:block>
 
     <t:block t:id="rightBlock">
