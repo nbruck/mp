@@ -60,8 +60,9 @@
     </body>
 
     <t:block t:id="headerBlock">
-       <!-- <img id="logo" src="${asset:context:images/loupe.jpg}" alt="KM Stand pruefen"/> -->
+
         <ul id="nav">
+           <img id="logo" src="${asset:context:images/logokmabzocke.png}" alt="Auto KM Stand pruefen"/>
             <t:loop source="prop:navigation" value="prop:currentNavigationEntry" index="prop:navCounter">
                 <t:if test="activepage">
                     <li class="${prop:additionalStyleClass} navselected">
