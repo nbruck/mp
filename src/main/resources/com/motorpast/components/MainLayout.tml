@@ -14,6 +14,7 @@
             <meta name="keywords" content="${keywords}"></meta>
         </t:if>
         <meta name="robots" content="${robot}"></meta>
+        <meta name="google-site-verification" content="DmCPFaWEM_z2y2LlQx7sfNhHjI3SrS1bnQaZUpaHK5w" />
     </head>
 
     <body>
