@@ -96,6 +96,12 @@
     </t:block>
 
     <t:block t:id="rightBlock">
+
+    <!-- BEGINN des zanox-affiliate HTML-Code -->
+    <!-- ( Der HTML-Code darf im Sinne der einwandfreien Funktionalität nicht verändert werden! ) -->
+    <a href="http://ad.zanox.com/ppc/?23288892C597171965T"><img src="http://ad.zanox.com/ppv/?23288892C597171965" align="bottom" width="120" height="600" border="0" hspace="1" alt="Autoleuchte Banner 120x600"/></a>
+    <!-- ENDE des zanox-affiliate HTML-Code -->
+
     </t:block>
 
     <t:block t:id="footerBlock">
